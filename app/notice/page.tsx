@@ -15,6 +15,7 @@ export default async function NoticePage() {
 
   return (
     <main className="max-w-4xl mx-auto py-20 px-4">
+      <Header />
       <h1 className="text-3xl font-bold mb-10">공지사항</h1>
 
       {/* 🔥 데이터 없을 때 처리 */}
@@ -36,6 +37,7 @@ export default async function NoticePage() {
           </div>
         ))}
       </div>
+      <Footer />
     </main>
   );
 }
