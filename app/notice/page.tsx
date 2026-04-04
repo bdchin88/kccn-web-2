@@ -1,16 +1,41 @@
-import Header from "@/components/header"; 
-import Footer from "@/components/footer";
+import { createClient } from '@/lib/supabase/server';
+import { PostCard } from '@/components/post-card';
 
-export default function NoticePage() {
+export default async function NoticePage() {
+  const supabase = await createClient();
+  
+  // Supabase에서 공지사항 데이터 가져오기
+  const { data: posts, error } = await supabase
+    .from('posts')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    return (
+      <div className="p-20 text-center text-red-500 font-bold">
+        데이터 로드 실패: {error.message}
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-grow flex flex-col items-center justify-center bg-yellow-200 py-20 text-center">
-        <h1 className="text-5xl font-bold text-black mb-4">전체 파일 교체 성공</h1>
-        <p className="text-xl text-slate-700">이제 GitHub와 VSC가 완전히 동기화되었습니다.</p>
-      </main>
-      <Footer />
+    <div className="max-w-4xl mx-auto py-10 px-4">
+      <div className="flex justify-between items-end mb-8 border-b pb-4">
+        <h1 className="text-3xl font-bold text-slate-800">공지사항</h1>
+        <p className="text-slate-500 text-sm">전체 {posts?.length || 0}건</p>
+      </div>
+
+      <div className="grid gap-6">
+        {posts?.map((post) => (
+          <PostCard key={post.id} post={post} />
+        ))}
+
+        {(!posts || posts.length === 0) && (
+          <div className="text-center py-24 bg-slate-50 rounded-xl border-2 border-dashed border-slate-200">
+            <p className="text-slate-400">등록된 공지사항이 없습니다.</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
-// v2 sync: 2026-04-04 12:30
