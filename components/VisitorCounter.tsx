@@ -1,5 +1,5 @@
 "use client"
-// id:bdchin88@gmail.com, pw:Kccn3447**, kccn107
+
 import { useEffect, useState } from "react"
 import { createClient } from "@supabase/supabase-js"
 
@@ -8,81 +8,73 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 export default function VisitorCounter() {
-  const [totalHits, setTotalHits] = useState<number>(0)
-  const [yesterdayHits, setYesterdayHits] = useState<number>(0)
+  const [totalHits, setTotalHits] = useState(0)
+  const [yesterdayHits, setYesterdayHits] = useState(0)
 
   useEffect(() => {
     async function handleVisit() {
-      // 1. 날짜 계산 (오늘 및 어제)
-      const now = new Date()
-      const formatDate = (d: Date) => {
-        const y = d.getFullYear()
-        const m = String(d.getMonth() + 1).padStart(2, "0")
-        const date = String(d.getDate()).padStart(2, "0")
-        return `${y}-${m}-${date}`
+      /** 🔹 날짜 계산 */
+      const today = new Date()
+      const yyyy = today.getFullYear()
+      const mm = String(today.getMonth() + 1).padStart(2, "0")
+      const dd = String(today.getDate()).padStart(2, "0")
+      const todayStr = `${yyyy}-${mm}-${dd}`
+
+      const yesterday = new Date()
+      yesterday.setDate(yesterday.getDate() - 1)
+      const yyyyy = yesterday.getFullYear()
+      const ymm = String(yesterday.getMonth() + 1).padStart(2, "0")
+      const ydd = String(yesterday.getDate()).padStart(2, "0")
+      const yesterdayStr = `${yyyyy}-${ymm}-${ydd}`
+
+      /** 🔹 오늘 방문자 처리 */
+      const { data: todayData } = await supabase
+        .from("daily_visitors")
+        .select("count")
+        .eq("date", todayStr)
+        .maybeSingle() // 데이터가 없어도 다음 줄(if (!todayData))로 넘어감
+
+      if (!todayData) {
+        await supabase
+          .from("daily_visitors")
+          .insert({ date: todayStr, count: 1 })
+      } else {
+        await supabase
+          .from("daily_visitors")
+          .update({ count: todayData.count + 1 })
+          .eq("date", todayStr)
       }
 
-      const todayStr = formatDate(now) // [cite: 2]
-      const yesterday = new Date(now)
-      yesterday.setDate(yesterday.getDate() - 1)
-      const yesterdayStr = formatDate(yesterday) // [cite: 2]
-
-      // 2. 전일 방문자 데이터 조회
-      // 수정 제안 (에러 확인용 로그 추가)
-      const { data: yesterdayData, error: yError } = await supabase
+      /** 🔹 전일 방문자 조회 */
+      const { data: yesterdayData } = await supabase
         .from("daily_visitors")
         .select("count")
         .eq("date", yesterdayStr)
-        .maybeSingle(); // single() 대신 maybeSingle()을 쓰면 데이터가 없을 때 에러를 뿜지 않습니다.
+        .maybeSingle() // 데이터가 없어도 다음 줄(if (!todayData))로 넘어감
 
-      if (yError) console.error("어제 데이터 조회 실패:", yError);
-      setYesterdayHits(yesterdayData?.count ?? 0) // [cite: 5]
+      setYesterdayHits(yesterdayData?.count ?? 0)
 
-      // 3. 중복 방문 방지 체크 (세션 기준)
+      /** 🔹 누적 방문자 */
+      const { data } = await supabase
+        .from("visitor_stats")
+        .select("count")
+        .eq("id", 1)
+        .maybeSingle() // 데이터가 없어도 다음 줄(if (!todayData))로 넘어감
+
+      let currentCount = data?.count ?? 0
+
       const hasVisited = sessionStorage.getItem("visited_today")
-
       if (!hasVisited) {
-        // [오늘 방문자수 업데이트/생성]
-        const { data: todayData } = await supabase
-          .from("daily_visitors")
-          .select("count")
-          .eq("date", todayStr)
-          .single() // [cite: 3]
-
-        if (!todayData) {
-          await supabase.from("daily_visitors").insert({ date: todayStr, count: 1 }) // [cite: 3]
-        } else {
-          await supabase
-            .from("daily_visitors")
-            .update({ count: todayData.count + 1 })
-            .eq("date", todayStr) // [cite: 4]
-        }
-
-        // [전체 누적 방문자수 업데���트]
-        const { data: statsData } = await supabase
-          .from("visitor_stats")
-          .select("count")
-          .eq("id", 1)
-          .single() // [cite: 5]
-
-        let nextCount = (statsData?.count ?? 0) + 1 // [cite: 6]
-
+        currentCount += 1
         await supabase
           .from("visitor_stats")
-          .update({ count: nextCount })
-          .eq("id", 1) // [cite: 6]
-
-        setTotalHits(nextCount)
-        sessionStorage.setItem("visited_today", "true") // [cite: 6]
-      } else {
-        // 이미 방문한 세션은 조회만 수행
-        const { data: statsData } = await supabase
-          .from("visitor_stats")
-          .select("count")
+          .update({ count: currentCount })
           .eq("id", 1)
-          .single()
-        setTotalHits(statsData?.count ?? 0)
+
+        sessionStorage.setItem("visited_today", "true")
       }
+
+      setTotalHits(currentCount)
     }
 
     handleVisit()
@@ -97,4 +89,3 @@ export default function VisitorCounter() {
     </p>
   )
 }
-// test111
