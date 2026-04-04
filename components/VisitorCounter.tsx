@@ -14,17 +14,17 @@ export default function VisitorCounter() {
   useEffect(() => {
     const handleVisit = async () => {
       try {
-        // 1. 날짜 설정 (한국 시간 기준 포맷팅)
+        // 1. 날짜 설정 (한국 시간 기준)
         const now = new Date()
-        const kstDate = new Date(now.getTime() + (9 * 60 * 60 * 1000))
-        const todayStr = kstDate.toISOString().split('T')[0]
+        const kstNow = new Date(now.getTime() + (9 * 60 * 60 * 1000))
+        const todayStr = kstNow.toISOString().split('T')[0]
 
         const yesterday = new Date(now)
         yesterday.setDate(yesterday.getDate() - 1)
         const kstYesterday = new Date(yesterday.getTime() + (9 * 60 * 60 * 1000))
         const yesterdayStr = kstYesterday.toISOString().split('T')[0]
 
-        /** 2. 일일 방문자수 (오늘) 업데이트 - daily_visitors 테이블 */
+        /** 2. 일일 방문자수 (오늘) 업데이트 */
         const { data: todayRow } = await supabase
           .from("daily_visitors")
           .select("count")
@@ -40,7 +40,7 @@ export default function VisitorCounter() {
             .eq("date", todayStr)
         }
 
-        /** 3. 전일 방문자수 (어제) 조회 - 화면 표시용 */
+        /** 3. 전일 방문자수 (어제) 조회 */
         const { data: yesterdayRow } = await supabase
           .from("daily_visitors")
           .select("count")
@@ -51,44 +51,43 @@ export default function VisitorCounter() {
           setYesterdayHits(yesterdayRow.count)
         }
 
-        /** 4. 전체 누적 방문자수 처리 - visitor_stats 테이블 */
-        // 먼저 DB에서 진짜 누적 숫자를 가져옵니다.
-        const { data: cumulativeRow } = await supabase
+        /** 4. 누적 방문자수 처리 (visitor_stats 테이블) */
+        // DB에서 실제 누적 기록을 가져옴
+        const { data: statsRow } = await supabase
           .from("visitor_stats")
           .select("count")
           .eq("id", 1)
           .maybeSingle()
 
-        let dbTotalCount = cumulativeRow?.count ?? 0
+        let realTotal = statsRow?.count ?? 0
 
-        // 세션 체크 (중복 카운트 방지)
-        const isCounted = sessionStorage.getItem("kccn_visitor_check")
+        // 세션 체크로 중복 카운트 방지
+        const isAlreadyCounted = sessionStorage.getItem("kccn_total_counted")
         
-        if (!isCounted) {
-          dbTotalCount += 1
+        if (!isAlreadyCounted) {
+          realTotal += 1
           await supabase
             .from("visitor_stats")
-            .update({ count: dbTotalCount })
+            .update({ count: realTotal })
             .eq("id", 1)
           
-          sessionStorage.setItem("kccn_visitor_check", "true")
+          sessionStorage.setItem("kccn_total_counted", "true")
         }
 
-        // 최종 누적값 상태 저장
-        setTotalHits(dbTotalCount)
+        // 최종 누적값을 상태에 반영
+        setTotalHits(realTotal)
 
       } catch (err) {
-        console.error("방문자 카운트 오류:", err)
+        console.error("Visitor Counter Error:", err)
       }
     }
 
     handleVisit()
   }, [])
 
-  // JSX 리턴 부분 (Unexpected token 에러 방지를 위해 React 문법 준수)
   return (
-    <div className="mt-4 space-y-1">
-      <p className="text-sm opacity-90 text-white">
+    <div className="mt-4 space-y-1 text-white">
+      <p className="text-sm opacity-90">
         누적 방문자수: <span className="font-bold">{totalHits.toLocaleString()}</span>명
         <span className="ml-4">
           전일 방문자수: <span className="font-bold">{yesterdayHits.toLocaleString()}</span>명
