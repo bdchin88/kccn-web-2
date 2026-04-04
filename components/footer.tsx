@@ -1,7 +1,8 @@
 "use client"
 
 import { useRef } from "react"
-import VisitorCounter from "./supabase";
+//import VisitorCounter from "./supabase";
+import VisitorCounter from "./VisitorCounter"
 import Link from "next/link"
 
 // 백그라운드 컬러: #03c87
