@@ -32,7 +32,7 @@ export default function VisitorCounter() {
         .from("daily_visitors")
         .select("count")
         .eq("date", todayStr)
-        .single()
+        .maybeSingle() // 데이터가 없어도 다음 줄(if (!todayData))로 넘어감
 
       if (!todayData) {
         await supabase
@@ -50,7 +50,7 @@ export default function VisitorCounter() {
         .from("daily_visitors")
         .select("count")
         .eq("date", yesterdayStr)
-        .single()
+        .maybeSingle() // 데이터가 없어도 다음 줄(if (!todayData))로 넘어감
 
       setYesterdayHits(yesterdayData?.count ?? 0)
 
@@ -59,7 +59,7 @@ export default function VisitorCounter() {
         .from("visitor_stats")
         .select("count")
         .eq("id", 1)
-        .single()
+        .maybeSingle() // 데이터가 없어도 다음 줄(if (!todayData))로 넘어감
 
       let currentCount = data?.count ?? 0
 
