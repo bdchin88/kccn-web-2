@@ -13,4 +13,4 @@ export default function NoticePage() {
     </div>
   );
 }
-// sync check: 2026-04-04
+// v2 sync: 2026-04-04 12:30
