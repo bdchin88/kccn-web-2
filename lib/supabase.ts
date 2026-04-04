@@ -5,7 +5,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://shdpkyvgjnz
 //const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNoZHBreXZnam56d3B4emN1cW9jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg4OTA4ODIsImV4cCI6MjA4NDQ2Njg4Mn0.SByIotU6iLlZObNUcWRLzaZuWs54cNKR7voqzVf0nig'
 const supabaseAnonKey = process.env.V2_SUPABASE_ANON_KEY; // 바뀐 이름
 
-export const supabase = createClient(supabaseAnonKey!);
+export const supabase = createClient(supabaseUrl!, supabaseAnonKey!);
 
 // 환경 변수 누락 시 경고 (개발 단계 확인용)
 if (!supabaseUrl || !supabaseAnonKey) {
