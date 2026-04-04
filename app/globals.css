@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --border: 214.3 31.8% 91.4%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+  }
+}
+
+@layer base {
+  * {
+    /* 에러 유발 요인이었던 border-border를 표준으로 교체 */
+    @apply border-gray-200 outline-none; 
+  }
+  body {
+    /* 에러 유발 요인이었던 bg-background를 표준으로 교체 */
+    @apply bg-white text-slate-900;
+  }
+}
+
+/* 마키(Marquee) 애니메이션 - 이건 기존 파일에 있던 것 유지 */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 24s linear infinite; 
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+}
