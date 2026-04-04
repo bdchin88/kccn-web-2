@@ -2,7 +2,7 @@
 
 import { useRef } from "react"
 //import VisitorCounter from "./supabase";
-import VisitorCounter from "./VisitorCounter"
+import VisitorCounter from "./VisitorCounter"; // 확장자(.tsx)는 생략해도 됩니다.
 import Link from "next/link"
 
 // 백그라운드 컬러: #03c87
