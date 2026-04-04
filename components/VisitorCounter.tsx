@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { createClient } from "@supabase/supabase-js"
 
+// Supabase 설정 (기존 정보 유지)
 const SUPABASE_URL = "https://shdpkyvgjnzwpxzcuqoc.supabase.co"
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNoZHBreXZnam56d3B4emN1cW9jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg4OTA4ODIsImV4cCI6MjA4NDQ2Njg4Mn0.SByIotU6iLlZObNUcWRLzaZuWs54cNKR7voqzVf0nig"
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
@@ -13,79 +14,86 @@ export default function VisitorCounter() {
 
   useEffect(() => {
     async function handleVisit() {
-      /** 🔹 날짜 계산 */
+      /** 1️⃣ 날짜 계산 (오늘 및 어제) */
       const today = new Date()
       const yyyy = today.getFullYear()
       const mm = String(today.getMonth() + 1).padStart(2, "0")
       const dd = String(today.getDate()).padStart(2, "0")
       const todayStr = `${yyyy}-${mm}-${dd}`
 
-      const yesterday = new Date()
+      const yesterday = new Date(today)
       yesterday.setDate(yesterday.getDate() - 1)
-      const yyyyy = yesterday.getFullYear()
-      const ymm = String(yesterday.getMonth() + 1).padStart(2, "0")
-      const ydd = String(yesterday.getDate()).padStart(2, "0")
-      const yesterdayStr = `${yyyyy}-${ymm}-${ydd}`
+      const y_yyyy = yesterday.getFullYear()
+      const y_mm = String(yesterday.getMonth() + 1).padStart(2, "0")
+      const y_dd = String(yesterday.getDate()).padStart(2, "0")
+      const yesterdayStr = `${y_yyyy}-${y_mm}-${y_dd}`
 
-      /** 🔹 오늘 방문자 처리 */
+      /** 2️⃣ 일일 방문자수 처리 (오늘) */
       const { data: todayData } = await supabase
         .from("daily_visitors")
         .select("count")
         .eq("date", todayStr)
-        .maybeSingle() // 데이터가 없어도 다음 줄(if (!todayData))로 넘어감
+        .maybeSingle()
 
       if (!todayData) {
+        // 오늘 첫 방문자라면 데이터 생성
         await supabase
           .from("daily_visitors")
           .insert({ date: todayStr, count: 1 })
       } else {
+        // 이미 데이터가 있다면 카운트 +1
         await supabase
           .from("daily_visitors")
           .update({ count: todayData.count + 1 })
           .eq("date", todayStr)
       }
 
-      /** 🔹 전일 방문자 조회 */
+      /** 3️⃣ 전일 방문자수 조회 (어제) */
       const { data: yesterdayData } = await supabase
         .from("daily_visitors")
         .select("count")
         .eq("date", yesterdayStr)
-        .maybeSingle() // 데이터가 없어도 다음 줄(if (!todayData))로 넘어감
+        .maybeSingle()
 
       setYesterdayHits(yesterdayData?.count ?? 0)
 
-      /** 🔹 누적 방문자 */
-      const { data } = await supabase
+      /** 4️⃣ 누적 방문자수 처리 (visitor_stats) */
+      // DB에서 현재 누적값 가져오기
+      const { data: statsData } = await supabase
         .from("visitor_stats")
         .select("count")
         .eq("id", 1)
-        .maybeSingle() // 데이터가 없어도 다음 줄(if (!todayData))로 넘어감
+        .maybeSingle()
 
-      let currentCount = data?.count ?? 0
+      let currentTotal = statsData?.count ?? 0
 
+      // 세션 체크를 통해 중복 카운트 방지
       const hasVisited = sessionStorage.getItem("visited_today")
       if (!hasVisited) {
-        currentCount += 1
+        currentTotal += 1
         await supabase
           .from("visitor_stats")
-          .update({ count: currentCount })
+          .update({ count: currentTotal })
           .eq("id", 1)
 
         sessionStorage.setItem("visited_today", "true")
       }
 
-      setTotalHits(currentCount)
+      // 최종 누적 숫자를 화면에 반영 (재방문자도 최신값을 볼 수 있게 if문 밖에서 실행)
+      setTotalHits(currentTotal)
     }
 
     handleVisit()
   }, [])
 
   return (
-    <p className="text-sm opacity-90">
-      누적 방문자수: {totalHits.toLocaleString()}명
-      <span className="ml-2">
-        (전일 {yesterdayHits.toLocaleString()}명)
-      </span>
-    </p>
+    <div className="mt-4 space-y-1">
+      <p className="text-sm opacity-90">
+        누적 방문자수: <span className="font-bold">{totalHits.toLocaleString()}</span>명
+        <span className="ml-4">
+          전일 방문자수: <span className="font-bold">{yesterdayHits.toLocaleString()}</span>명
+        </span>
+      </p>
+    </div>
   )
 }
