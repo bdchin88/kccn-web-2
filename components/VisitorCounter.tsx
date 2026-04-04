@@ -13,74 +13,73 @@ export default function VisitorCounter() {
 
   useEffect(() => {
     async function handleVisit() {
-      // 1. 날짜 설정
-      const today = new Date()
-      const todayStr = today.toISOString().split('T')[0] // YYYY-MM-DD
+      // 1. 날짜 설정 (KST 기준)
+      const now = new Date()
+      const todayStr = new Date(now.getTime() + (9 * 60 * 60 * 1000)).toISOString().split('T')[0]
 
-      const yesterday = new Date(today)
+      const yesterday = new Date(now)
       yesterday.setDate(yesterday.getDate() - 1)
-      const yesterdayStr = yesterday.toISOString().split('T')[0]
+      const yesterdayStr = new Date(yesterday.getTime() + (9 * 60 * 60 * 1000)).toISOString().split('T')[0]
 
-      /** 2. 오늘 일일 방문자 카운트 (DB 업데이트) */
-      const { data: todayData } = await supabase
+      /** 2. 일일 방문자 테이블 업데이트 (오늘) */
+      const { data: todayRow } = await supabase
         .from("daily_visitors")
         .select("count")
         .eq("date", todayStr)
         .maybeSingle()
 
-      if (!todayData) {
+      if (!todayRow) {
         await supabase.from("daily_visitors").insert({ date: todayStr, count: 1 })
       } else {
         await supabase
           .from("daily_visitors")
-          .update({ count: todayData.count + 1 })
+          .update({ count: todayRow.count + 1 })
           .eq("date", todayStr)
       }
 
-      /** 3. 전일(어제) 방문자수 조회 (화면 표시용) */
-      const { data: yData } = await supabase
+      /** 3. 전일 방문자수 조회 (어제 데이터 보여주기) */
+      const { data: yesterdayRow } = await supabase
         .from("daily_visitors")
         .select("count")
         .eq("date", yesterdayStr)
         .maybeSingle()
       
-      setYesterdayHits(yData?.count ?? 0)
+      setYesterdayHits(yesterdayRow?.count ?? 0)
 
-      /** 4. 전체 누적 방문자수 처리 (가장 중요) */
-      // DB에서 현재 진짜 누적값(예: 785)을 가져옵니다.
-      const { data: statsData } = await supabase
+      /** 4. 전체 누적 방문자수 처리 (visitor_stats 테이블) */
+      // DB에서 현재 '진짜' 누적 숫자를 가져옵니다.
+      const { data: cumulativeRow } = await supabase
         .from("visitor_stats")
         .select("count")
         .eq("id", 1)
         .maybeSingle()
 
-      let dbTotalCount = statsData?.count ?? 0
+      let finalTotal = cumulativeRow?.count ?? 0
 
-      // 세션 체크: 브라우저를 완전히 껐다 켜기 전까지는 카운트를 올리지 않음
-      const hasVisited = sessionStorage.getItem("visited_kccn")
+      // 세션 체크: 브라우저가 열려있는 동안은 1번만 카운트
+      const isCounted = sessionStorage.getItem("kccn_counted")
       
-      if (!hasVisited) {
-        // 처음 방문했다면 DB에 +1 해서 저장
-        dbTotalCount += 1
+      if (!isCounted) {
+        finalTotal += 1
         await supabase
           .from("visitor_stats")
-          .update({ count: dbTotalCount })
+          .update({ count: finalTotal })
           .eq("id", 1)
         
-        sessionStorage.setItem("visited_kccn", "true")
+        sessionStorage.setItem("kccn_counted", "true")
       }
 
-      // 화면에는 DB에서 가져온(혹은 업데이트된) 전체 누적 숫자를 보여줌
-      setTotalHits(dbTotalCount)
+      // 최종적으로 누적 숫자를 상태에 저장
+      setTotalHits(finalTotal)
     }
 
     handleVisit()
   }, [])
 
   return (
-    <div className="mt-4 space-y-1">
+    <div className="mt-4 space-y-1 text-white">
       <p className="text-sm opacity-90">
-        누적 방문자수: <span className="font-bold text-blue-400">{totalHits.toLocaleString()}</span>명
+        누적 방문자수: <span className=\"font-bold\">{totalHits.toLocaleString()}</span>명
         <span className="ml-4">
           전일 방문자수: <span className="font-bold">{yesterdayHits.toLocaleString()}</span>명
         </span>
