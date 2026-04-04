@@ -1,7 +1,7 @@
 // page.tsx 수정본
 import { supabase } from "../../lib/supabase";
-import Header from "@/components/Header"; // 헤더 컴포넌트 경로 확인 필요
-import Footer from "@/components/Footer"; // 푸터 컴포넌트 경로 확인 필요
+import Header from "@/components/header"; // 헤더 컴포넌트 경로 확인 필요
+import Footer from "@/components/footer"; // 푸터 컴포넌트 경로 확인 필요
 
 export default async function NoticePage() {
   const { data: posts, error } = await supabase
