@@ -18,16 +18,14 @@
 
 @layer base {
   * {
-    /* 에러 유발 요인이었던 border-border를 표준으로 교체 */
     @apply border-gray-200 outline-none; 
   }
   body {
-    /* 에러 유발 요인이었던 bg-background를 표준으로 교체 */
     @apply bg-white text-slate-900;
   }
 }
 
-/* 마키(Marquee) 애니메이션 - 이건 기존 파일에 있던 것 유지 */
+/* 마키(Marquee) 애니메이션 */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
