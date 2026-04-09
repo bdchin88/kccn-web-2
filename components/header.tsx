@@ -67,7 +67,7 @@ export default function Header() {
                 { href: "/about", label: "협회소개" },
                 { href: "/business", label: "정책제언" },
                 { href: "/ci", label: "CI" },
-                { href: "/notice", label: "공지사항" },
+                { href: "/notice", label: "알림마당" },
               ].map((item) => (
                 <Link
                   key={item.href}
@@ -105,7 +105,7 @@ export default function Header() {
                 { href: "/about", label: "협회소개" },
                 { href: "/business", label: "정책제언" },
                 { href: "/ci", label: "CI" },
-                { href: "/notice", label: "공지사항" },
+                { href: "/notice", label: "알림마당" },
               ].map((item) => (
                 <Link
                   key={item.href}
