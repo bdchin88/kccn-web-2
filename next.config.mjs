@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 빌드 시 에러가 있어도 일단 완성을 시키도록 강제 설정
+  // Next.js 16에서는 eslint 설정을 config 파일에서 직접 다루는 방식이 변경되었습니다.
+  // 빌드 시 에러를 무시하려면 아래 옵션만 남기세요.
   typescript: { ignoreBuildErrors: true },
   eslint: { ignoreDuringBuilds: true },
 };
