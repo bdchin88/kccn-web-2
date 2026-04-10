@@ -39,6 +39,7 @@ export default async function NoticePage({
             <Link
               key={tab.id}
               href={`/notice?type=${tab.id}`}
+              scroll={false} // 👈 클릭 시 페이지 상단으로 튀는 것 방지
               className={`pb-4 text-base md:text-lg font-bold transition-all ${
                 activeTab === tab.id
                   ? "border-b-4 border-[#0047AB] text-[#0047AB]"

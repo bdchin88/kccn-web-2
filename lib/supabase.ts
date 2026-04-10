@@ -1,15 +1,15 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Vercel에서 새로 등록할 환경 변수 이름을 사용합니다.
-// (기존 NEXT_PUBLIC_... 은 Vercel 연동 때문에 수정이 안 되므로 이름을 바꿉니다.)
-const supabaseUrl = process.env.MY_SUPABASE_URL;
-const supabaseAnonKey = process.env.MY_SUPABASE_ANON_KEY;
+// 1. 서버와 브라우저 모두에서 읽을 수 있도록 접두사가 붙은 것과 붙지 않은 것을 모두 체크합니다.
+const supabaseUrl = 
+  process.env.NEXT_PUBLIC_SUPABASE_URL || 
+  process.env.MY_SUPABASE_URL || 
+  'https://shdpkyvgjnzwpxzcuqoc.supabase.co';
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error("환경 변수가 설정되지 않았습니다. Vercel Settings를 확인하세요.");
-}
+const supabaseAnonKey = 
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 
+  process.env.MY_SUPABASE_ANON_KEY || 
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNoZHBreXZnam56d3B4emN1cW9jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg4OTA4ODIsImV4cCI6MjA4NDQ2Njg4Mn0.SByIotU6iLlZObNUcWRLzaZuWs54cNKR7voqzVf0nig';
 
-export const supabase = createClient(
-  supabaseUrl || 'https://shdpkyvgjnzwpxzcuqoc.supabase.co',
-  supabaseAnonKey || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNoZHBreXZnam56d3B4emN1cW9jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg4OTA4ODIsImV4cCI6MjA4NDQ2Njg4Mn0.SByIotU6iLlZObNUcWRLzaZuWs54cNKR7voqzVf0nig'
-);
+// 2. 클라이언트 환경에서도 안전하게 초기화되도록 내보냅니다.
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
