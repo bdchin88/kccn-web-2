@@ -2,13 +2,14 @@ import { supabase } from "../../lib/supabase";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Link from "next/link";
+import { cn } from "@/lib/utils"; // cn 유틸리티가 있다면 사용
 
-export default async function NoticePage({
-  searchParams,
-}: {
-  searchParams: { type?: string };
+export default async function NoticePage(props: {
+  searchParams: Promise<{ type?: string }>;
 }) {
-  const activeTab = searchParams.type || "notice";
+  // Next.js 15+ 에서는 searchParams도 await 해야 안전합니다.
+  const resolvedSearchParams = await props.searchParams;
+  const activeTab = resolvedSearchParams.type || "notice";
 
   const { data: posts, error } = await supabase
     .from("posts")
