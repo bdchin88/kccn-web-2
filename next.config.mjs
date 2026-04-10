@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // eslint 키를 제거하고 아래 설정만 남깁니다.
+  // eslint 설정을 여기에 쓰지 마세요.
   typescript: { ignoreBuildErrors: true },
   eslint: { ignoreDuringBuilds: true },
 };
