@@ -2,21 +2,32 @@ import { supabase } from "../../lib/supabase";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Link from "next/link";
-import { cn } from "@/lib/utils"; // cn 유틸리티가 있다면 사용
+// 비활성화되었던 import가 아래에서 사용됨에 따라 활성화됩니다.
+import Pagination from "@/components/pagination";
 
 export default async function NoticePage(props: {
-  searchParams: Promise<{ type?: string }>;
+  searchParams: Promise<{ type?: string; page?: string }>;
 }) {
-  // Next.js 15+ 에서는 searchParams도 await 해야 안전합니다.
+  // 1. 파라미터 처리 (Next.js 15+ 대응)
   const resolvedSearchParams = await props.searchParams;
   const activeTab = resolvedSearchParams.type || "notice";
+  const currentPage = Number(resolvedSearchParams.page) || 1;
+  const itemsPerPage = 10;
 
-  const { data: posts, error } = await supabase
+  // 2. 페이지네이션 범위 계산
+  const from = (currentPage - 1) * itemsPerPage;
+  const to = from + itemsPerPage - 1;
+
+  // 3. Supabase 데이터 및 전체 개수 가져오기
+  const { data: posts, count } = await supabase
     .from("posts")
-    .select("*")
+    .select("*", { count: "exact" })
     .eq("type", activeTab)
     .eq("is_published", true)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .range(from, to);
+
+  const totalPages = count ? Math.ceil(count / itemsPerPage) : 1;
 
   const tabs = [
     { id: "notice", label: "공지사항" },
@@ -28,20 +39,18 @@ export default async function NoticePage(props: {
     <div className="flex flex-col min-h-screen bg-gray-50 overflow-x-hidden">
       <Header />
 
-      {/* box-border와 px-4로 모바일에서 양옆 여백 강제 고정 */}
       <main className="flex-grow w-full max-w-5xl mx-auto py-12 px-4 box-border">
         <h1 className="text-3xl md:text-4xl font-extrabold mb-8 text-slate-900 text-center md:text-left">
           알림마당
         </h1>
 
-        {/* 탭 네비게이션 - 모바일 터치 스크롤 지원 */}
+        {/* 탭 네비게이션 */}
         <div className="flex gap-6 mb-10 border-b border-gray-200 overflow-x-auto whitespace-nowrap pb-1 no-scrollbar">
           {tabs.map((tab) => (
             <Link
               key={tab.id}
-              href={`/notice?type=${tab.id}`}
-              prefetch={false} // 👈 캐시된 옛날 페이지 대신 서버에 새로 요청
-//              scroll={false} // 👈 클릭 시 페이지 상단으로 튀는 것 방지
+              href={`/notice?type=${tab.id}&page=1`}
+              prefetch={false}
               className={`pb-4 text-base md:text-lg font-bold transition-all ${
                 activeTab === tab.id
                   ? "border-b-4 border-[#0047AB] text-[#0047AB]"
@@ -53,7 +62,7 @@ export default async function NoticePage(props: {
           ))}
         </div>
 
-        {/* 게시글 목록 - w-full과 overflow-hidden으로 이탈 방지 */}
+        {/* 게시글 목록 */}
         <div className="grid gap-6 w-full max-w-full">
           {posts?.length === 0 ? (
             <div className="bg-white rounded-2xl py-20 text-center border border-gray-100 shadow-sm">
@@ -75,7 +84,6 @@ export default async function NoticePage(props: {
                   </span>
                 </div>
                 
-                {/* 본문 요약 - break-words로 긴 영어 단어 줄바꿈 강제 */}
                 <div className="text-slate-600 text-sm md:text-base leading-relaxed line-clamp-3 break-words">
                   {post.content}
                 </div>
@@ -90,6 +98,15 @@ export default async function NoticePage(props: {
             ))
           )}
         </div>
+
+        {/* ▽ 수정된 부분: 분리된 Pagination 컴포넌트를 사용합니다 ▽ */}
+        {totalPages > 1 && (
+          <Pagination 
+            currentPage={currentPage} 
+            totalPages={totalPages} 
+            currentType={activeTab} 
+          />
+        )}
       </main>
 
       <Footer />
