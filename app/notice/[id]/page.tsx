@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+import DownloadSection from "@/components/DownloadSection"; // 아래에서 만들 별도 컴포넌트
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +15,7 @@ export default async function PostDetailPage(props: { params: Promise<{ id: stri
 
   if (!id) return notFound();
 
-  // type 컬럼을 함께 가져옵니다.
+  // 게시글 정보와 파일 관련 필드(file_path, has_file)를 함께 가져옵니다.
   const { data: post, error } = await supabase
     .from("posts")
     .select("*")
@@ -25,8 +26,6 @@ export default async function PostDetailPage(props: { params: Promise<{ id: stri
     return notFound();
   }
 
-  // 원래 탭으로 돌아가기 위한 경로 설정
-  // type이 'notice'가 아니면 ?type=카테고리 주소를 생성합니다.
   const backPath = post.type === "notice" ? "/notice" : `/notice?type=${post.type}`;
 
   return (
@@ -34,7 +33,6 @@ export default async function PostDetailPage(props: { params: Promise<{ id: stri
       <Header />
       
       <main className="flex-grow max-w-4xl mx-auto py-16 px-4 w-full">
-        {/* 상단 목록가기: 원래 보던 탭으로 이동 */}
         <div className="mb-8">
           <Link 
             href={backPath} 
@@ -58,9 +56,13 @@ export default async function PostDetailPage(props: { params: Promise<{ id: stri
           <div className="prose max-w-none text-slate-700 leading-relaxed whitespace-pre-wrap min-h-[300px]">
             {post.content}
           </div>
+
+          {/* 파일이 있을 경우에만 다운로드 섹션 표시 */}
+          {post.has_file && post.file_path && (
+            <DownloadSection filePath={post.file_path} />
+          )}
         </article>
 
-        {/* 하단 목록보기 버튼: 원래 보던 탭으로 이동 */}
         <div className="mt-16 pt-8 border-t border-gray-100 flex justify-center">
           <Link 
             href={backPath}
