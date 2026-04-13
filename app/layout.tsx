@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     "QR코드결제",
     "가상화폐",
     "VAN",
+    "간편결제",
     "한신네",
   ],
   verification: {

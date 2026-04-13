@@ -28,7 +28,7 @@ export default function FullBackground() {
     let animationFrameId: number;
 
     const SIZES = [2, 4, 6, 8];
-    const LABELS = ["한신네", "소상공인", "전통시장", "KCCN", "온누리상품권", "제로페이", "배달앱"];
+    const LABELS = ["한신네", "소상공인", "전통시장", "KCCN", "온누리상품권", "제로페이","간편결제", "배달앱"];
     const COLORS = ["rgba(0, 71, 171, 0.45)", "rgba(59, 130, 246, 0.45)", "rgba(34, 197, 94, 0.45)"];
 
     const resize = () => {
