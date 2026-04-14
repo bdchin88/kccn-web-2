@@ -1,11 +1,8 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
-import { createClient } from "@supabase/supabase-js"
-
-const SUPABASE_URL = "https://shdpkyvgjnzwpxzcuqoc.supabase.co"
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNoZHBreXZnam56d3B4emN1cW9jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg4OTA4ODIsImV4cCI6MjA4NDQ2Njg4Mn0.SByIotU6iLlZObNUcWRLzaZuWs54cNKR7voqzVf0nig"
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+//import { createClient } from "@supabase/supabase-js"
+import { supabase } from "@/lib/supabase"; // 이미 생성된 클라이언트를 재사용
 
 export default function VisitorCounter() {
   const [totalHits, setTotalHits] = useState<number>(0)
