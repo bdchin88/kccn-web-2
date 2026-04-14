@@ -1,33 +1,83 @@
+"use client"; // 삭제 버튼의 인터랙션을 위해 클라이언트 컴포넌트로 전환합니다.
+
 import { supabase } from "../../lib/supabase";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Link from "next/link";
-// 비활성화되었던 import가 아래에서 사용됨에 따라 활성화됩니다.
 import Pagination from "@/components/pagination";
+import { useState, useEffect } from "react";
 
-export default async function NoticePage(props: {
-  searchParams: Promise<{ type?: string; page?: string }>;
+export default function NoticePage(props: {
+  searchParams: any; // Next.js 15 대응을 위해 컴포넌트 내부에서 처리
 }) {
-  // 1. 파라미터 처리 (Next.js 15+ 대응)
-  const resolvedSearchParams = await props.searchParams;
-  const activeTab = resolvedSearchParams.type || "notice";
-  const currentPage = Number(resolvedSearchParams.page) || 1;
+  const [posts, setPosts] = useState<any[]>([]);
+  const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("notice");
+  const [currentPage, setCurrentPage] = useState(1);
+
   const itemsPerPage = 10;
 
-  // 2. 페이지네이션 범위 계산
-  const from = (currentPage - 1) * itemsPerPage;
-  const to = from + itemsPerPage - 1;
+  // 1. 데이터 불러오기 로직
+  const fetchPosts = async () => {
+    setLoading(true);
+    const resolvedParams = await props.searchParams;
+    const tab = resolvedParams.type || "notice";
+    const page = Number(resolvedParams.page) || 1;
+    
+    setActiveTab(tab);
+    setCurrentPage(page);
 
-  // 3. Supabase 데이터 및 전체 개수 가져오기
-  const { data: posts, count } = await supabase
-    .from("posts")
-    .select("*", { count: "exact" })
-    .eq("type", activeTab)
-    .eq("is_published", true)
-    .order("created_at", { ascending: false })
-    .range(from, to);
+    const from = (page - 1) * itemsPerPage;
+    const to = from + itemsPerPage - 1;
 
-  const totalPages = count ? Math.ceil(count / itemsPerPage) : 1;
+    const { data, count: totalCount } = await supabase
+      .from("posts")
+      .select("*", { count: "exact" })
+      .eq("type", tab)
+      .eq("is_published", true)
+      .order("created_at", { ascending: false })
+      .range(from, to);
+
+    setPosts(data || []);
+    setCount(totalCount || 0);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, [props.searchParams]);
+
+  // 2. 삭제 처리 함수
+  const handleDelete = async (id: string, filePath: string) => {
+    const adminPw = prompt("관리자 비밀번호를 입력하세요.");
+    
+    if (adminPw !== process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    if (!confirm("정말 이 게시글을 삭제하시겠습니까? 데이터는 복구되지 않습니다.")) return;
+
+    try {
+      // (1) 첨부파일이 있다면 Storage에서 먼저 삭제
+      if (filePath) {
+        await supabase.storage.from("resources").remove([filePath]);
+      }
+
+      // (2) DB 레코드 삭제
+      const { error } = await supabase.from("posts").delete().eq("id", id);
+      
+      if (error) throw error;
+
+      alert("삭제되었습니다.");
+      fetchPosts(); // 목록 새로고침
+    } catch (err: any) {
+      alert("삭제 실패: " + err.message);
+    }
+  };
+
+  const totalPages = Math.ceil(count / itemsPerPage) || 1;
 
   const tabs = [
     { id: "notice", label: "공지사항" },
@@ -40,9 +90,17 @@ export default async function NoticePage(props: {
       <Header />
 
       <main className="flex-grow w-full max-w-5xl mx-auto py-12 px-4 box-border">
-        <h1 className="text-3xl md:text-4xl font-extrabold mb-8 text-slate-900 text-center md:text-left">
-          알림마당
-        </h1>
+        <div className="flex justify-between items-end mb-8">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900">
+            알림마당
+          </h1>
+          <Link 
+            href="/admin/write" 
+            className="text-sm bg-slate-800 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors"
+          >
+            글쓰기
+          </Link>
+        </div>
 
         {/* 탭 네비게이션 */}
         <div className="flex gap-6 mb-10 border-b border-gray-200 overflow-x-auto whitespace-nowrap pb-1 no-scrollbar">
@@ -50,7 +108,6 @@ export default async function NoticePage(props: {
             <Link
               key={tab.id}
               href={`/notice?type=${tab.id}&page=1`}
-              prefetch={false}
               className={`pb-4 text-base md:text-lg font-bold transition-all ${
                 activeTab === tab.id
                   ? "border-b-4 border-[#0047AB] text-[#0047AB]"
@@ -63,43 +120,50 @@ export default async function NoticePage(props: {
         </div>
 
         {/* 게시글 목록 */}
-        <div className="grid gap-6 w-full max-w-full">
-          {posts?.length === 0 ? (
+        <div className="grid gap-6 w-full">
+          {loading ? (
+            <div className="py-20 text-center text-gray-400">불러오는 중...</div>
+          ) : posts.length === 0 ? (
             <div className="bg-white rounded-2xl py-20 text-center border border-gray-100 shadow-sm">
               <p className="text-gray-400">등록된 게시글이 없습니다.</p>
             </div>
           ) : (
-            posts?.map((post) => (
-              <Link
-                key={post.id}
-                href={`/notice/${post.id}`}
-                className="group bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all block w-full box-border overflow-hidden"
-              >
-                <div className="flex flex-col md:flex-row justify-between items-start gap-3 mb-4">
-                  <h2 className="text-xl md:text-2xl font-bold text-slate-800 group-hover:text-[#0047AB] transition-colors leading-tight break-words overflow-hidden">
-                    {post.title}
-                  </h2>
-                  <span className="text-xs font-medium text-gray-400 bg-gray-50 px-3 py-1 rounded-full whitespace-nowrap self-start">
-                    {new Date(post.created_at).toLocaleDateString()}
-                  </span>
-                </div>
-                
-                <div className="text-slate-600 text-sm md:text-base leading-relaxed line-clamp-3 break-words">
-                  {post.content}
-                </div>
+            posts.map((post) => (
+              <div key={post.id} className="relative group">
+                <Link
+                  href={`/notice/${post.id}`}
+                  className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all block box-border"
+                >
+                  <div className="flex flex-col md:flex-row justify-between items-start gap-3 mb-4">
+                    <h2 className="text-xl md:text-2xl font-bold text-slate-800 group-hover:text-[#0047AB] transition-colors leading-tight">
+                      {post.title}
+                    </h2>
+                    <span className="text-xs font-medium text-gray-400 bg-gray-50 px-3 py-1 rounded-full whitespace-nowrap">
+                      {new Date(post.created_at).toLocaleDateString()}
+                    </span>
+                  </div>
+                  
+                  <div className="text-slate-600 text-sm md:text-base leading-relaxed line-clamp-2 mb-4">
+                    {post.content}
+                  </div>
+                  
+                  <div className="flex items-center text-[#0047AB] font-bold text-sm">
+                    자세히 보기 →
+                  </div>
+                </Link>
 
-                <div className="mt-6 flex items-center text-[#0047AB] font-bold text-sm">
-                  자세히 보기 
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </Link>
+                {/* 삭제 버튼 (관리자용) */}
+                <button
+                  onClick={() => handleDelete(post.id, post.file_path)}
+                  className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-red-50 text-red-500 p-2 rounded-md hover:bg-red-500 hover:text-white text-xs font-bold"
+                >
+                  삭제
+                </button>
+              </div>
             ))
           )}
         </div>
 
-        {/* ▽ 수정된 부분: 분리된 Pagination 컴포넌트를 사용합니다 ▽ */}
         {totalPages > 1 && (
           <Pagination 
             currentPage={currentPage} 
