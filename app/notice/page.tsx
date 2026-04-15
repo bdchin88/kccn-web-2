@@ -7,6 +7,7 @@ import Footer from "@/components/footer";
 import Link from "next/link";
 import Pagination from "@/components/pagination";
 import { useState, useEffect } from "react";
+export const dynamic = "force-dynamic";
 
 export default function NoticePage(props: {
   searchParams: any; // Next.js 15 대응을 위해 컴포넌트 내부에서 처리
