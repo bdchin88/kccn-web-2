@@ -37,7 +37,7 @@ export default function Footer() {
 
   return (
     <>
-      <div className="bg-primary text-primary-foreground border-b border-primary-foreground/20 py-6 overflow-hidden">
+      <div className="bg-primary text-primary-foreground border-b border-primary-foreground/20 py-2 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4">
           <div className="relative flex overflow-hidden">
             <div className="animate-marquee flex gap-10 items-center">
@@ -47,7 +47,7 @@ export default function Footer() {
                   href={partner.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium hover:text-white/70 transition-colors whitespace-nowrap"
+                  className="flex items-center gap-1 px-0.5 py-2 text-sm font-medium hover:text-white/70 transition-colors whitespace-nowrap"
                 >
                   {/* 🔹 로고 배경 래퍼 (주석을 여기로 이동) */}
                   <div className="flex items-center justify-center h-7 w-7 bg-primary">
@@ -65,12 +65,12 @@ export default function Footer() {
         </div>
       </div>
 
-      <footer className="bg-primary text-primary-foreground pt-6 pb-3">
+      <footer className="bg-primary text-primary-foreground pt-3 pb-3">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8 mb-5">
+          <div className="grid md:grid-cols-2 gap-5 mb-3">
             <div>
               <Link href="/">
-                <h3 className="font-bold text-xl mb-4 tracking-tighter whitespace-nowrap hover:text-blue-300 transition cursor-pointer">
+                <h3 className="font-bold text-xl mb-2 tracking-tighter whitespace-nowrap hover:text-blue-300 transition cursor-pointer">
                   사단법인&nbsp;한국신용카드네트워크
                 </h3>
               </Link>
@@ -79,7 +79,7 @@ export default function Footer() {
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-xl mb-4">연락처</h4>
+              <h4 className="font-semibold text-xl mb-2">연락처</h4>
               <p className="text-sm opacity-90 whitespace-nowrap">
                 전화:
                 <a
@@ -102,7 +102,7 @@ export default function Footer() {
               <VisitorCounter />
             </div>
           </div>
-          <div className="border-t border-primary-foreground/20 pt-5 text-center text-sm opacity-90">
+          <div className="border-t border-primary-foreground/20 pt-2.5 text-center text-sm opacity-90">
             <p>&copy; 2025 한국신용카드네트워크. All rights reserved.</p>
           </div>
           <div className="mt-1 mb-1 flex flex-col items-center gap-1.5">

@@ -84,7 +84,7 @@ export default function VisitorCounter() {
   }, [])
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-2 md:gap-4 mt-2">
+    <div className="flex flex-row md:flex-row items-center justify-start md:justify-start gap-2 md:gap-5 mt-1">
       <div className="flex items-center gap-1.5">
         <span className="text-xs opacity-70 text-white">전체 방문자:</span>
         <span className="text-sm font-bold text-blue-400">{totalHits.toLocaleString()}</span>
@@ -104,3 +104,4 @@ export default function VisitorCounter() {
   )
 }
 //        <span className="text-[10px] opacity-40 ml-0.5 text-white">명</span>
+//  <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-2 md:gap-5 mt-1"></div>
