@@ -106,17 +106,17 @@ export default function Header() {
               />
 
               {/* ▽ 기존 shadow-2xl을 제거하고 아래 커스텀 그림자 적용 ▽ 50px(퍼짐 정도)이나 0.5(진함 정도) 수치를 조절 */}
-              {/* border border-white/10 -> 20 /* 테두리도 살짝 더 밝게 해서 대비를 줌 */}
+              {/* border border-white/10 -> 20 /* 테두리도 살짝 더 밝게 해서 대비를 줌 , 컬러 47AB 3C87*/}
               <nav className="
                 md:hidden 
-                absolute top-[calc(100%+8px)] right-0
-                bg-[#0047AB] 
+                absolute top-[calc(100%+10px)] right-0.5
+                bg-[#003C87] 
                 rounded-2xl 
-                shadow-[0_20px_100px_rgba(0,0,0,0.9),_0_10px_20px_rgba(0,0,0,0.3)]
+                shadow-[0_25px_60px_rgba(0,0,0,0.65),_0_10px_25px_rgba(0,0,0,0.35)]
                 py-4 px-6
                 flex flex-col gap-1
                 min-w-[150px]
-                border border-white/20
+                border border-white/30
                 animate-in fade-in zoom-in duration-200 origin-top-right
                 z-50
               ">
