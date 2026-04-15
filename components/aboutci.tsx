@@ -31,7 +31,7 @@ export default function AboutCI() {
   };
 
   return (
-    <section className="pb-20 bg-background">
+    <section className="pb-20 py-32 bg-background">
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         initial="hidden"
