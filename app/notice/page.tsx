@@ -1,42 +1,41 @@
-//app/notice/page.tsx
-"use client"; // 삭제 버튼의 인터랙션을 위해 클라이언트 컴포넌트로 전환합니다.
+"use client";
 
 import { supabase } from "../../lib/supabase";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Link from "next/link";
 import Pagination from "@/components/pagination";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react"; // ◀ use 추가
+
+// 배포 환경에서 캐싱을 방지하고 항상 최신 데이터를 불러오도록 설정
 export const dynamic = "force-dynamic";
 
 export default function NoticePage(props: {
-  searchParams: any; // Next.js 15 대응을 위해 컴포넌트 내부에서 처리
+  searchParams: Promise<{ type?: string; page?: string }>; // ◀ Next.js 15 타입 명시
 }) {
+  // 1. Next.js 15의 비동기 searchParams를 해제(unwrap)합니다.
+  // 이 작업을 통해 URL이 바뀔 때마다 컴포넌트가 리렌더링됩니다.
+  const searchParams = use(props.searchParams);
+  
   const [posts, setPosts] = useState<any[]>([]);
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("notice");
-  const [currentPage, setCurrentPage] = useState(1);
 
+  // searchParams에서 직접 값을 추출하여 사용 (useState와 sync 맞출 필요 없음)
+  const activeTab = searchParams.type || "notice";
+  const currentPage = Number(searchParams.page) || 1;
   const itemsPerPage = 10;
 
-  // 1. 데이터 불러오기 로직
+  // 2. 데이터 불러오기 로직
   const fetchPosts = async () => {
     setLoading(true);
-    const resolvedParams = await props.searchParams;
-    const tab = resolvedParams.type || "notice";
-    const page = Number(resolvedParams.page) || 1;
-    
-    setActiveTab(tab);
-    setCurrentPage(page);
-
-    const from = (page - 1) * itemsPerPage;
+    const from = (currentPage - 1) * itemsPerPage;
     const to = from + itemsPerPage - 1;
 
     const { data, count: totalCount } = await supabase
       .from("posts")
       .select("*", { count: "exact" })
-      .eq("type", tab)
+      .eq("type", activeTab)
       .eq("is_published", true)
       .order("created_at", { ascending: false })
       .range(from, to);
@@ -46,11 +45,12 @@ export default function NoticePage(props: {
     setLoading(false);
   };
 
+  // 탭(activeTab)이나 페이지(currentPage)가 바뀔 때마다 데이터를 다시 불러옵니다.
   useEffect(() => {
     fetchPosts();
-  }, [props.searchParams]);
+  }, [activeTab, currentPage]);
 
-  // 2. 삭제 처리 함수
+  // 3. 삭제 처리 함수 (resources 버킷 이름 반영 완료)
   const handleDelete = async (id: string, filePath: string) => {
     const adminPw = prompt("관리자 비밀번호를 입력하세요.");
     
@@ -59,21 +59,19 @@ export default function NoticePage(props: {
       return;
     }
 
-    if (!confirm("정말 이 게시글을 삭제하시겠습니까? 데이터는 복구되지 않습니다.")) return;
+    if (!confirm("정말 이 게시글을 삭제하시겠습니까?")) return;
 
     try {
-      // (1) 첨부파일이 있다면 Storage에서 먼저 삭제
       if (filePath) {
+        // 버킷 이름을 resources로 정확히 지정
         await supabase.storage.from("resources").remove([filePath]);
       }
 
-      // (2) DB 레코드 삭제
       const { error } = await supabase.from("posts").delete().eq("id", id);
-      
       if (error) throw error;
 
       alert("삭제되었습니다.");
-      fetchPosts(); // 목록 새로고침
+      fetchPosts(); 
     } catch (err: any) {
       alert("삭제 실패: " + err.message);
     }
@@ -90,30 +88,22 @@ export default function NoticePage(props: {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 overflow-x-hidden">
       <Header />
-
       <main className="flex-grow w-full max-w-5xl mx-auto py-12 px-4 box-border">
         <div className="flex justify-between items-end mb-8">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900">
-            알림마당
-          </h1>
-          <Link 
-            href="/admin/write" 
-            className="text-sm bg-slate-800 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors"
-          >
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900">알림마당</h1>
+          <Link href="/admin/write" className="text-sm bg-slate-800 text-white px-4 py-2 rounded-lg hover:bg-slate-700">
             글쓰기
           </Link>
         </div>
 
         {/* 탭 네비게이션 */}
-        <div className="flex gap-6 mb-10 border-b border-gray-200 overflow-x-auto whitespace-nowrap pb-1 no-scrollbar">
+        <div className="flex gap-6 mb-10 border-b border-gray-200 overflow-x-auto pb-1 no-scrollbar">
           {tabs.map((tab) => (
             <Link
               key={tab.id}
               href={`/notice?type=${tab.id}&page=1`}
               className={`pb-4 text-base md:text-lg font-bold transition-all ${
-                activeTab === tab.id
-                  ? "border-b-4 border-[#0047AB] text-[#0047AB]"
-                  : "text-gray-400 hover:text-gray-600"
+                activeTab === tab.id ? "border-b-4 border-[#0047AB] text-[#0047AB]" : "text-gray-400"
               }`}
             >
               {tab.label}
@@ -132,33 +122,15 @@ export default function NoticePage(props: {
           ) : (
             posts.map((post) => (
               <div key={post.id} className="relative group">
-                <Link
-                  href={`/notice/${post.id}`}
-                  className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all block box-border"
-                >
-                  <div className="flex flex-col md:flex-row justify-between items-start gap-3 mb-4">
-                    <h2 className="text-xl md:text-2xl font-bold text-slate-800 group-hover:text-[#0047AB] transition-colors leading-tight">
-                      {post.title}
-                    </h2>
-                    <span className="text-xs font-medium text-gray-400 bg-gray-50 px-3 py-1 rounded-full whitespace-nowrap">
-                      {new Date(post.created_at).toLocaleDateString()}
-                    </span>
+                <Link href={`/notice/${post.id}`} className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg block transition-all">
+                  <div className="flex justify-between items-start mb-4">
+                    <h2 className="text-xl md:text-2xl font-bold text-slate-800 group-hover:text-[#0047AB] leading-tight">{post.title}</h2>
+                    <span className="text-xs text-gray-400 bg-gray-50 px-3 py-1 rounded-full">{new Date(post.created_at).toLocaleDateString()}</span>
                   </div>
-                  
-                  <div className="text-slate-600 text-sm md:text-base leading-relaxed line-clamp-2 mb-4">
-                    {post.content}
-                  </div>
-                  
-                  <div className="flex items-center text-[#0047AB] font-bold text-sm">
-                    자세히 보기 →
-                  </div>
+                  <div className="text-slate-600 line-clamp-2 mb-4">{post.content}</div>
+                  <div className="text-[#0047AB] font-bold text-sm">자세히 보기 →</div>
                 </Link>
-
-                {/* 삭제 버튼 (관리자용) */}
-                <button
-                  onClick={() => handleDelete(post.id, post.file_path)}
-                  className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-red-50 text-red-500 p-2 rounded-md hover:bg-red-500 hover:text-white text-xs font-bold"
-                >
+                <button onClick={() => handleDelete(post.id, post.file_path)} className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 bg-red-50 text-red-500 p-2 rounded-md text-xs font-bold hover:bg-red-500 hover:text-white transition-all">
                   삭제
                 </button>
               </div>
@@ -166,15 +138,8 @@ export default function NoticePage(props: {
           )}
         </div>
 
-        {totalPages > 1 && (
-          <Pagination 
-            currentPage={currentPage} 
-            totalPages={totalPages} 
-            currentType={activeTab} 
-          />
-        )}
+        {totalPages > 1 && <Pagination currentPage={currentPage} totalPages={totalPages} currentType={activeTab} />}
       </main>
-
       <Footer />
     </div>
   );
