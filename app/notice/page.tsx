@@ -1,3 +1,4 @@
+//app/notice/page.tsx
 "use client"; // 삭제 버튼의 인터랙션을 위해 클라이언트 컴포넌트로 전환합니다.
 
 import { supabase } from "../../lib/supabase";
