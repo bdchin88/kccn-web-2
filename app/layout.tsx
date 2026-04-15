@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "사단법인 한국신용카드네트워크",
-    description: "대한민국 소상공인과 가맹점주의 권익을 대변하는 경제단체입니다.",
+    description: "대한민국 소상공인과 가맹점주의 권익을 대변하는 중소벤쳐기업부 제2010-3호 인가 전문 경제 법정단체입니다.",
     url: "https://www.kccn.or.kr",
     siteName: "사단법인 한국신용카드네트워크",
     locale: "ko_KR",
