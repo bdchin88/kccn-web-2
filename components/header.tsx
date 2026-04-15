@@ -89,34 +89,60 @@ export default function Header() {
             {/* 모바일 버튼 */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-white"
+              className="md:hidden text-white p-2 focus:outline-none"
               aria-label="메뉴"
             >
               {isOpen ? <X size={26} /> : <Menu size={26} />}
             </button>
           </div>
 
-          {/* 모바일 메뉴 */}
+          {/* 모바일 팝업 메뉴: 레이아웃을 밀어내지 않는 Absolute 배치 */}
           {isOpen && (
-            <nav className="md:hidden pb-4 pt-2 flex flex-col gap-3">
-              {[
-                { href: "/", label: "홈" },
-                { href: "/services", label: "사업" },
-                { href: "/about", label: "협회소개" },
-                { href: "/business", label: "정책제언" },
-                { href: "/ci", label: "CI" },
-                { href: "/notice", label: "알림마당" },
-              ].map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-white font-medium px-3 py-2 hover:bg-white/10"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
+            <>
+              {/* 메뉴 외부 클릭 시 닫히도록 투명 레이어 추가 */}
+              <div 
+                className="fixed inset-0 z-[-1]" 
+                onClick={() => setIsOpen(false)} 
+              />
+
+              {/* ▽ 기존 shadow-2xl을 제거하고 아래 커스텀 그림자 적용 ▽ 50px(퍼짐 정도)이나 0.5(진함 정도) 수치를 조절 */}
+              {/* border border-white/10 -> 20 /* 테두리도 살짝 더 밝게 해서 대비를 줌 */}
+              <nav className="
+                md:hidden 
+                absolute top-[calc(100%+8px)] right-0
+                bg-[#0047AB] 
+                rounded-2xl 
+                shadow-[0_20px_100px_rgba(0,0,0,0.9),_0_10px_20px_rgba(0,0,0,0.3)]
+                py-4 px-6
+                flex flex-col gap-1
+                min-w-[150px]
+                border border-white/20
+                animate-in fade-in zoom-in duration-200 origin-top-right
+                z-50
+              ">
+                {[
+                  { href: "/", label: "홈" },
+                  { href: "/services", label: "사업" },
+                  { href: "/about", label: "협회소개" },
+                  { href: "/business", label: "정책제언" },
+                  { href: "/ci", label: "CI" },
+                  { href: "/notice", label: "알림마당" },
+                ].map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="
+                      text-white font-bold text-right py-2.5 text-base 
+                      hover:text-blue-200 transition-colors 
+                      border-b border-white/5 last:border-none
+                    "
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+            </>
           )}
         </div>
       </header>
