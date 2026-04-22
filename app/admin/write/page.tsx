@@ -170,14 +170,16 @@ export default function AdminWritePage() {
         )}
 
         {/* 파일 업로드 */}
-        <div>
-          <label className="block text-sm font-bold mb-2">첨부파일 (영문파일명 권장)</label>
-          <input
-            type="file"
-            className="w-full p-2 border border-dashed rounded-lg"
-            onChange={(e) => setFile(e.target.files?.[0] || null)}
-          />
-        </div>
+        {type === "archive" && (
+          <div>
+            <label className="block text-sm font-bold mb-2">첨부파일 (영문파일명 권장)</label>
+            <input
+              type="file"
+              className="w-full p-2 border border-dashed rounded-lg"
+              onChange={(e) => setFile(e.target.files?.[0] || null)}
+            />
+          </div>
+        )}
 
         <button
           type="submit"
