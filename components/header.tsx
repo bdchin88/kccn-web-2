@@ -37,7 +37,8 @@ export default function Header() {
           {/* 헤더 두께 증가 */}
           <div className="flex justify-between items-center h-[80px]">
             {/* 로고 액자 */}
-            <Link href="/#ci-intro" className="flex items-center cursor-pointer">            
+            {/* Link href="/#ci-intro" 를 "/ci" */}
+            <Link href="/ci" className="flex items-center cursor-pointer">            
               <div
                 className="
                   bg-[#003d99]

@@ -70,7 +70,7 @@ export default function Footer() {
           <div className="grid md:grid-cols-2 gap-5 mb-3">
             <div>
               <Link href="/">
-                <h3 className="font-bold text-xl mb-2 tracking-tighter whitespace-nowrap hover:text-blue-300 transition cursor-pointer">
+                <h3 className="font-bold text-xl mb-1 tracking-tighter whitespace-nowrap hover:text-blue-300 transition cursor-pointer">
                   사단법인&nbsp;한국신용카드네트워크
                 </h3>
               </Link>
@@ -79,7 +79,7 @@ export default function Footer() {
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-xl mb-2">연락처</h4>
+              <h4 className="font-semibold text-xl mb-1">연락처</h4>
               <p className="text-sm opacity-90 whitespace-nowrap">
                 전화:
                 <a
