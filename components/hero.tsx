@@ -48,7 +48,6 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">
 
-          {/* 좌측 텍스트 영역 (기존 내용 유지) */}
           <div className="flex flex-col justify-center md:w-1/2">
             <motion.h1
               {...fadeInUp}
@@ -71,54 +70,59 @@ export default function Hero() {
             </motion.p>
           </div>
 
-          {/* 우측 이미지 및 [기존 placard를 변형한] 팝업 영역 */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
             className="md:w-1/2 flex justify-center relative"
           >
-    
-            {/* 수정 후: overflow-hidden을 삭제 (이미지 모서리는 img 태그에 직접 라운드 적용) */}
+            {/* 📌 중요: 팝업 그림자가 잘리지 않도록 overflow-hidden을 제거함 */}
             <div className="relative w-full max-w-md bg-background rounded-2xl shadow-2xl border border-slate-100">
               <img
                 src="/images/hero.png"
                 alt="Hero"
-                className="relative z-10 w-full h-auto block rounded-2xl" // 이미지에도 라운드 추가
-              />    
-    
+                className="relative z-10 w-full h-auto block rounded-2xl"
+              />
+
               {/* ▽ 기존 하단 placard를 이미지 위 팝업으로 변경 ▽ */}
               <AnimatePresence>
                 {showPopup && posts.length > 0 && (
                   <motion.div 
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
+                    initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
                     /* 📌 팝업창 위치 조정 가이드:
-                       - top-80: 위쪽 여백 (수치를 높이면 아래로 내려옴) 을  bottom-10으로 수정
+                       - top-40: 위쪽 여백 (수치를 높이면 아래로 내려옴, 현재 160px)
                        - left-4 / right-4: 좌우 여백
                        - z-20: 이미지(z-10)보다 위에 오도록 설정
-                    */
-                    className="absolute bottom-10 left-4 right-4 z-20 bg-white/95 backdrop-blur-md rounded-xl p-4 shadow-xl border border-blue-100"
+                       
+                       📌 그림자 효과 가이드 (짙게 수정됨):
+                       - shadow-[0_25px_60px_rgba(0,0,0,0.5)]: 아주 짙고 묵직한 하단 그림자 (농도 50%)
+                       - ring-1 ring-black/10: 팝업 테두리를 더 선명하게 잡아주는 미세 외곽선 (농도 10%)
+                        className="absolute top-40 을 bottom-10
+                       */
+                    className="absolute bottom-12 left-12 right-10 z-20 bg-white/95 backdrop-blur-md rounded-2xl p-1 border border-blue-200/60 shadow-[0_25px_60px_rgba(0,0,0,0.6)] ring-1 ring-black/10 animate-in fade-in-0"
                   >
-                    <div className="flex justify-between items-center mb-3">
+                    <div className="flex justify-between items-center mb-4">
                       <h3 className="font-bold text-sm text-[#0047AB] flex items-center gap-1.5">
                         <span className="animate-pulse text-xs">📢</span> 공지사항
                       </h3>
                       <button 
                         onClick={() => setShowPopup(false)}
-                        className="text-slate-400 hover:text-slate-600 text-xs p-1"
+                        className="text-slate-400 hover:text-slate-600 hover:bg-slate-100 p-1 rounded-full transition-colors"
                       >
-                        ✕
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
                       </button>
                     </div>
 
-                    <ul className="space-y-2.5">
+                    <ul className="space-y-3">
                       {posts.map((post) => (
-                        <li key={post.id} className="border-b border-slate-50 last:border-0 pb-1.5 last:pb-0">
+                        <li key={post.id} className="border-b border-slate-50 last:border-0 pb-2 last:pb-0">
                           <Link href="/notice" className="block group">
                             <div className="flex justify-between items-start gap-2">
-                              <span className="text-xs font-medium text-slate-800 truncate group-hover:text-[#0047AB] transition-colors">
+                              <span className="text-xs font-bold text-slate-800 line-clamp-1 group-hover:text-[#0047AB] transition-colors">
                                 {post.title}
                               </span>
                               <span className="text-[10px] text-slate-400 shrink-0 mt-0.5">
@@ -133,31 +137,16 @@ export default function Hero() {
                       ))}
                     </ul>
 
-                    {/* 전체보기 바로가기 */}
+                    {/* 전체보기 바로가기 버튼화 */}
                     <Link 
                       href="/notice" 
-                      className="mt-3 inline-flex items-center text-[11px] font-bold text-[#0047AB] hover:underline"
+                      className="mt-4 flex items-center justify-center w-full py-2 bg-slate-50 hover:bg-blue-50 rounded-lg text-[11px] font-bold text-[#0047AB] transition-colors shadow-inner"
                     >
                       전체 공지 확인하기 →
                     </Link>
                   </motion.div>
                 )}
               </AnimatePresence>
-
-              {/* Info Badge (기존 내용 유지) */}
-              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-slate-100 z-10">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#0047AB] rounded-full flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-900">한국신용카드네트워크</p>
-                    <p className="text-xs text-slate-500">소상공인과 함께하는 동반자</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </motion.div>
         </div>
