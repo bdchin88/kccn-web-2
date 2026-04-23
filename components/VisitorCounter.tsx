@@ -111,7 +111,7 @@ export default function VisitorCounter() {
         >
           <span className="text-xs opacity-70 text-white font-sans">전일 방문자수:</span>
           <span className="text-sm font-bold text-emerald-400 font-sans">{yesterdayHits.toLocaleString()}</span>
-          <span className="text-[10px] opacity-40 ml-0.5 text-white font-sans">명</span>
+        {/*  <span className="text-[10px] opacity-40 ml-0.5 text-white font-sans">명</span>  */}
         </div>
       </div>
 
