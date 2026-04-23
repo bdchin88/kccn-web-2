@@ -101,7 +101,8 @@ export default function VisitorCounter() {
           <span className="text-xs opacity-70 text-white font-sans">전체 방문자:</span>
           <span className="text-sm font-bold text-blue-400 font-sans">{totalHits.toLocaleString()}</span>
         </div>
-        <div className="hidden md:block w-[1px] h-3 bg-white/20"></div>
+        <div className="md:block w-[1px] h-3 bg-white/20"></div>
+        {/* <div className="hidden md:block... 모바일 표시 hidden 삭제 */}
         
         {/* 클릭 시 비밀번호 확인 후 상세 로그 페이지로 이동 */}
         <div 
