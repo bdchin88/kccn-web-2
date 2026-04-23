@@ -1,3 +1,4 @@
+// app/notice/page.tsx
 "use client";
 
 import { supabase } from "../../lib/supabase";
@@ -130,7 +131,7 @@ export default function NoticePage(props: {
                   <div className="text-slate-600 line-clamp-2 mb-4">{post.content}</div>
                   <div className="text-[#0047AB] font-bold text-sm">자세히 보기 →</div>
                 </Link>
-                <button onClick={() => handleDelete(post.id, post.file_path)} className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 bg-red-50 text-red-500 p-2 rounded-md text-xs font-bold hover:bg-red-500 hover:text-white transition-all">
+                <button onClick={() => handleDelete(post.id, post.file_path)} className="absolute bottom-5 right-11 opacity-0 group-hover:opacity-100 bg-red-50 text-blue-500 p-2 rounded-md text-xs font-bold hover:bg-gray-500 hover:text-white transition-all">
                   삭제
                 </button>
               </div>
