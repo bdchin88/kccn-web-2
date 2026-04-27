@@ -1,11 +1,12 @@
-// app/notice/[id]/page.tsx
+// app/notice/[id]/page.tsx : 접속제한 추가
 import { supabase } from "../../../lib/supabase";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import DownloadSection from "@/components/DownloadSection"; // 아래에서 만들 별도 컴포넌트
+import DownloadSection from "@/components/DownloadSection";
+import DeleteButton from "@/components/DeleteButton"; // ◀ 이미 적용된 삭제 버튼
 
 export const dynamic = "force-dynamic";
 
@@ -48,8 +49,10 @@ export default async function PostDetailPage(props: { params: Promise<{ id: stri
             <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 leading-tight">
               {post.title}
             </h1>
-            <div className="text-sm text-gray-400">
-              {new Date(post.created_at).toLocaleDateString()}
+            <div className="flex justify-between items-center text-sm text-gray-400">
+              <div>{new Date(post.created_at).toLocaleDateString()}</div>
+              {/* 📌 삭제 버튼: 이미 lib/auth.ts 기반의 로직이 적용되어 있어야 함 */}
+              <DeleteButton postId={post.id} />
             </div>
           </header>
 
@@ -57,16 +60,16 @@ export default async function PostDetailPage(props: { params: Promise<{ id: stri
             {post.content}
           </div>
 
-          {/* 파일이 있을 경우에만 다운로드 섹션 표시 */}
+          {/* 📌 파일 다운로드 섹션: 보안 로직이 포함된 클라이언트 컴포넌트 호출 */}
           {post.has_file && post.file_path && (
             <DownloadSection filePath={post.file_path} />
           )}
         </article>
 
         <div className="mt-16 pt-8 border-t border-gray-100 flex justify-center">
-          <Link 
+          <Link
             href={backPath}
-            className="px-8 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-[#0047AB] transition-all shadow-sm"
+            className="bg-[#0047AB] text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors shadow-lg"
           >
             목록보기
           </Link>

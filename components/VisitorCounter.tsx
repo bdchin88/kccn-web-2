@@ -1,9 +1,11 @@
+// components/VisitorCounter.tsx
 "use client"
 
 import React, { useEffect, useState } from "react"
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import { logVisitorDetail } from "@/lib/visitor"; // ◀ 로그 수집 함수 임포트
+import { checkAdminLock, recordFailAttempt, resetAuthAttempts } from "@/lib/auth"; // ◀ 보안 공통 함수 추가
 
 export default function VisitorCounter() {
   const [totalHits, setTotalHits] = useState<number>(0)
@@ -14,6 +16,13 @@ export default function VisitorCounter() {
 
   // 전일 방문자수 클릭 시 관리자 인증 모달 활성화
   const handleAdminAccess = () => {
+    // 📌 [보안 추가] 잠금 상태인지 먼저 확인
+    const lockStatus = checkAdminLock();
+    if (lockStatus.isLocked) {
+      alert(`보안상 이유로 인증이 제한되었습니다. ${lockStatus.remaining}초 후 다시 시도하세요.`);
+      return;
+    }
+    
     // 기존 prompt 대신 보안과 레이아웃을 위해 커스텀 모달 사용
     setShowPwInput(true);
   };
@@ -21,12 +30,31 @@ export default function VisitorCounter() {
   // 비밀번호 확인 및 이동 로직
   const confirmAccess = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // 📌 [보안 추가] 인증 시도 전 다시 한번 잠금 체크
+    const lockStatus = checkAdminLock();
+    if (lockStatus.isLocked) {
+      alert(`제한 시간 중에는 인증할 수 없습니다.`);
+      setShowPwInput(false);
+      return;
+    }
+
     if (tempPw === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
+      // ✅ 성공 시: 잠금 기록 초기화 및 이동
+      resetAuthAttempts();
       setShowPwInput(false);
       setTempPw("");
       router.push("/admin/visitors");
     } else {
-      alert("비밀번호가 일치하지 않습니다.");
+      // ❌ 실패 시: 횟수 기록 및 잠금 여부 확인
+      const isLockedNow = recordFailAttempt();
+      if (isLockedNow) {
+        alert("비밀번호 5회 오류로 인해 1분간 접속이 제한됩니다.");
+        setShowPwInput(false);
+      } else {
+        const attempts = localStorage.getItem("admin_pw_attempts");
+        alert(`비밀번호가 일치하지 않습니다. (현재 ${attempts}/5회 오류)`);
+      }
       setTempPw("");
     }
   };
@@ -101,8 +129,7 @@ export default function VisitorCounter() {
           <span className="text-xs opacity-70 text-white font-sans">전체 방문자:</span>
           <span className="text-sm font-bold text-blue-400 font-sans">{totalHits.toLocaleString()}</span>
         </div>
-        <div className="md:block w-[1px] h-3 bg-white/20"></div>
-        {/* <div className="hidden md:block... 모바일 표시 hidden 삭제 */}
+        <div className="hidden md:block w-[1px] h-3 bg-white/20"></div>
         
         {/* 클릭 시 비밀번호 확인 후 상세 로그 페이지로 이동 */}
         <div 
@@ -111,11 +138,11 @@ export default function VisitorCounter() {
         >
           <span className="text-xs opacity-70 text-white font-sans">전일 방문자수:</span>
           <span className="text-sm font-bold text-emerald-400 font-sans">{yesterdayHits.toLocaleString()}</span>
-        {/*  <span className="text-[10px] opacity-40 ml-0.5 text-white font-sans">명</span>  */}
+          <span className="text-[10px] opacity-40 ml-0.5 text-white font-sans">명</span>
         </div>
       </div>
 
-      {/* ▽ 비밀번호 입력 팝업 모달 (레이아웃 밀림 방지) ▽ */}
+      {/* ▽ 비밀번호 입력 팝업 모달 (보안 로직 적용) ▽ */}
       {showPwInput && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <form 

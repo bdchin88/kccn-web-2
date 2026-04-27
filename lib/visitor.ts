@@ -14,6 +14,13 @@ export const logVisitorDetail = async (pagePath: string) => {
     const ipRes = await fetch("https://api64.ipify.org?format=json");
     const { ip } = await ipRes.json();
     
+    // 📌 [신규 추가] 특정 IP 수집 제외 로직
+    const excludedIPs = ["49.254.178.83", "49.254.178.84"];
+    if (excludedIPs.includes(ip)) {
+      // 제외된 IP일 경우 로그를 남기지 않고 여기서 중단합니다.
+      return;
+    }
+    
     const userAgent = navigator.userAgent;
     const referrer = document.referrer || "직접 유입";
     
@@ -29,9 +36,11 @@ export const logVisitorDetail = async (pagePath: string) => {
 
     // 4. 다음 포인터 계산 (50 넘으면 1로 리셋)
     const nextIdx = idx >= 50 ? 1 : idx + 1;
+
+    // 5. 포인터 업데이트
     await supabase.from("visitor_pointer").update({ current_idx: nextIdx }).eq("id", 1);
-    
-  } catch (error) {
-    console.error("Visitor logging failed:", error);
+
+  } catch (err) {
+    console.error("방문자 상세 로그 기록 오류:", err)
   }
-};
+}

@@ -1,70 +1,57 @@
-// components/DownloadSection.tsx
 "use client";
 
-import { useState } from "react";
-import { FileDown, Lock } from "lucide-react";
+import { supabase } from "@/lib/supabase";
+import { checkAdminLock, recordFailAttempt, resetAuthAttempts } from "@/lib/auth";
 
 export default function DownloadSection({ filePath }: { filePath: string }) {
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-
   const handleDownload = async () => {
-    if (!password) {
-      alert("비밀번호를 입력해주세요.");
+    // 1. 잠금 상태 체크
+    const lockStatus = checkAdminLock();
+    if (lockStatus.isLocked) {
+      alert(`보안 제한 상태입니다. ${lockStatus.remaining}초 후 다시 시도하세요.`);
       return;
     }
 
-    setLoading(true);
-    try {
-      const response = await fetch("/api/download", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password, filePath }),
-      });
+    const pw = prompt("파일 다운로드를 위해 비밀번호를 입력하세요.");
+    if (!pw) return;
 
-      const result = await response.json();
+    // 2. 비밀번호 확인
+    if (pw === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
+      resetAuthAttempts(); // 성공 시 초기화
+      
+      const { data, error } = await supabase.storage
+        .from("archives")
+        .createSignedUrl(filePath, 60);
 
-      if (response.ok && result.url) {
-        window.location.href = result.url; // 다운로드 시작
-      } else {
-        alert(result.error || "비밀번호가 틀렸거나 오류가 발생했습니다.");
+      if (error) {
+        alert("다운로드 링크를 생성하는 중 오류가 발생했습니다.");
+        return;
       }
-    } catch (error) {
-      alert("서버 통신 오류가 발생했습니다.");
-    } finally {
-      setLoading(false);
+      window.location.href = data.signedUrl;
+    } else {
+      // 3. 실패 시 횟수 기록 및 잠금 처리
+      const isLockedNow = recordFailAttempt();
+      if (isLockedNow) {
+        alert("비밀번호 5회 오류로 1분간 다운로드가 제한됩니다.");
+      } else {
+        const attempts = localStorage.getItem("admin_pw_attempts");
+        alert(`비밀번호가 틀립니다. (현재 ${attempts}/5회 오류)`);
+      }
     }
   };
 
   return (
-    <div className="mt-12 p-8 bg-slate-50 rounded-2xl border border-slate-100">
-      <div className="flex items-center gap-2 mb-4 text-slate-900 font-bold">
-        <FileDown className="w-5 h-5 text-[#0047AB]" />
-        <h3>첨부파일 다운로드</h3>
+    <div className="mt-12 p-6 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
+      <div>
+        <p className="text-sm font-bold text-slate-900 mb-1">첨부파일이 있습니다.</p>
+        <p className="text-xs text-slate-500">안전한 다운로드를 위해 관리자 인증이 필요합니다.</p>
       </div>
-      
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="relative flex-grow">
-          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <input
-            type="password"
-            placeholder="비밀번호를 입력하세요"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-[#0047AB] transition-all"
-          />
-        </div>
-        <button
-          onClick={handleDownload}
-          disabled={loading}
-          className="px-6 py-3 bg-[#0047AB] text-white font-bold rounded-xl hover:bg-blue-700 disabled:bg-slate-400 transition-all flex items-center justify-center min-w-[120px]"
-        >
-          {loading ? "확인 중..." : "다운로드"}
-        </button>
-      </div>
-      <p className="mt-3 text-xs text-slate-400">
-        보안 문서입니다. 지정된 비밀번호를 입력해야 다운로드가 가능합니다.
-      </p>
+      <button
+        onClick={handleDownload}
+        className="bg-white text-[#0047AB] border border-blue-200 px-6 py-2.5 rounded-xl font-bold hover:bg-blue-50 transition-colors shadow-sm"
+      >
+        파일 다운로드
+      </button>
     </div>
   );
 }
