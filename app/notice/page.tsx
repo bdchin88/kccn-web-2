@@ -5,12 +5,11 @@ import { supabase } from "../../lib/supabase";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Link from "next/link";
-import Pagination from "@/components/pagination";
+import Pagination from "@/components/pagination"; // 기존에 쓰시던 공통 컴포넌트
 import { useState, useEffect, use } from "react"; 
 import { useRouter } from "next/navigation";
-import { checkAdminLock } from "@/lib/auth"; // ◀ 보안 공통 함수 임포트
+import { checkAdminLock } from "@/lib/auth"; 
 
-// 배포 환경에서 캐싱을 방지하고 항상 최신 데이터를 불러오도록 설정
 export const dynamic = "force-dynamic";
 
 export default function NoticePage(props: {
@@ -20,77 +19,70 @@ export default function NoticePage(props: {
   const router = useRouter();
   
   const [posts, setPosts] = useState<any[]>([]);
-  const [count, setCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0); 
   const [loading, setLoading] = useState(true);
 
   const activeTab = searchParams.type || "notice";
   const currentPage = Number(searchParams.page) || 1;
-  const itemsPerPage = 10;
+  const limit = 10;
 
-  // 1. 데이터 불러오기 로직
+  // 잘 동작하는 참고 코드의 핵심 로직 반영
   const fetchPosts = async () => {
     setLoading(true);
-    const { data, count, error } = await supabase
+    
+    const from = (currentPage - 1) * limit;
+    const to = from + limit - 1;
+
+    const { data, count } = await supabase
       .from("posts")
-      .select("*", { count: "exact" })
+      .select("*", { count: "exact" }) 
       .eq("type", activeTab)
       .order("created_at", { ascending: false })
-      .range((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage - 1);
+      .range(from, to); 
 
-    if (!error) {
-      setPosts(data || []);
-      setCount(count || 0);
-    }
+    setPosts(data || []);
+    setTotalCount(count || 0);
     setLoading(false);
   };
 
   useEffect(() => {
     fetchPosts();
-  }, [activeTab, currentPage]);
+    if (typeof window !== "undefined") window.scrollTo(0, 0);
+  }, [activeTab, currentPage]); // 탭이나 페이지 변경 시 실행
 
-  /** * 2. 글쓰기 버튼 클릭 핸들러
-   * 중복 인증을 방지하기 위해 여기서의 prompt는 제거되었습니다.
-   * 이동 후 admin/write 페이지에서 보안 로직에 따라 인증을 진행합니다.
-   */
   const handleWriteClick = () => {
-    const lockStatus = checkAdminLock();
-    if (lockStatus.isLocked) {
-      alert(`보안상 이유로 접속이 제한되었습니다. ${lockStatus.remaining}초 후 다시 시도하세요.`);
-      return;
-    }
-    // 인증은 이동한 페이지에서 1회만 진행
+    if (checkAdminLock().isLocked) return;
     router.push("/admin/write");
   };
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <Header />
-      
       <main className="flex-grow max-w-6xl mx-auto py-16 px-4 w-full">
+        {/* 상단 레이아웃 */}
         <div className="flex justify-between items-end mb-12">
           <div>
             <h1 className="text-4xl font-bold text-slate-900 mb-4">공지 및 자료</h1>
             <p className="text-gray-500">협회의 주요 소식과 관련 자료를 확인하실 수 있습니다.</p>
           </div>
-          
           <button 
             onClick={handleWriteClick}
-            className="bg-blue-900 text-white px-6 py-2 rounded-xl font-bold hover:bg-[#0047AB] transition-all shadow-lg flex items-center gap-2 whitespace-nowrap"
+            className="bg-blue-800 text-white px-6 py-1 rounded-xl font-bold whitespace-nowrap shrink-0 transition-all hover:bg-[#0047AB]"
           >
             <span className="text-xl">+</span> 글쓰기
           </button>
         </div>
 
-        {/* 탭 메뉴 - "이슈와 정보" 포함 */}
+        {/* 탭 메뉴 */}
         <div className="flex border-b border-gray-100 mb-10 overflow-x-auto no-scrollbar">
           {[
             { id: "notice", label: "공지사항" },
-            { id: "archive", label: "자료실" },   
+            { id: "archive", label: "자료실" },
             { id: "issue", label: "이슈와 정보" },
           ].map((tab) => (
             <Link
               key={tab.id}
-              href={`/notice?type=${tab.id}`}
+              href={`/notice?type=${tab.id}&page=1`}
               className={`px-8 py-4 text-lg font-bold transition-all relative whitespace-nowrap ${
                 activeTab === tab.id ? "text-[#0047AB]" : "text-gray-400 hover:text-slate-600"
               }`}
@@ -103,45 +95,39 @@ export default function NoticePage(props: {
           ))}
         </div>
 
-        {/* 게시글 목록 */}
-        <div className="grid gap-6">
+        {/* 리스트 출력 */}
+        <div className="grid gap-6 min-h-[400px]">
           {loading ? (
-            <div className="flex justify-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0047AB]"></div>
-            </div>
-          ) : posts.length === 0 ? (
-            <div className="text-center py-20 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-100">
-              <p className="text-gray-400 text-lg">등록된 게시글이 없습니다.</p>
-            </div>
-          ) : (
-            posts.map((post) => (
-              <div key={post.id} className="relative group">
-                <Link href={`/notice/${post.id}`} className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg block transition-all">
-                  <div className="flex justify-between items-start mb-4">
-                    <h2 className="text-xl md:text-2xl font-bold text-slate-800 group-hover:text-[#0047AB] leading-tight">{post.title}</h2>
-                    <span className="text-xs text-gray-400 bg-gray-50 px-3 py-1 rounded-full">{new Date(post.created_at).toLocaleDateString()}</span>
-                  </div>
-                  <div className="text-slate-600 line-clamp-2 mb-4">{post.content}</div>
-                  <div className="text-[#0047AB] font-bold text-sm">자세히 보기 →</div>
-                </Link>
+            <div className="flex justify-center py-20 text-blue-500">로딩 중...</div>
+          ) : posts.map((post) => (
+            <Link key={post.id} href={`/notice/${post.id}`} className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg block transition-all">
+              <div className="flex justify-between items-start mb-4">
+                <h2 className="text-xl md:text-2xl font-bold text-slate-800 group-hover:text-[#0047AB] leading-tight">{post.title}</h2>
+                <span className="text-xs text-gray-400 bg-gray-50 px-3 py-1 rounded-full">{new Date(post.created_at).toLocaleDateString()}</span>
               </div>
-            ))
-          )}
+              <div className="text-slate-600 line-clamp-2 mb-4">{post.content}</div>
+              <div className="text-[#0047AB] font-bold text-sm">자세히 보기 →</div>
+            </Link>
+          ))}
         </div>
 
-        {/* 페이지네이션 */}
-        {!loading && count > itemsPerPage && (
-          <div className="mt-12">
-            <Pagination 
-              totalItems={count} 
-              itemsPerPage={itemsPerPage} 
-              currentPage={currentPage} 
-              baseUrl={`/notice?type=${activeTab}`}
-            />
+        {/* 페이지네이션 버튼 (참고 코드의 로직 적용) */}
+        {!loading && totalCount > limit && (
+          <div className="mt-12 flex justify-center gap-2">
+            {Array.from({ length: Math.ceil(totalCount / limit) }, (_, i) => i + 1).map((num) => (
+              <button
+                key={num}
+                onClick={() => router.push(`/notice?type=${activeTab}&page=${num}`)}
+                className={`px-4 py-2 border rounded-lg font-bold transition-all ${
+                  currentPage === num ? "bg-[#0055AB] text-white border-[#0055AB]" : "bg-white text-gray-400 hover:bg-gray-50"
+                }`}
+              >
+                {num}
+              </button>
+            ))}
           </div>
         )}
       </main>
-
       <Footer />
     </div>
   );
