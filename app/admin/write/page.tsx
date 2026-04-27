@@ -128,6 +128,7 @@ export default function AdminWritePage() {
               onChange={(e) => setType(e.target.value)}
             >
               <option value="notice">공지사항</option>
+              <option value="issue">이슈와 정보</option>
               <option value="archive">자료실</option>
             </select>
           </div>
@@ -157,15 +158,18 @@ export default function AdminWritePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-bold mb-2 text-slate-700">장소 및 일시 (선택)</label>
-            <input
-              className="w-full p-3 border rounded-lg"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="예: 협회 대회의실, 2026년5월1일, 14:00"
-            />
-          </div>
+
+          {type === "notice" && (
+            <div>
+              <label className="block text-sm font-bold mb-2 text-slate-700">장소 및 일시 (선택)</label>
+              <input
+                className="w-full p-3 border rounded-lg"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                placeholder="예: 협회 대회의실, 2026년5월1일, 14:00"
+              />
+            </div>
+          )}  
 
           {/* 공지 종료일 (Notice 전용) */}
           {type === "notice" && (
