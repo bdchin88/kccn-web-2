@@ -75,7 +75,7 @@ export default function NoticePage(props: {
           
           <button 
             onClick={handleWriteClick}
-            className="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold hover:bg-[#0047AB] transition-all shadow-lg flex items-center gap-2"
+            className="bg-blue-900 text-white px-6 py-2 rounded-xl font-bold hover:bg-[#0047AB] transition-all shadow-lg flex items-center gap-2 whitespace-nowrap"
           >
             <span className="text-xl">+</span> 글쓰기
           </button>
@@ -85,7 +85,7 @@ export default function NoticePage(props: {
         <div className="flex border-b border-gray-100 mb-10 overflow-x-auto no-scrollbar">
           {[
             { id: "notice", label: "공지사항" },
-            { id: "archive", label: "자료실" },
+            { id: "archive", label: "자료실" },   
             { id: "issue", label: "이슈와 정보" },
           ].map((tab) => (
             <Link
