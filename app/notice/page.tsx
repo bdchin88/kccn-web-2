@@ -77,8 +77,8 @@ export default function NoticePage(props: {
         <div className="flex border-b border-gray-100 mb-10 overflow-x-auto no-scrollbar">
           {[
             { id: "notice", label: "공지사항" },
-            { id: "archive", label: "자료실" },
             { id: "issue", label: "이슈와 정보" },
+            { id: "archive", label: "자료실" },
           ].map((tab) => (
             <Link
               key={tab.id}
