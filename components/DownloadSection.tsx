@@ -1,8 +1,9 @@
+// components/DownloadSection.tsx
 "use client";
 
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
-import { checkAdminLock, recordFailAttempt, resetAuthAttempts } from "@/lib/auth";
+import { checkAdminLock, recordFailAttempt, resetAuthAttempts } from "@/lib/auth"; // 1분 잠금
 
 export default function DownloadSection({ filePath }: { filePath: string }) {
   const [showPwInput, setShowPwInput] = useState(false);
@@ -21,8 +22,9 @@ export default function DownloadSection({ filePath }: { filePath: string }) {
 
     setLoading(true);
 
+    {/* if (tempPw === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) DOWNLOAD_PASSWORD */}
     // 2. 비밀번호 확인 (환경변수와 비교)
-    if (tempPw === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
+    if (tempPw === process.env.NEXT_PUBLIC_DOWNLOAD_PASSWORD) {
       resetAuthAttempts(); // 성공 시 초기화
       
       const cleanPath = filePath.trim().startsWith('/') ? filePath.trim().substring(1) : filePath.trim();
