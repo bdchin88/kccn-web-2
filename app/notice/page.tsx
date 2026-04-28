@@ -55,6 +55,12 @@ export default function NoticePage(props: {
     router.push("/admin/write");
   };
 
+  // 💡 [추가] 어드민 리스트 ' ' 비밀루트 핸들러
+  const handleAdminList = () => {
+    if (checkAdminLock().isLocked) return;
+    router.push("/admin/list");
+  };  
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <Header />
@@ -62,9 +68,16 @@ export default function NoticePage(props: {
         {/* 상단 레이아웃 */}
         <div className="flex justify-between items-end mb-12">
           <div>
-            <h1 className="text-4xl font-bold text-slate-900 mb-4">공지 및 자료</h1>
+            <h1 className="text-4xl font-bold text-slate-900">공지 및 자료</h1>
+            <button 
+              onClick={handleAdminList}
+              className="text-xs text-gray-400 hover:text-red-500 transition-colors pt-1">
+              '     ' 
+            </button>
+
             <p className="text-gray-500">협회의 주요 소식과 관련 자료를 확인하실 수 있습니다.</p>
           </div>
+
           <button 
             onClick={handleWriteClick}
             className="bg-blue-800 text-white px-6 py-1 rounded-xl font-bold whitespace-nowrap shrink-0 transition-all hover:bg-[#0047AB]"

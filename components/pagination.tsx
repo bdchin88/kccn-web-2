@@ -1,4 +1,4 @@
-// components/pagination.tsx (클라이언트 또는 서버 컴포넌트)
+// components/pagination.tsx (클라이언트 또는 서버 컴포넌트) 
 import Link from "next/link";
 
 export default function Pagination({ currentPage, totalPages, currentType }: any) {
