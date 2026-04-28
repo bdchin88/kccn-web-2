@@ -34,16 +34,6 @@ export default async function PostDetailPage(props: { params: Promise<{ id: stri
       <Header />
       
       <main className="flex-grow max-w-4xl mx-auto py-16 px-4 w-full">
-        <div className="mb-8">
-          <Link 
-            href={backPath} 
-            className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-[#0047AB] transition-colors group"
-          >
-            <ChevronLeft className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition-transform" />
-            목록으로 돌아가기
-          </Link>
-        </div>
-
         <article>
           <header className="border-b border-gray-100 pb-8 mb-8">
             <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 leading-tight">
