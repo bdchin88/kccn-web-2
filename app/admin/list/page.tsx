@@ -91,10 +91,10 @@ export default function AdminListPage() {
     setIsAuthorized(false);
     window.location.href = "/"; 
   };
-
+        {/* <div className="flex flex-col items-center justify-center에서 justify-center 삭제 py-20 추가 */}
   if (!isAuthorized) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+      <div className="flex flex-col items-center py-20 min-h-screen bg-gray-50">
         <div className="p-8 bg-white rounded-2xl shadow-xl border border-gray-100 w-full max-w-md text-center">
           <h1 className="text-2xl font-bold mb-2 text-slate-900">게시글 관리</h1>
           <p className="text-sm text-slate-500 mb-6">목록 조회를 위해 관리자 인증이 필요합니다.</p>

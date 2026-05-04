@@ -67,8 +67,9 @@ export default function DeleteButton({ postId }: { postId: string }) {
       </button>
 
       {/* 📌 비밀번호 입력 커스텀 모달 (비밀번호 마스킹 가능) */}
+       {/* <div className="fixed inset-0 z-[100] flex items-center(수직중앙 정렬) 를 items-start 로, pt-32: padding-top */}
       {showModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+        <div className="fixed inset-0 z-[100] flex items-start pt-40 justify-center bg-black/50 backdrop-blur-sm p-4">
           <form 
             onSubmit={handleAuthAndDelete}
             className="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-sm border border-slate-100 animate-in fade-in zoom-in duration-200"

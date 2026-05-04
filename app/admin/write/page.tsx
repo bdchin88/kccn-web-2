@@ -89,9 +89,10 @@ export default function AdminWritePage() {
     }
   };
 
+      {/* <div className="flex flex-col items-center justify-center에서 justify-center 삭제 py-20 추가 */}
   if (!isAuthorized) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+      <div className="flex flex-col items-center pt-40 min-h-screen bg-gray-50">
         <div className="p-8 bg-white rounded-2xl shadow-xl border border-gray-100 w-full max-w-md">
           <h1 className="text-2xl font-bold mb-6 text-center text-slate-900">관리자 인증</h1>
           <input

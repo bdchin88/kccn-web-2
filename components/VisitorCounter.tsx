@@ -145,7 +145,7 @@ export default function VisitorCounter() {
 
       {/* ▽ 비밀번호 입력 팝업 모달 (보안 로직 적용) ▽ */}
       {showPwInput && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div className="fixed inset-0 z-[9999] flex items-start pt-40 justify-center bg-black/60 backdrop-blur-sm p-4">
           <form 
             onSubmit={confirmAccess} 
             className="bg-[#1a1a1a] border border-white/20 p-6 rounded-2xl shadow-2xl w-full max-w-[300px] animate-in fade-in zoom-in duration-200"
