@@ -71,7 +71,7 @@ export default function AdminListPage() {
   };
 
   const handleDelete = async (id: string, filePath: string) => {
-    if (!confirm("정말 삭제하시겠습니까?")) return;
+    if (!confirm("정말 삭제하시겠습니까??")) return;
     
     if (filePath) {
       await supabase.storage.from("resources").remove([filePath]);
@@ -134,10 +134,11 @@ export default function AdminListPage() {
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-slate-50 border-b border-gray-100">
-              <th className="p-5 text-xs font-bold text-gray-500 uppercase">구 분</th>
-              <th className="p-10 text-xs font-bold text-gray-500 uppercase">제 목</th>
-              <th className="p-7 text-xs font-bold text-gray-500 uppercase">작성일</th>
-              <th className="p-4 text-xs font-bold text-gray-500 uppercase text-center">관 리</th>
+              {/* py-2 또는 py-3 정도로 수정하면 위아래 높이 조절, 기본 p-1은 0.25rem 단위, 글자 자체의 높이(leading-tight)를 조절할 수 있음 */}
+              <th className="px-5 py-3 text-xs font-bold text-gray-500 uppercase">구 분</th>
+              <th className="px-10 py-3 text-xs font-bold text-gray-500 uppercase">제 목</th>
+              <th className="px-7 py-3 text-xs font-bold text-gray-500 uppercase">작성일</th>
+              <th className="px-4 py-3 text-xs font-bold text-gray-500 uppercase text-center">관 리</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">

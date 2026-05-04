@@ -114,7 +114,7 @@ export default function NoticePage(props: {
           {loading ? (
             <div className="flex justify-center py-20 text-blue-500">로딩 중...</div>
           ) : posts.map((post) => (
-            <Link key={post.id} href={`/notice/${post.id}`} className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg block transition-all">
+            <Link key={post.id} href={`/notice/${post.id}`} className="bg-white p-3 md:p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg block transition-all">
               <div className="flex justify-between items-start mb-4">
                 <h2 className="text-xl md:text-2xl font-bold text-slate-800 group-hover:text-[#0047AB] leading-tight">{post.title}</h2>
                 <span className="text-xs text-gray-400 bg-gray-50 px-3 py-1 rounded-full">{new Date(post.created_at).toLocaleDateString()}</span>
