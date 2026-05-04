@@ -88,7 +88,7 @@ export default function NoticePage(props: {
         </div>
 
         {/* 탭 메뉴 */}
-        <div className="flex border-b border-gray-100 mb-10 overflow-x-auto no-scrollbar">
+        <div className="flex py-0 border-b border-gray-100 mb-10 overflow-x-auto no-scrollbar">
           {[
             { id: "notice", label: "공지사항" },
             { id: "issue", label: "이슈와 정보" },
@@ -110,16 +110,17 @@ export default function NoticePage(props: {
         </div>
 
         {/* 리스트 출력 */}
+        {/* w-full: 카드가 부모 너비에 꽉 차도록 설정, overflow-hidden: 내부 요소가 박스 밖으로 튀어나가는 것을 방지 */}
         <div className="grid gap-6 min-h-[400px]">
           {loading ? (
             <div className="flex justify-center py-20 text-blue-500">로딩 중...</div>
           ) : posts.map((post) => (
-            <Link key={post.id} href={`/notice/${post.id}`} className="bg-white p-3 md:p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg block transition-all">
-              <div className="flex justify-between items-start mb-4">
+            <Link key={post.id} href={`/notice/${post.id}`} className="w-full bg-white p-3 md:p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg block transition-all overflow-hidden">
+              <div className="flex justify-between items-start mb-3">
                 <h2 className="text-xl md:text-2xl font-bold text-slate-800 group-hover:text-[#0047AB] leading-tight">{post.title}</h2>
                 <span className="text-xs text-gray-400 bg-gray-50 px-3 py-1 rounded-full">{new Date(post.created_at).toLocaleDateString()}</span>
               </div>
-              <div className="text-slate-600 line-clamp-2 mb-4">{post.content}</div>
+              <div className="text-slate-600 line-clamp-2 mb-3">{post.content}</div>
               <div className="text-[#0047AB] font-bold text-sm">자세히 보기 →</div>
             </Link>
           ))}
