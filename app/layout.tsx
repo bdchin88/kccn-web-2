@@ -7,7 +7,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "사단법인 한국신용카드네트워크",
   description:
-    "대한민국 소상공인과 가맹점주의 권익을 대변하는 경제단체, 한국신용카드네트워크입니다.",
+    "대한민국 소상공인과 가맹점주의 권익을 대변하는 법정 단체, 한국신용카드네트워크입니다.",
   keywords: [
     "한국신용카드네트워크",
     "KCCN",

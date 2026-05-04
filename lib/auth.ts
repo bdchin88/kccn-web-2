@@ -1,4 +1,4 @@
-// lib/auth.ts
+// lib/auth.ts ; 1분 잠금
 export const checkAdminLock = () => {
   if (typeof window === "undefined") return { isLocked: false, remaining: 0 };
   

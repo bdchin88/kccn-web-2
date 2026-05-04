@@ -134,10 +134,10 @@ export default function AdminListPage() {
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-slate-50 border-b border-gray-100">
-              <th className="p-4 text-xs font-bold text-gray-500 uppercase">구분</th>
-              <th className="p-4 text-xs font-bold text-gray-500 uppercase">제목</th>
-              <th className="p-4 text-xs font-bold text-gray-500 uppercase">작성일</th>
-              <th className="p-4 text-xs font-bold text-gray-500 uppercase text-center">관리</th>
+              <th className="p-5 text-xs font-bold text-gray-500 uppercase">구 분</th>
+              <th className="p-10 text-xs font-bold text-gray-500 uppercase">제 목</th>
+              <th className="p-7 text-xs font-bold text-gray-500 uppercase">작성일</th>
+              <th className="p-4 text-xs font-bold text-gray-500 uppercase text-center">관 리</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
@@ -163,8 +163,8 @@ export default function AdminListPage() {
                       {post.type === 'notice' ? '공지' : post.type === 'issue' ? '정보' : '자료'}
                     </span>
                   </td>
-                  <td className="p-4 font-semibold text-slate-800">
-                    <div className="line-clamp-1">{post.title}</div>
+                  <td className="p-0 font-semibold text-slate-800">
+                    <div className="line-clamp-2">{post.title}</div>
                   </td>
                   <td className="p-4 text-sm text-gray-400 whitespace-nowrap">
                     {new Date(post.created_at).toLocaleDateString()}
