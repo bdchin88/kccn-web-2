@@ -1,4 +1,4 @@
-// app/notice/[id]/page.tsx : 접속제한 추가
+// app/notice/[id]/page.tsx : 접속제한 추가 
 import { supabase } from "../../../lib/supabase";
 import Header from "@/components/header";
 import Footer from "@/components/footer";

@@ -1,4 +1,4 @@
-// app/notice/page.tsx 
+// app/notice/page.tsx  
 "use client";
 
 import { supabase } from "../../lib/supabase";
