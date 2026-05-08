@@ -24,7 +24,7 @@ const AboutHist = () => {
             {/* div className="relative space-y-6 박스간 간격, 박스간 마이너스 간격mt-[-15px] */}
             <div className="relative space-y-0">
               {/* 2010 - Left */}
-              <div className="flex items-center w-full min-h-[100px]"> {/* 높이는 고정값(h-[100px])보다는 내용에 따라 늘어날 수 있도록 **min-h (최소 높이)**를 사용,중앙선과 박스 사이의 간격은 pr-[12px] */}            
+              <div className="flex items-center w-full min-h-[100px] "> {/* 높이는 고정값(h-[100px])보다는 내용에 따라 늘어날 수 있도록 **min-h (최소 높이)**를 사용,중앙선과 박스 사이의 간격은 pr-[12px] */}            
                 <div className="w-1/2 pr-[6px] md:pr-10 flex justify-end">
                   <div className="bg-primary/5 border border-primary/20 rounded-xl p-3 md:p-4 w-full max-w-[180px] md:max-w-sm shadow-sm">{/* max-w-[180px]모바일 180~200px 사이가 적당, md:max-w-xs (PC, 320px): PC  */}
                     <h3 className="text-base md:text-2xl font-bold text-primary mb-1 text-right">2010년</h3>

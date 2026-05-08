@@ -65,7 +65,7 @@ export default function VisitorLogPage() {
   // 요일별 배경색 (기존 로직 유지)
   const getRowBgColor = (dateString: string) => {
     const day = new Date(dateString).getDay();
-    const colors = ["bg-red-50", "bg-orange-50", "bg-yellow-50", "bg-green-50", "bg-blue-50", "bg-indigo-50", "bg-slate-50"];
+    const colors = ["bg-red-50", "bg-orange-50", "bg-yellow-50", "bg-green-50", "bg-blue-50", "bg-indigo-60", "bg-slate-50"];
     return colors[day] || "bg-white";
   };
 
@@ -101,7 +101,8 @@ export default function VisitorLogPage() {
                 <th className="p-4">방문페이지</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            {/* [&_td]:py-3 이제 이 안의 모든 td는 위아래 12px의 여백을 가집니다 */}
+            <tbody className="[&_td]:py-2 divide-y divide-slate-200">
               {logs.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="p-20 text-center text-slate-400">기록된 로그가 없습니다.</td>

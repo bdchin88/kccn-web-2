@@ -49,7 +49,7 @@ export default function Services() {
         type: "spring",      // 물리 기반 애니메이션
         damping: 25,         // 반동 억제력 (높을수록 부드러움)
         stiffness: 100,      // 강성 (낮을수록 부드러움)
-        mass: 1,             // 무게감
+        mass: 5,             // 무게감
       },
     },
   };
@@ -86,7 +86,7 @@ export default function Services() {
                   y: -12,
                   transition: { type: "spring", stiffness: 300, damping: 20 }
                 }}
-                className="p-8 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow duration-500"
+                className="p-8 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow duration-500 bg-gray-200/50 hover:bg-gray-200 transition-colors"
               >
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                   <Icon className="text-primary" size={24} />

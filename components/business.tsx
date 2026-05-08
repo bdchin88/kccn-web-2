@@ -60,7 +60,7 @@ export default function Business() {
         <motion.div 
           variants={fadeInUp}
           whileHover={{ scale: 1.01 }} // 미세한 호버 효과만 추가
-          className="max-w-4xl mx-auto bg-gradient-to-br from-primary/5 to-secondary/10 border-2 border-primary/20 rounded-2xl p-8 md:p-12 shadow-sm transition-shadow hover:shadow-md">
+          className="max-w-4xl mx-auto bg-gradient-to-br from-primary/5 to-secondary/10 border-2 border-primary/20 rounded-2xl p-8 md:p-12 shadow-sm transition-shadow hover:shadow-md bg-gray-200/50 hover:bg-gray-200 transition-colors">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
               <svg
@@ -97,7 +97,7 @@ export default function Business() {
         <motion.div 
           variants={fadeInUp}
           whileHover={{ scale: 1.01 }} // 미세한 호버 효과만 추가
-          className="max-w-4xl mx-auto bg-gradient-to-br from-primary/5 to-secondary/10 border-2 border-primary/20 rounded-2xl p-8 md:p-12 shadow-sm transition-shadow hover:shadow-md">
+          className="mt-10 max-w-4xl mx-auto bg-gradient-to-br from-primary/5 to-secondary/10 border-2 border-primary/20 rounded-2xl p-8 md:p-12 shadow-sm transition-shadow hover:shadow-md bg-gray-200/50 hover:bg-gray-200 transition-colors">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
               <svg

@@ -5,7 +5,7 @@ export default function About() {
   return (
     <section id="about" className="py-20 md:py-32 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-20 grid md:grid-cols-2 gap-12 items-center">
+        <div className="mb-20 grid md:grid-cols-2 gap-12 items-start">
           <div>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-12 text-center">협회 소개</h2>
             <div className="space-y-4 text-muted-foreground">
@@ -24,7 +24,8 @@ export default function About() {
               </p>
             </div>
           </div>
-          <div className="bg-primary/5 p-8 rounded-xl border border-primary/20">
+          {/* <div className="bg-primary/5 p-8 rounded-xl border border-primary/20   */}
+          <div className="sm:mt-20 bg-primary/5 p-8 rounded-xl border border-primary/20 bg-gray-200/50 hover:bg-gray-200 transition-colors">
             <h3 className="text-2xl font-bold text-foreground mb-6">설립 목적</h3>
             <ul className="space-y-4">
               <li className="flex gap-3">
@@ -45,7 +46,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="bg-primary/5 p-8 rounded-xl border border-primary/20">
+        <div className="bg-primary/5 p-8 rounded-xl border border-primary/20 bg-gray-200/50 hover:bg-gray-200 transition-colors">
           <h3 className="text-2xl font-bold text-foreground mb-6">협회 비젼과 역할</h3>
           <ul className="space-y-4">
             <li className="flex gap-3">
