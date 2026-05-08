@@ -129,7 +129,7 @@ export default function AboutCI() {
           </div>
         </div>
 
-        <div className="bg-primary/5 p-8 rounded-xl border border-primary/20">
+        <div className="bg-primary/5 p-8 rounded-xl border border-primary/20 bg-gray-200/50 hover:bg-gray-200 transition-colors">
           <ul className="space-y-4">
             <li className="flex gap-3">
               <span className="text-primary font-bold">•</span>
