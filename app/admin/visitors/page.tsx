@@ -77,7 +77,7 @@ export default function VisitorLogPage() {
     <div className="p-8 max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-slate-800">
-          전일 방문자 상세 로그 <span className="text-sm font-normal text-slate-500">(최근 50명)</span>
+          전일 방문자 상세 로그 <span className="text-sm font-normal text-slate-500">(최근 60명)</span>
         </h1>
         {/* 요일 가이드 (모바일 가독성을 위해 sm 이상에서만 노출) */}
         <div className="hidden sm:flex gap-2">
