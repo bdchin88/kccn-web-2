@@ -1,4 +1,4 @@
-// components/VisitorCounter.tsx,  방문자로그: app/admin/visitots/page.tsx
+// components/VisitorCounter.tsx,  방문자로그: app/admin/visitots/page.tsx //// lib/visitor.ts
 "use client"
 
 import React, { useEffect, useState } from "react"
