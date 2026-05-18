@@ -295,7 +295,7 @@ export default function AdminWritePage() {
           <button
             type="button"
             onClick={() => router.back()}
-            className="flex-1 bg-white border border-slate-200 text-slate-600 p-4 rounded-xl font-bold hover:bg-slate-50 transition-colors active:scale-95"
+            className="flex-1 bg-gray-200 hover:bg-gray-200/50 transition-colors border border-slate-200 text-slate-600 p-4 rounded-xl font-bold hover:bg-slate-50 transition-colors active:scale-95"
           >
             취소
           </button>
