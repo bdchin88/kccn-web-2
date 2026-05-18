@@ -1,12 +1,12 @@
 // app/notice/[id]/page.tsx : 접속제한 추가 
 import { supabase } from "../../../lib/supabase";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import Header from "@/components/header"; // ◀ 역슬래시(\) 제거 완료
+import Footer from "@/components/footer"; // ◀ 역슬래시(\) 제거 완료
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import DownloadSection from "@/components/DownloadSection";
-import DeleteButton from "@/components/DeleteButton"; // ◀ 이미 적용된 삭제 버튼
+import DownloadSection from "@/components/DownloadSection"; // ◀ 역슬래시(\) 제거 완료
+import DeleteButton from "@/components/DeleteButton"; // ◀ 역슬래시(\) 제거 완료
 
 export const dynamic = "force-dynamic";
 
@@ -46,9 +46,12 @@ export default async function PostDetailPage(props: { params: Promise<{ id: stri
             </div>
           </header>
 
-          <div className="prose max-w-none text-slate-700 leading-relaxed whitespace-pre-wrap min-h-[300px]">
-            {post.content}
-          </div>
+          {/* 💡 [방식 A 핵심 변환] 일반 텍스트 출력에서 HTML 렌더링 구조로 변경 */}
+          {/* 기존 whitespace-pre-wrap 문맥 호환 및 이미지 스타일을 전역 제어하기 위해 prose 클리닝 클래스 유지 */}
+          <div 
+            className="prose max-w-none text-slate-700 leading-relaxed whitespace-pre-wrap min-h-[300px] break-words"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
 
           {/* 📌 파일 다운로드 섹션: 보안 로직이 포함된 클라이언트 컴포넌트 호출 */}
           {post.has_file && post.file_path && (
@@ -56,12 +59,13 @@ export default async function PostDetailPage(props: { params: Promise<{ id: stri
           )}
         </article>
 
-        <div className="mt-16 pt-8 border-t border-gray-100 flex justify-center">
+        <div className="mt-16 pt-8 border-t border-gray-100 flex justify-start">
           <Link
             href={backPath}
-            className="bg-[#0047AB] text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors shadow-lg"
+            className="flex items-center gap-2 text-slate-600 hover:text-[#0047AB] font-bold transition-colors group text-sm"
           >
-            목록보기
+            <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+            목록으로 돌아가기
           </Link>
         </div>
       </main>

@@ -1,3 +1,4 @@
+//app/admin/list/page.tsx
 "use client"; 
 
 import { useState, useEffect } from "react";
@@ -91,7 +92,7 @@ export default function AdminListPage() {
     setIsAuthorized(false);
     window.location.href = "/"; 
   };
-        {/* <div className="flex flex-col items-center justify-center에서 justify-center 삭제 py-20 추가 */}
+
   if (!isAuthorized) {
     return (
       <div className="flex flex-col items-center py-20 min-h-screen bg-gray-50">
@@ -130,15 +131,15 @@ export default function AdminListPage() {
         </Link>
       </div>
 
+      {/* 💡 table-fixed 주석의 위치를 컴포넌트 안전 자식 밖 영역(여 기)으로 무해하게 이동 처리 완료 */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex-grow">
-        <table className="w-full text-left border-collapse">
+        <table className="w-full text-left border-collapse table-fixed">
           <thead>
             <tr className="bg-slate-50 border-b border-gray-100">
-              {/* py-2 또는 py-3 정도로 수정하면 위아래 높이 조절, 기본 p-1은 0.25rem 단위, 글자 자체의 높이(leading-tight)를 조절할 수 있음 */}
-              <th className="px-5 py-3 text-xs font-bold text-gray-500 uppercase">구 분</th>
+              <th className="w-20 px-5 py-3 text-xs font-bold text-gray-500 uppercase">구 분</th>
               <th className="px-10 py-3 text-xs font-bold text-gray-500 uppercase">제 목</th>
-              <th className="px-7 py-3 text-xs font-bold text-gray-500 uppercase">작성일</th>
-              <th className="px-4 py-3 text-xs font-bold text-gray-500 uppercase text-center">관 리</th>
+              <th className="w-32 px-7 py-3 text-xs font-bold text-gray-500 uppercase">작성일</th>
+              <th className="w-28 px-4 py-3 text-xs font-bold text-gray-500 uppercase text-center">관 리</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
@@ -164,8 +165,8 @@ export default function AdminListPage() {
                       {post.type === 'notice' ? '공지' : post.type === 'issue' ? '정보' : '자료'}
                     </span>
                   </td>
-                  <td className="p-0 font-semibold text-slate-800">
-                    <div className="line-clamp-2">{post.title}</div>
+                  <td className="p-4 font-semibold text-slate-800 leading-tight">
+                    <div className="line-clamp-2 break-all">{post.title}</div>
                   </td>
                   <td className="p-4 text-sm text-gray-400 whitespace-nowrap">
                     {new Date(post.created_at).toLocaleDateString()}
@@ -181,7 +182,6 @@ export default function AdminListPage() {
         </table>
       </div>
 
-      {/* 💡 [추가] 페이지네이션 UI 컨트롤 */}
       <div className="mt-8 flex justify-center">
         <div className="flex gap-2">
           {Array.from({ length: Math.ceil(totalCount / itemsPerPage) }, (_, i) => i + 1).map((pageNum) => (
