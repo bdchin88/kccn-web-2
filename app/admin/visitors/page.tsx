@@ -67,7 +67,7 @@ export default function VisitorLogPage() {
 
   const getRowBgColor = (dateString: string) => {
     const day = new Date(dateString).getDay();
-    const colors = ["bg-red-50", "bg-green-50", "bg-yellow-50", "bg-blue-50", "bg-green-50", "bg-indigo-50", "bg-blue-50"];
+    const colors = ["bg-red-50", "bg-green-50", "bg-yellow-50", "bg-blue-50", "bg-green-50", "bg-indigo-70", "bg-blue-50"];
     return colors[day] || "bg-white";
   };
 
