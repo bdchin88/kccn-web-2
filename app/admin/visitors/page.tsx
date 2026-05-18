@@ -67,7 +67,7 @@ export default function VisitorLogPage() {
 
   const getRowBgColor = (dateString: string) => {
     const day = new Date(dateString).getDay();
-    const colors = ["bg-red-50", "bg-green-50", "bg-yellow-50", "bg-green-50", "bg-blue-50", "bg-indigo-60", "bg-blue-50"];
+    const colors = ["bg-red-50", "bg-green-50", "bg-yellow-50", "bg-blue-50", "bg-green-50", "bg-indigo-60", "bg-blue-50"];
     return colors[day] || "bg-white";
   };
 
@@ -79,7 +79,7 @@ export default function VisitorLogPage() {
     <div className="p-8 max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-slate-800">
-          전일 방문자 상세 로그 <span className="text-sm font-normal text-slate-500">(최근 60명)</span>
+          전일 방문자 상세 로그 <span className="text-sm font-normal text-slate-500">(최근 70명)</span>
         </h1>
         {/* 요일 가이드 (모바일 가독성을 위해 sm 이상에서만 노출) */}
         <div className="hidden sm:flex gap-2">
