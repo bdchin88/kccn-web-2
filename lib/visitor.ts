@@ -32,10 +32,10 @@ export const logVisitorDetail = async (pagePath: string) => {
       region: Intl.DateTimeFormat().resolvedOptions().timeZone, // 시간대 기준 지역
       page_path: pagePath,
       created_at: new Date().toISOString()
-    }).eq("id", idx); // idx가 60까지 들어오게 됩니다.
+    }).eq("id", idx); // idx가 70까지 들어오게 됩니다.
 
     // 4. 다음 포인터 계산 (50 넘으면 1로 리셋)
-    const nextIdx = idx >= 60 ? 1 : idx + 1;
+    const nextIdx = idx >= 70 ? 1 : idx + 1;
 
     // 5. 포인터 업데이트
     await supabase.from("visitor_pointer").update({ current_idx: nextIdx }).eq("id", 1);

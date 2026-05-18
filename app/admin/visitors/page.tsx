@@ -63,9 +63,11 @@ export default function VisitorLogPage() {
   };
 
   // 요일별 배경색 (기존 로직 유지)
+  //  const colors = ["bg-red-50", "bg-orange-50", "bg-yellow-50", "bg-green-50", "bg-blue-50", "bg-indigo-60", "bg-slate-50"];
+
   const getRowBgColor = (dateString: string) => {
     const day = new Date(dateString).getDay();
-    const colors = ["bg-red-50", "bg-orange-50", "bg-yellow-50", "bg-green-50", "bg-blue-50", "bg-indigo-60", "bg-slate-50"];
+    const colors = ["bg-red-50", "bg-green-50", "bg-yellow-50", "bg-green-50", "bg-blue-50", "bg-indigo-60", "bg-blue-50"];
     return colors[day] || "bg-white";
   };
 
