@@ -20,6 +20,9 @@ export default function About() {
                 <span className="font-semibold text-foreground">인가:</span> 중소벤처기업부 제2010-3호 인가 법정 단체 등록
               </p>
               <p>
+                <span className="font-semibold text-foreground">인가:</span> 사업자등록번호 : 107-82-64484
+              </p>
+              <p>
                 <span className="font-semibold text-foreground">규모:</span> 전국 138개 관리지부, 207만 개 자영업 대표 회원
               </p>
             </div>
