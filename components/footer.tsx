@@ -95,7 +95,8 @@ export default function Footer() {
             <div>
               <h4 className="font-semibold text-xl mb-0">연락처</h4>
               <p className="text-sm opacity-90 whitespace-nowrap">
-                전화:
+                {/* 💡 "전화:" 텍스트만 span으로 감싸서 text-xs(기존 text-sm보다 한 단계 작음)로 축소 */}
+                <span className="text-xs opacity-80">전화:</span>
                 <a
                   href="tel:027063336"
                   className="ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
@@ -104,7 +105,7 @@ export default function Footer() {
                 </a>
 
                 <span className="ml-4">
-                  이메일:
+                <span className="text-xs opacity-80">이메일:</span>
                   <a
                     href="mailto:hans344712@gmail.com"
                     className="ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
