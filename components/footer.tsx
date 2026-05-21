@@ -78,9 +78,12 @@ export default function Footer() {
                 소상공인과&nbsp;함께하는&nbsp;신뢰할&nbsp;수&nbsp;있는&nbsp;파트너
               </p>
               {/* 💡 [수정 내용] 주소 클릭 시 네이버 지도로 연결되도록 링크(a) 추가 및 마우스 호버 효과 부여 */}
+              {/* 네이버 맵 href="https://map.naver.com/v5/search/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EB%A7%88%ED%8F%AC%EA%B5%AC%20%ED%86%A0%EC%A0%95%EB%A1%9C37%EA%B8%B841" */}
+              {/* 카카오 맵 href="https://map.kakao.com/?q=서울시%20마포구%20토정로37길41" */}
               <p className="text-sm opacity-90 whitespace-nowrap">
                 <a 
-                  href="https://map.naver.com/v5/search/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EB%A7%88%ED%8F%AC%EA%B5%AC%20%ED%86%A0%EC%A0%95%EB%A1%9C37%EA%B8%B841"
+                  href="https://map.kakao.com/?q=서울시%20마포구%20토정로37길41"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="border-white/50 hover:border-blue-300 hover:text-blue-300 transition-all duration-200 cursor-pointer"
                   title="네이버 지도로 보기"
@@ -88,7 +91,6 @@ export default function Footer() {
                   서울시&nbsp;마포구&nbsp;토정로37길41,&nbsp;526호
                 </a>
               </p>
-              {/* href="..." 주소 영역, 카카오 맵 검색 링크: https://map.kakao.com/?q=서울시%20마포구%20토정로37길41 */}
             </div>
             <div>
               <h4 className="font-semibold text-xl mb-0">연락처</h4>
