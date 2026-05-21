@@ -71,7 +71,8 @@ export default function Footer() {
             <div>
               <Link href="/">
                 <h3 className="font-bold text-xl mb-0 tracking-tighter whitespace-nowrap hover:text-blue-300 transition cursor-pointer">
-                  사단법인&nbsp;한국신용카드네트워크
+                  <span className="text-[18px]">사단법인</span>
+                  &nbsp;한국신용카드네트워크
                 </h3>
               </Link>
               <p className="text-sm opacity-90 whitespace-nowrap">
@@ -105,7 +106,7 @@ export default function Footer() {
                 </a>
 
                 <span className="ml-4">
-                <span className="text-xs opacity-80">이메일:</span>
+                  <span className="text-xs opacity-80">이메일:</span>
                   <a
                     href="mailto:hans344712@gmail.com"
                     className="ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
