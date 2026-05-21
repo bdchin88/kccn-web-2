@@ -252,7 +252,7 @@ export default function AdminWritePage() {
         {/* 💡 [복구 완료] 이슈와 정보 탭일 때 본문 상단에 '이미지 삽입' 바 노출 */}
         {type === "issue" && (
           <div className="p-4 bg-slate-50 border rounded-xl flex items-center justify-between animate-in fade-in duration-200">
-            <span className="text-sm font-semibold text-slate-600">글 중간에 들어갈 이미지를 첨부하세요 (첨부이미지는 영문파일명 권장) :</span>
+            <span className="text-xs font-semibold text-slate-600">글 중간에 들어갈 이미지를 첨부하세요 (첨부이미지는 영문파일명 권장) :</span>
             <div className="flex items-center gap-3">
               <input 
                 type="file" 
@@ -266,7 +266,19 @@ export default function AdminWritePage() {
                 htmlFor="inline-image-upload"
                 className="bg-white border border-slate-200 text-xs font-bold text-slate-700 px-4 py-2.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer shadow-sm active:scale-95 inline-block"
               >
-                {uploadingImage ? "업로드 중..." : "📷 이미지 본문 삽입"}
+                {uploadingImage ? (
+                  "삽입 중..."
+                ) : (
+                  // 💡 이미지 삽입 모드일 때 (키우려는 부분)
+                  <>
+                    {/* 📷 이모지를 span으로 감싸고 text-xl 클래스 적용, 미세 위치 조정 */}
+                    <span className="text-2xl transform group-hover:scale-110 transition-transform -mt-0.5">
+                      📷
+                    </span>
+                    {/* 이모지 옆 텍스트 */}
+                    <span className="leading-none">이미지 추가 삽입</span>
+                  </>
+                )}
               </label>
             </div>
           </div>

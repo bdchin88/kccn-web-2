@@ -124,7 +124,7 @@ export default function VisitorCounter() {
 
   return (
     <>
-      <div className="flex flex-row items-center justify-start gap-2 md:gap-5 mt-1">
+      <div className="flex flex-row items-center justify-start gap-2 md:gap-5 mt-0">
         <div className="flex items-center gap-1.5">
           <span className="text-xs opacity-70 text-white font-sans">전체 방문자:</span>
           <span className="text-sm font-bold text-blue-400 font-sans">{totalHits.toLocaleString()}</span>

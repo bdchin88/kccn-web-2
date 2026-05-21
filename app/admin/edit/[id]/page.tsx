@@ -204,9 +204,22 @@ export default function AdminEditPage({ params }: { params: Promise<{ id: string
               />
               <label 
                 htmlFor="edit-inline-upload"
-                className="bg-white border border-slate-200 text-xs font-bold text-slate-700 px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer shadow-sm"
+                /* 💡 버튼 전체 가독성을 위해 text-xs -> text-sm으로 변경, 간격 및 정렬 보정 */
+                className="bg-white border border-slate-200 text-xs font-bold text-slate-700 px-5 py-2.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer shadow-sm flex items-center gap-2 group active:scale-95 transition-all"
               >
-                {uploadingImage ? "삽입 중..." : "📷 이미지 추가 삽입"}
+                {uploadingImage ? (
+                  "삽입 중..."
+                ) : (
+                  // 💡 이미지 삽입 모드일 때 (키우려는 부분)
+                  <>
+                    {/* 📷 이모지를 span으로 감싸고 text-xl 클래스 적용, 미세 위치 조정 */}
+                    <span className="text-2xl transform group-hover:scale-110 transition-transform -mt-0.5">
+                      📷
+                    </span>
+                    {/* 이모지 옆 텍스트 */}
+                    <span className="leading-none">이미지 추가 삽입</span>
+                  </>
+                )}
               </label>
             </div>
           </div>
