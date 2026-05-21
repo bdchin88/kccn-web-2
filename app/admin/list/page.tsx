@@ -136,10 +136,12 @@ export default function AdminListPage() {
         <table className="w-full text-left border-collapse table-fixed">
           <thead>
             <tr className="bg-slate-50 border-b border-gray-100">
-              <th className="w-20 px-5 py-3 text-xs font-bold text-gray-500 uppercase">구 분</th>
-              <th className="px-10 py-3 text-xs font-bold text-gray-500 uppercase">제 목</th>
-              <th className="w-32 px-7 py-3 text-xs font-bold text-gray-500 uppercase">작성일</th>
-              <th className="w-28 px-4 py-3 text-xs font-bold text-gray-500 uppercase text-center">관 리</th>
+              {/* 💡 모바일 화면 확보를 위해 구분(w-16), 작성일(w-24), 관리(w-20)로 대폭 좁히고 패딩 최적화 */}
+              <th className="w-16 px-3 py-3 text-xs font-bold text-gray-500 uppercase text-center">구 분</th>
+              {/* 💡 별도의 w 지정을 하지 않아 남는 모든 공간이 대폭 확장되어 제목에 몰입됩니다. */}
+              <th className="px-3 py-3 text-xs font-bold text-gray-500 uppercase">제 목</th>
+              <th className="w-24 px-2 py-3 text-xs font-bold text-gray-500 uppercase text-center">작성일</th>
+              <th className="w-20 px-2 py-3 text-xs font-bold text-gray-500 uppercase text-center">관 리</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
@@ -154,8 +156,8 @@ export default function AdminListPage() {
             ) : (
               posts.map((post) => (
                 <tr key={post.id} className="hover:bg-blue-50/30 transition-colors border-b border-gray-50">
-                  <td className="p-4">
-                    <span className={`text-[10px] font-bold px-2 py-1 rounded-md uppercase whitespace-nowrap inline-block shrink-0 ${
+                  <td className="p-3 text-center">
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md uppercase whitespace-nowrap inline-block shrink-0 ${
                       post.type === 'notice' 
                         ? 'bg-blue-100 text-blue-600' 
                         : post.type === 'issue'
@@ -165,15 +167,17 @@ export default function AdminListPage() {
                       {post.type === 'notice' ? '공지' : post.type === 'issue' ? '정보' : '자료'}
                     </span>
                   </td>
-                  <td className="p-4 font-semibold text-slate-800 leading-tight">
-                    <div className="line-clamp-2 break-all">{post.title}</div>
+                  {/* 💡 줄바꿈 패딩을 조절하고 line-clamp-2를 유지하여 제목 가사성을 최대로 상향 */}
+                  <td className="p-3 font-semibold text-slate-800 leading-tight">
+                    <div className="line-clamp-2 break-all text-sm md:text-base">{post.title}</div>
                   </td>
-                  <td className="p-4 text-sm text-gray-400 whitespace-nowrap">
+                  {/* 💡 연도 구분을 더 압축하여 깔끔하게 보이기 위해 간격과 텍스트 크기 미세 패치 */}
+                  <td className="p-3 text-xs text-gray-400 text-center whitespace-nowrap">
                     {new Date(post.created_at).toLocaleDateString()}
                   </td>
-                  <td className="p-4 text-center space-x-3 whitespace-nowrap">
-                    <Link href={`/admin/edit/${post.id}`} className="text-[#0047AB] hover:underline font-bold text-sm">수정</Link>
-                    <button onClick={() => handleDelete(post.id, post.file_path)} className="text-red-500 hover:text-red-700 font-bold text-sm">삭제</button>
+                  <td className="p-3 text-center space-x-2 whitespace-nowrap">
+                    <Link href={`/admin/edit/${post.id}`} className="text-[#0047AB] hover:underline font-bold text-xs md:text-sm">수정</Link>
+                    <button onClick={() => handleDelete(post.id, post.file_path)} className="text-red-500 hover:text-red-700 font-bold text-xs md:text-sm">삭제</button>
                   </td>
                 </tr>
               ))

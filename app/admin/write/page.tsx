@@ -276,7 +276,7 @@ export default function AdminWritePage() {
                       📷
                     </span>
                     {/* 이모지 옆 텍스트 */}
-                    <span className="leading-none">이미지 추가 삽입</span>
+                    <span className="leading-none">&nbsp;이미지 추가 삽입</span>
                   </>
                 )}
               </label>
