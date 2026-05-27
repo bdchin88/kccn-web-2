@@ -87,7 +87,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border-white/50 hover:border-blue-300 hover:text-blue-300 transition-all duration-200 cursor-pointer"
-                  title="카카오맵 지도로 보기"
+                  title="kakaomap 지도로 보기"
                 >
                   서울시&nbsp;마포구&nbsp;토정로37길41,&nbsp;526호
                 </a>
