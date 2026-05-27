@@ -90,10 +90,10 @@ export default function Header() {
             {/* 모바일 버튼 */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-white p-2 focus:outline-none"
+              className="md:hidden text-white p-2 focus:outline-none animate-pulse"
               aria-label="메뉴"
             >
-              {isOpen ? <X size={26} /> : <Menu size={26} />}
+              {isOpen ? <X size={36} /> : <Menu size={36} />}
             </button>
           </div>
 

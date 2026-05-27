@@ -103,11 +103,10 @@ export default function Hero() {
                        */
                     className="absolute bottom-12 left-12 right-10 z-20 bg-white/95 backdrop-blur-md rounded-2xl p-1 border border-blue-200/60 shadow-[0_25px_60px_rgba(0,0,0,0.6)] ring-1 ring-black/10 animate-in fade-in-0"
                   >
-                    <div className="flex justify-between items-center mb-1">
-                      <h3 className="font-bold text-[16px] text-[#0047AB] flex items-center gap-1.5 animate-bounce mt-2">
-                        <span className="animate-pulse text-2xl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📢</span> &nbsp;공지사항&nbsp;
-                        {/* 💡 inline-block과 scale-x-[-1]을 추가하여 기존 애니메이션을 유지한 채 반전 */}
-                        <span className="inline-block scale-x-[-1] animate-pulse text-2xl">📢</span>
+                    <div className="flex justify-between items-center mb-4">
+                      <h3 className="font-bold text-sm text-[#0047AB] flex items-center gap-1.5">
+                        <span className="animate-pulse text-2xl">&nbsp;&nbsp;&nbsp;📢</span> &nbsp;&nbsp;&nbsp;공 지 사 항
+                        <span className="animate-pulse text-2xl">&nbsp;📢</span>
                       </h3>
                       <button 
                         onClick={() => setShowPopup(false)}
