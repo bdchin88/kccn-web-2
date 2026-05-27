@@ -100,7 +100,9 @@ export default function AboutCI() {
 
               {/* 컬러 리스트 섹션 */}
               <motion.div variants={fadeInUp}>
-                <h3 className="text-xl font-bold text-foreground mb-4">3개의 날개는</h3>
+                <h3 className="text-xl font-bold text-foreground mb-4">&nbsp;&nbsp;
+                  <span className="text-3xl font-bold text-foreground mb-4">3</span>개의 날개는
+                </h3>
                 <ul className="space-y-2">
                   <li className="flex gap-3">
                     <span className="inline-block w-4 h-4 rounded bg-blue-900 flex-shrink-0 mt-1"></span>

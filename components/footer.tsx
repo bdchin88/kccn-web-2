@@ -101,8 +101,10 @@ export default function Footer() {
                 <a
                   href="tel:027063336"
                   className="ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
+                  className="border-white/50 hover:border-blue-300 hover:text-blue-300 transition-all duration-200 cursor-pointer"
+                  title="전화 걸기"
                 >
-                  02-706-3336
+                  &nbsp;02-706-3336
                 </a>
 
                 <span className="ml-4">

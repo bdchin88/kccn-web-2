@@ -105,7 +105,7 @@ export default function Hero() {
                   >
                     <div className="flex justify-between items-center mb-1">
                       <h3 className="font-bold text-[16px] text-[#0047AB] flex items-center gap-1.5 animate-bounce mt-2">
-                        <span className="animate-pulse text-2xl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📢</span> &nbsp;공지사항&nbsp;
+                        <span className="animate-pulse text-2xl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📢</span> &nbsp;공지 사항&nbsp;
                         {/* 💡 inline-block과 scale-x-[-1]을 추가하여 기존 애니메이션을 유지한 채 반전 */}
                         <span className="inline-block scale-x-[-1] animate-pulse text-2xl">📢</span>
                       </h3>
@@ -141,7 +141,7 @@ export default function Hero() {
                     {/* 전체보기 바로가기 버튼화 */}
                     <Link 
                       href="/notice" 
-                      className="mt-4 flex items-center justify-center w-full py-2 bg-slate-50 hover:bg-blue-50 rounded-lg text-[11px] font-bold text-[#0047AB] transition-colors shadow-inner"
+                      className="mt-4 flex items-center justify-center w-full py-2 bg-slate-50 hover:bg-blue-200 rounded-lg text-[11px] font-bold text-[#0047AB] transition-colors shadow-inner"
                     >
                       전체 공지 확인하기 →
                     </Link>
