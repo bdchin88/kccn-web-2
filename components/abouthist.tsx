@@ -7,10 +7,10 @@ const AboutHist = () => {
       <div className="container mx-auto px-4">
         {/* 우리의 발자취 (연혁) 섹션 */}
         <div className="mb-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center" id="history">
+          <h2 className="text-3xl md:text-4xl whitespace-nowrap font-bold text-foreground mb-12 text-center" id="history">
             우리의 발자취
           </h2>
-          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto px-4">
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto px-4 md:whitespace-nowrap">
             2010년 설립 이후 소상공인의 권익 보호와 경제적 지위 향상을 위해 끊임없이 노력해왔습니다.
           </p>
 
