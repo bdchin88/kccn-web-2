@@ -26,7 +26,7 @@ const AboutHist = () => {
               {/* 2010 - Left */}
               <div className="flex items-center w-full min-h-[100px] "> {/* 높이는 고정값(h-[100px])보다는 내용에 따라 늘어날 수 있도록 **min-h (최소 높이)**를 사용,중앙선과 박스 사이의 간격은 pr-[12px] */}            
                 <div className="w-1/2 pr-[6px] md:pr-10 flex justify-end">
-                  <div className="bg-primary/5 border border-primary/20 rounded-xl p-3 md:p-4 w-full max-w-[180px] md:max-w-sm shadow-sm">{/* max-w-[180px]모바일 180~200px 사이가 적당, md:max-w-xs (PC, 320px): PC  */}
+                  <div className="bg-primary/5 border border-primary/20 bg-gray-200/50 hover:bg-gray-200 transition-colors rounded-xl p-3 md:p-4 w-full max-w-[180px] md:max-w-sm shadow-sm">{/* max-w-[180px]모바일 180~200px 사이가 적당, md:max-w-xs (PC, 320px): PC  */}
                     <h3 className="text-base md:text-2xl font-bold text-primary mb-1 text-right">2010년</h3>
                     <ul className="text-[13px] md:text-sm text-muted-foreground space-y-0.5 text-right leading-tight tracking-tighter">
                       <li>• 법인설립 및 중소벤처기업부 인가</li>
@@ -41,7 +41,7 @@ const AboutHist = () => {
               <div className="flex items-center w-full min-h-[100px] mt-[-20px]">
                 <div className="w-1/2"></div>
                 <div className="w-1/2 pl-[6px] md:pl-10 flex justify-start">
-                  <div className="bg-primary/5 border border-primary/20 rounded-xl p-3 md:p-4 w-full max-w-[180px] md:max-w-sm shadow-sm">
+                  <div className="bg-primary/5 border border-primary/20 bg-gray-200/50 hover:bg-gray-200 transition-colors rounded-xl p-3 md:p-4 w-full max-w-[180px] md:max-w-sm shadow-sm">
                     <h3 className="text-base md:text-2xl font-bold text-primary mb-1">2013년</h3>
                     <ul className="text-[13px] md:text-sm text-muted-foreground space-y-0.5 text-left leading-tight tracking-tighter">
                       <li>• 여신금융협회 공용서비스센터 계약 체결</li>
@@ -54,7 +54,7 @@ const AboutHist = () => {
               {/* 2014 - Left */}
               <div className="flex items-center w-full min-h-[100px] mt-[-20px]">
                 <div className="w-1/2 pr-[6px] md:pr-10 flex justify-end">
-                  <div className="bg-primary/5 border border-primary/20 rounded-xl p-3 md:p-4 w-full max-w-[180px] md:max-w-sm shadow-sm">
+                  <div className="bg-primary/5 border border-primary/20 bg-gray-200/50 hover:bg-gray-200 transition-colors rounded-xl p-3 md:p-4 w-full max-w-[180px] md:max-w-sm shadow-sm">
                     <h3 className="text-base md:text-2xl font-bold text-primary mb-1 text-right">2014년</h3>
                     <ul className="text-[13px] md:text-sm text-muted-foreground space-y-0.5 text-right leading-tight tracking-tighter">
                       <li>• 고용노동부 매출전표수거 시간선택제 공공근로사업 MOU 체결</li>
@@ -70,7 +70,7 @@ const AboutHist = () => {
               <div className="flex items-center w-full min-h-[100px] mt-[-20px]">
                 <div className="w-1/2"></div>
                 <div className="w-1/2 pl-[6px] md:pl-10 flex justify-start">
-                  <div className="bg-primary/5 border border-primary/20 rounded-xl p-3 md:p-4 w-full max-w-[180px] md:max-w-sm shadow-sm">
+                  <div className="bg-primary/5 border border-primary/20 bg-gray-200/50 hover:bg-gray-200 transition-colors rounded-xl p-3 md:p-4 w-full max-w-[180px] md:max-w-sm shadow-sm">
                     <h3 className="text-base md:text-2xl font-bold text-primary mb-1">2015년</h3>
                     <ul className="text-[13px] md:text-sm text-muted-foreground space-y-0.5 text-left leading-tight tracking-tighter">
                       <li>• 코레일네트웍스 - 소상공인전용 VAN구축 제휴계약서 체결</li>
@@ -84,7 +84,7 @@ const AboutHist = () => {
               {/* 2016 - Left */}
               <div className="flex items-center w-full min-h-[100px] mt-[-20px]">
                 <div className="w-1/2 pr-[6px] md:pr-10 flex justify-end">
-                  <div className="bg-primary/5 border border-primary/20 rounded-xl p-3 md:p-4 w-full max-w-[180px] md:max-w-sm shadow-sm">
+                  <div className="bg-primary/5 border border-primary/20 bg-gray-200/50 hover:bg-gray-200 transition-colors rounded-xl p-3 md:p-4 w-full max-w-[180px] md:max-w-sm shadow-sm">
                     <h3 className="text-base md:text-2xl font-bold text-primary mb-1 text-right">2016년</h3>
                     <ul className="text-[13px] md:text-sm text-muted-foreground space-y-0.5 text-right leading-tight tracking-tighter">
                       <li>• 금융감독원 VAN인가 취득</li>
