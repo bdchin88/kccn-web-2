@@ -9,6 +9,7 @@ import { supabase } from "@/lib/supabase"; // ◀ 데이터 연동을 위해 추
 export default function Hero() {
   const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState<any[]>([]); // ◀ 공지사항 데이터 상태
+  const [heroImage, setHeroImage] = useState("/images/hero/hero.jpg"); // ◀ 날짜별 이미지 상태 추가
 
   // [기존 placard.tsx의 로직을 useEffect로 통합]
   useEffect(() => {
@@ -28,6 +29,24 @@ export default function Hero() {
       }
     };
     fetchNotices();
+
+    // 2. 날짜별 hero 이미지 판단 로직 (원본 상태로 복구 완료)
+    const today = new Date();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const date = String(today.getDate()).padStart(2, "0");
+    const mdString = `${month}${date}`; // 예: "0301", "1225"
+
+    // 지정된 9개의 특정 날짜 정의
+    const specialDates = ["0101", "0301", "0505", "0606", "0815", "1001", "1009", "1223", "1224", "1225", "1231"];
+
+    // 💡 브라우저 캐시 문제를 해결하기 위해 타임스탬프(?t=시간)를 주소 뒤에 붙여 강제 새로고침 유도
+    const timestamp = new Date().getTime(); 
+
+    if (specialDates.includes(mdString)) {
+      setHeroImage(`/images/hero/h-${mdString}.jpg?t=${timestamp}`);
+    } else {
+      setHeroImage(`/images/hero/hero.jpg?t=${timestamp}`);
+    }
   }, []);
 
   const fadeInUp = {
@@ -79,9 +98,10 @@ export default function Hero() {
             {/* 📌 중요: 팝업 그림자가 잘리지 않도록 overflow-hidden을 제거함 */}
             <div className="relative w-full max-w-md bg-background rounded-2xl shadow-2xl border border-slate-100">
               <img
-                src="/images/hero.png"
+                src={heroImage} /* ◀ 동적으로 변경되는 이미지 상태 적용 */
                 alt="Hero"
                 className="relative z-10 w-full h-auto block rounded-2xl"
+                key={heroImage} /* 💡 리액트가 이미지 변경을 확실히 감지하도록 key 유지 */
               />
 
               {/* ▽ 기존 하단 placard를 이미지 위 팝업으로 변경 ▽ */}
