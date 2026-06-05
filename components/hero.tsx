@@ -36,6 +36,7 @@ export default function Hero() {
     const month = String(today.getMonth() + 1).padStart(2, "0");
     const date = String(today.getDate()).padStart(2, "0");
     const mdString = `${month}${date}`; // 예: "0301", "0609"
+    //const mdString = "0301"; // 예: "0301", "0609" 테스트
 
     // 지정된 10개의 특정 날짜 정의 (6월 9일 육우데이 추가됨)
     const specialDates = ["0101", "0214", "0301", "0303", "0309", "0314", "0505", "0606", "0609", "0815", "0909", "1001", "1009", "1105", "1111", "1223", "1224", "1225", "1231"];
@@ -64,9 +65,9 @@ export default function Hero() {
           // 51~67, 80~82: 비(Rain/Drizzle/Shower)
           // 71~77, 85~86: 눈(Snow)
           // 💡 [테스트 안내] 비 모드를 테스트하려면 바로 아래 줄을 주석 해제하고 const code = 61; 로 테스트하세요!
-          //const code = weatherData.current_weather.weathercode;
+          const code = weatherData.current_weather.weathercode;
           //const code = 71; // ◀ 테스트를 위해 눈(Snow) 코드로 강제 고정!
-          const code = 61; // ◀ 테스트를 위해 비(Rain) 코드로 강제 고정!
+          //const code = 61; // ◀ 테스트를 위해 비(Rain) 코드로 강제 고정!
           
           if ([71, 73, 75, 77, 85, 86].includes(code)) {
             setHeroImage(`/images/hero/h-s.jpg?t=${cacheBuster}`); // 눈 오는 날
