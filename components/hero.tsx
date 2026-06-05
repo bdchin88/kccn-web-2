@@ -61,8 +61,8 @@ export default function Hero() {
           // WMO Weather interpretation codes (weathercode) 분석
           // 51~67, 80~82: 비(Rain/Drizzle/Shower)
           // 71~77, 85~86: 눈(Snow)
-          const code = weatherData.current_weather.weathercode;
-          //const code = 61; // ◀ 테스트를 위해 비(Rain) 코드로 강제 고정!
+          //const code = weatherData.current_weather.weathercode;
+          const code = 61; // ◀ 테스트를 위해 비(Rain) 코드로 강제 고정!
           //const code = 71; // ◀ 테스트를 위해 눈(Snow) 코드로 강제 고정!
           
           if ([71, 73, 75, 77, 85, 86].includes(code)) {
