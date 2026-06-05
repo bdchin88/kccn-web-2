@@ -30,22 +30,22 @@ export default function Hero() {
     };
     fetchNotices();
 
-    // 2. 날짜별 hero 이미지 판단 로직 (원본 상태로 복구 완료)
+    // 2. 날짜별 hero 이미지 판단 로직 (6월 9일 육우데이 추가)
     const today = new Date();
     const month = String(today.getMonth() + 1).padStart(2, "0");
     const date = String(today.getDate()).padStart(2, "0");
-    const mdString = `${month}${date}`; // 예: "0301", "1225"
+    const mdString = `${month}${date}`; // 예: "0301", "0609"
 
-    // 지정된 9개의 특정 날짜 정의
-    const specialDates = ["0101", "0301", "0505", "0606", "0815", "1001", "1009", "1223", "1224", "1225", "1231"];
+    // 지정된 10개의 특정 날짜 정의 (6월 9일 육우데이 추가됨)
+    const specialDates = ["0101", "0214", "0301", "0303", "0314", "0505", "0606", "0609", "0815", "0909", "1001", "1009", "1105", "1111", "1223", "1224", "1225", "1231"];
 
-    // 💡 브라우저 캐시 문제를 해결하기 위해 타임스탬프(?t=시간)를 주소 뒤에 붙여 강제 새로고침 유도
-    const timestamp = new Date().getTime(); 
+    // 💡 브라우저 및 localhost 개발 환경의 강한 캐싱 때문에 이미지가 돌아오지 않는 현상 방지 
+    const cacheBuster = new Date().getTime();
 
     if (specialDates.includes(mdString)) {
-      setHeroImage(`/images/hero/h-${mdString}.jpg?t=${timestamp}`);
+      setHeroImage(`/images/hero/h-${mdString}.jpg?t=${cacheBuster}`);
     } else {
-      setHeroImage(`/images/hero/hero.jpg?t=${timestamp}`);
+      setHeroImage(`/images/hero/hero.jpg?t=${cacheBuster}`);
     }
   }, []);
 
@@ -71,7 +71,7 @@ export default function Hero() {
             <motion.h1
               {...fadeInUp}
               className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 leading-tight">
-              소상공인 카드가맹점<br />사업자의 든든한 친구!
+              소상공인 카맹점<br />사업자의 든든한 친구!
             </motion.h1>
 
             <motion.p
@@ -101,7 +101,7 @@ export default function Hero() {
                 src={heroImage} /* ◀ 동적으로 변경되는 이미지 상태 적용 */
                 alt="Hero"
                 className="relative z-10 w-full h-auto block rounded-2xl"
-                key={heroImage} /* 💡 리액트가 이미지 변경을 확실히 감지하도록 key 유지 */
+                key={heroImage} /* 💡 이미지 경로 변경 시 브라우저가 즉시 주소를 갱신하도록 key 지정 */
               />
 
               {/* ▽ 기존 하단 placard를 이미지 위 팝업으로 변경 ▽ */}

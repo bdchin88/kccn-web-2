@@ -81,7 +81,7 @@ export default function Footer() {
               {/* 💡 [수정 내용] 주소 클릭 시 네이버 지도로 연결되도록 링크(a) 추가 및 마우스 호버 효과 부여 */}
               {/* 네이버 맵 href="https://map.naver.com/v5/search/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EB%A7%88%ED%8F%AC%EA%B5%AC%20%ED%86%A0%EC%A0%95%EB%A1%9C37%EA%B8%B841" */}
               {/* 카카오 맵 href="https://map.kakao.com/?q=서울시%20마포구%20토정로37길41" */}
-              <p className="text-xs opacity-90 whitespace-nowrap">
+              <p className="text-sm opacity-90 whitespace-nowrap">
                 <a 
                   href="https://map.kakao.com/?q=서울시%20마포구%20토정로37길41"
                   target="_blank"
@@ -89,13 +89,13 @@ export default function Footer() {
                   className="border-white/50 hover:border-blue-300 hover:text-blue-300 transition-all duration-200 cursor-pointer"
                   title="kakaomap 지도로 보기"
                 >
-                  서울시&nbsp;마포구&nbsp;토정로37길41,&nbsp;526호
+                  서울시&nbsp;마포구&nbsp;토정로37길41,&nbsp;526호&nbsp;(kakao<span className="text-[15px] font-bold">map</span>)
                 </a>
               </p>
             </div>
             <div>
               <h4 className="font-semibold text-xl mb-0">연락처</h4>
-              <p className="text-sm opacity-90 whitespace-nowrap">
+              <p className="text-xs opacity-90 whitespace-nowrap">
                 {/* 💡 "전화:" 텍스트만 span으로 감싸서 text-xs(기존 text-sm보다 한 단계 작음)로 축소 */}
                 <span className="text-xs opacity-80">전화:</span>
                 <a
