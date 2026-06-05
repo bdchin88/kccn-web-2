@@ -9,7 +9,8 @@ import { supabase } from "@/lib/supabase"; // ◀ 데이터 연동을 위해 추
 export default function Hero() {
   const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState<any[]>([]); // ◀ 공지사항 데이터 상태
-  const [heroImage, setHeroImage] = useState("/images/hero/hero.jpg"); // ◀ 날짜별 이미지 상태 추가
+  const [heroImage, setHeroImage] = useState(""); // ◀ [개선] 초기값을 빈 문자열로 설정하여 기본 이미지 깜빡임 원천 차단
+  const [isImageReady, setIsImageReady] = useState(false); // ◀ [개선] 날짜/날씨 판별이 완료되었는지 확인하는 상태 추가
 
   // [기존 placard.tsx의 로직을 useEffect로 통합]
   useEffect(() => {
@@ -45,8 +46,9 @@ export default function Hero() {
     // 19개 특정 날짜에 해당할 경우 날짜 우선 적용
     if (specialDates.includes(mdString)) {
       setHeroImage(`/images/hero/h-${mdString}.jpg?t=${cacheBuster}`);
+      setIsImageReady(true); // ◀ 판별 완료
     } else {
-      // 💡 [수정] 기기별 GPS 승인 인증창을 띄우지 않도록 국가지정 대표 좌표(서울 중심선)로 날씨를 바로 요청합니다.
+      // 💡 기기별 GPS 승인 인증창을 띄우지 않도록 국가지정 대표 좌표(서울 중심선)로 날씨를 바로 요청합니다.
       const fetchWeatherWithoutAuth = async () => {
         try {
           // 대한민국 중심 표준 좌표 (서울 타워 기준: 위도 37.5511, 경도 126.9882)
@@ -61,9 +63,10 @@ export default function Hero() {
           // WMO Weather interpretation codes (weathercode) 분석
           // 51~67, 80~82: 비(Rain/Drizzle/Shower)
           // 71~77, 85~86: 눈(Snow)
+          // 💡 [테스트 안내] 비 모드를 테스트하려면 바로 아래 줄을 주석 해제하고 const code = 61; 로 테스트하세요!
           //const code = weatherData.current_weather.weathercode;
-          const code = 61; // ◀ 테스트를 위해 비(Rain) 코드로 강제 고정!
           //const code = 71; // ◀ 테스트를 위해 눈(Snow) 코드로 강제 고정!
+          const code = 61; // ◀ 테스트를 위해 비(Rain) 코드로 강제 고정!
           
           if ([71, 73, 75, 77, 85, 86].includes(code)) {
             setHeroImage(`/images/hero/h-s.jpg?t=${cacheBuster}`); // 눈 오는 날
@@ -74,6 +77,8 @@ export default function Hero() {
           }
         } catch (err) {
           setHeroImage(`/images/hero/hero.jpg?t=${cacheBuster}`); // API 오류 발생 시 예외 처리
+        } finally {
+          setIsImageReady(true); // ◀ 성공하든 실패하든 최종 이미지 세팅이 끝나면 렌더링 허용
         }
       };
 
@@ -128,11 +133,15 @@ export default function Hero() {
             className="md:w-1/2 flex justify-center relative"
           >
             {/* 📌 중요: 팝업 그림자가 잘리지 않도록 overflow-hidden을 제거함 */}
-            <div className="relative w-full max-w-md bg-background rounded-2xl shadow-2xl border border-slate-100">
-              <img
-                src={heroImage} /* ◀ 동적으로 변경되는 이미지 상태 적용 */
+            <div className="relative w-full max-w-md bg-background rounded-2xl shadow-2xl border border-slate-100 min-h-[300px] flex items-center justify-center overflow-hidden">
+              
+              {/* 💡 [개선] 이미지가 준비되기 전에는 레이아웃을 유지하는 스켈레톤/로딩 공백을 보여주고, 
+                  준비가 완료되면 framer-motion을 통해 투명도(opacity)가 부드럽게 켜지도록 하여 깜빡임을 완벽히 해결했습니다. */}
+              <motion.img
+                src={isImageReady ? heroImage : "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"} // 준비 전엔 1px 투명 이미지
                 alt="Hero"
-                className="relative z-10 w-full h-auto block rounded-2xl"
+                className="relative z-10 w-full h-auto block rounded-2xl transition-opacity duration-500"
+                style={{ opacity: isImageReady ? 1 : 0 }} // 준비되면 서서히 나타남
                 key={heroImage} /* 💡 이미지 경로 변경 시 브라우저가 즉시 주소를 갱신하도록 key 지정 */
               />
 
