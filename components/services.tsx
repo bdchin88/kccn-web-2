@@ -68,7 +68,7 @@ export default function Services() {
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
             주요 사업 영역
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg font-normal text-muted-foreground">
             소상공인을 위한 핵심 서비스
           </p>
         </motion.div>
