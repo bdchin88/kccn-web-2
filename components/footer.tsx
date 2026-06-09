@@ -86,7 +86,7 @@ export default function Footer() {
                   href="https://map.kakao.com/?q=서울시%20마포구%20토정로37길41"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border-white/50 hover:border-blue-300 hover:text-blue-300 transition-all duration-200 cursor-pointer"
+                  className="animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite] border-white/50 hover:border-blue-300 hover:text-blue-300 transition-all duration-200 cursor-pointer"
                   title="kakaomap 지도로 보기"
                 >
                   서울시&nbsp;마포구&nbsp;토정로37길41,&nbsp;526호&nbsp;(kakao<span className="text-[15px] font-bold">map</span>)
@@ -101,7 +101,7 @@ export default function Footer() {
                 <a
                   href="tel:027063336"
                   className="ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
-                  className="border-white/50 hover:border-blue-300 hover:text-blue-300 transition-all duration-200 cursor-pointer"
+                  className="text-sm animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite] border-white/50 hover:border-blue-300 hover:text-blue-300 transition-all duration-200 cursor-pointer"
                   title="전화 걸기"
                 >
                   &nbsp;02-706-3336
@@ -111,7 +111,7 @@ export default function Footer() {
                   <span className="text-xs opacity-80">이메일:</span>
                   <a
                     href="mailto:hans344712@gmail.com"
-                    className="ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
+                    className="text-sm animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite] ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
                   >
                     hans344712@gmail.com
                   </a>
