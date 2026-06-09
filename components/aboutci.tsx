@@ -94,7 +94,7 @@ export default function AboutCI() {
                   </h3>
                 </div>
                 <p className="text-base font-normal text-muted-foreground leading-relaxed">
-                  위를 향해 솟구치는 날개의 곡선은 변화와 혁신을 통한 진취적인 기상을 나타냅니다.
+                  위를 향해 솟구치는 날개의 곡선은 변화와 혁신을 통한 진취적인 기상을 나타내며, 중소상공인의 권익과 성공을 증명하는 강력한 '날개'가 될것입니다.
                 </p>
               </motion.div>
 
