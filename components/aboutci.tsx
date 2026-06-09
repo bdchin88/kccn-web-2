@@ -133,19 +133,23 @@ export default function AboutCI() {
 
         <div className="bg-primary/5 p-8 rounded-xl border border-primary/20 bg-gray-200/50 hover:bg-gray-200 transition-colors">
           <ul className="space-y-4">
-            <li className="flex gap-3">
+            <li className="flex gap-2">
               <span className="text-primary font-bold">•</span>
-              <span className="text-muted-foreground">사단법인 한국신용카드네트워크(KCCN)는 대한민국 소상공인과 신용카드 가맹점 사업자의 권익을 보호하고 공정한 카드 결제 환경을 조성하기 위해 설립된 비영리 경제 법정단체입니다. 본 단체는 전국 소상공인과 자영업자의 경제적 지위 향상을 목표로 다양한 정책 제안과 제도 개선 활동을 수행하며, 카드 결제 산업의 건전한 발전과 공정한 시장 질서를 구축하는 데 기여하고 있습니다.</span>
+              <span className="font-semibold whitespace-nowrap text-green-500">Eco-Green</span>
+              <span className="text-muted-foreground">&nbsp;[ 상생의 토양 ] 모든 가치가 싹트는 대한민국 중소상공인의 건강한 삶의 터전이자 기본 권익을 의미합니다.</span>
             </li>
-            <li className="flex gap-3">
+            <li className="flex gap-2">
               <span className="text-primary font-bold">•</span>
-              <span className="text-muted-foreground">한국신용카드네트워크는 정부, 국회, 금융기관, 카드사, 결제 관련 산업과의 협력 네트워크를 기반으로 소상공인 카드 가맹점의 현실적인 문제를 정책에 반영하고, 지속 가능한 결제 생태계 구축을 위한 다양한 연구와 사업을 추진하고 있습니다. 또한 신용카드 결제와 관련된 기술 및 서비스 개선을 통해 소상공인의 경영 환경을 개선하고 경쟁력을 높이는 데 앞장서고 있습니다.</span>
+              <span className="font-semibold whitespace-nowrap text-blue-500">Digital-Blue</span>
+              <span className="text-muted-foreground">&nbsp;[ 혁신의 줄기 ] 그 토양 위에서 소상공인들이 대기업이나 거대 플랫폼에 뒤처지지 않도록 단체가 제공하는 진보한 기술력과 정보화 인프라를 뜻합니다.</span>
+            </li>
+            <li className="flex gap-2">
+              <span className="text-primary font-bold">•</span>
+              <span className="font-semibold whitespace-nowrap text-blue-900">Future-Cobalt</span>
+              <span className="text-muted-foreground">[ 신뢰의 열매 ] 기술과 상생이 만나 최종적으로 도달하는 견고한 신뢰와 풍요로운 미래 경제를 완성함을 나타냅니다.</span>
             </li>
           </ul>
         </div>
-
-
-
       </motion.div>
     </section>
   );
