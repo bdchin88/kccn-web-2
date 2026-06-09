@@ -42,7 +42,7 @@ export default function AboutCI() {
           {/* 제목 애니메이션 */}
           <motion.h2
             variants={fadeInUp}
-            className="text-3xl md:text-4xl font-bold text-foreground mb-10 text-center">
+            className="text-3xl md:text-4xl font-bold text-foreground mb-5 text-center">
             CI 소개
               <p className="text-lg py-3 font-normal text-muted-foreground">소상공인의 든든한 날개, 대한민국 경제의 건강한 순환을 그립니다.</p>
           </motion.h2>
