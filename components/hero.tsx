@@ -102,14 +102,14 @@ export default function Hero() {
         <FullBackground />
       </div>
 
-      <div className="relative z-10 max-w-10xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">
 
           <div className="flex flex-col justify-center md:w-1/2">
             <motion.h1
               {...fadeInUp}
               className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 leading-tight md:leading-snug lg:leading-snug break-keep">
-              소상공인 카맹점<br />
+              소상공인 카드 가맹점<br />
               <span className="lg:whitespace-nowrap">사업자의 든든한 친구!</span>
             </motion.h1>
 
