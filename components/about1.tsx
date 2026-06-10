@@ -34,7 +34,7 @@ export default function About1() {
             <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/30 rounded-xl p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl">📋</span>
+                  <span className="text-3xl">📋</span>
                 </div>
                 <h3 className="text-2xl font-bold text-foreground">정부 인가 및 허가</h3>
               </div>
@@ -118,7 +118,7 @@ export default function About1() {
             <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/30 rounded-xl p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl">🏛️</span>
+                  <span className="text-3xl">🏛️</span>
                 </div>
                 <h3 className="text-2xl font-bold text-foreground">정부 공문 및 협약</h3>
               </div>
@@ -202,7 +202,7 @@ export default function About1() {
             <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/30 rounded-xl p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl">🔒</span>
+                  <span className="text-3xl">🔒</span>
                 </div>
                 <h3 className="text-2xl font-bold text-foreground">보안 인증</h3>
               </div>

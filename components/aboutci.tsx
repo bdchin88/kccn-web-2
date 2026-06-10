@@ -38,7 +38,7 @@ export default function AboutCI() {
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         variants={containerVariants}>
-        <div id="ci-intro" className="mb-20 scroll-mt-[96px]">
+        <div id="ci-intro" className="mb-10 scroll-mt-[96px]">
           {/* 제목 애니메이션 */}
           <motion.h2
             variants={fadeInUp}

@@ -7,17 +7,17 @@ import Link from "next/link"
 const values = [
   {
     icon: Leaf,
-    title: "열린 공간 자연",
+    title: "열린 공간과 상생",
     description: "국내 700만 소상공인을 위한 열린 정책 대안 제시의 공간",
   },
   {
     icon: Cpu,
-    title: "진보한 기술",
+    title: "진보한 기술과 정보화",
     description: "소상공인 관련 정책 실현을 위한 기술 제공 및 구현",
   },
   {
     icon: Sparkles,
-    title: "풍요로운 미래",
+    title: "풍요로운 미래와 신뢰",
     description: "윤리경영의 실천, 소상공인 성장 추구 및 합리적 가치 창조",
   },
 ];
@@ -58,7 +58,7 @@ export default function CoreValues() {
         variants={containerVariants}
       >
         {/* 타이틀 애니메이션 */}
-        <motion.div variants={itemVariants} className="text-center mb-16">
+        <motion.div variants={itemVariants} className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             3대 핵심 가치
           </h2>
@@ -75,8 +75,8 @@ export default function CoreValues() {
                 className="text-center"
               >
                 {/* 기존 원형 배경 및 아이콘 컬러 유지 */}
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Icon className="text-primary" size={32} />
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-1">
+                  <Icon className="text-primary" size={36} />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">
                   {value.title}
