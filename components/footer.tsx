@@ -70,18 +70,18 @@ export default function Footer() {
           <div className="grid md:grid-cols-2 gap-5 mb-3">
             <div>
               <Link href="/">
-                <h3 className="font-bold text-xl mb-0 tracking-tighter whitespace-nowrap hover:text-blue-300 transition cursor-pointer">
+                <h3 className="font-bold text-[21px] mb-0 tracking-tighter whitespace-nowrap hover:text-blue-300 transition cursor-pointer">
                   <span className="text-[18px]">사단법인</span>
                   &nbsp;한국신용카드네트워크
                 </h3>
               </Link>
               <p className="text-sm opacity-90 whitespace-nowrap">
-                소상공인과&nbsp;함께하는&nbsp;신뢰할&nbsp;수&nbsp;있는&nbsp;파트너
+                소상공인과&nbsp;함께하는&nbsp;&nbsp;신뢰할&nbsp;수&nbsp;있는&nbsp;파트너
               </p>
               {/* 💡 [수정 내용] 주소 클릭 시 네이버 지도로 연결되도록 링크(a) 추가 및 마우스 호버 효과 부여 */}
               {/* 네이버 맵 href="https://map.naver.com/v5/search/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EB%A7%88%ED%8F%AC%EA%B5%AC%20%ED%86%A0%EC%A0%95%EB%A1%9C37%EA%B8%B841" */}
               {/* 카카오 맵 href="https://map.kakao.com/?q=서울시%20마포구%20토정로37길41" */}
-              <p className="text-sm opacity-90 whitespace-nowrap">
+              <p className="text-[13px] opacity-90 whitespace-nowrap">
                 <a 
                   href="https://map.kakao.com/?q=서울시%20마포구%20토정로37길41"
                   target="_blank"
@@ -95,30 +95,30 @@ export default function Footer() {
             </div>
             <div>
               <h4 className="font-semibold text-xl mb-0">연락처</h4>
-              <p className="text-xs opacity-90 whitespace-nowrap">
+              <p className="text-xs opacity-90 whitespace-nowrap inline-flex items-center whitespace-nowrap">
                 {/* 💡 "전화:" 텍스트만 span으로 감싸서 text-xs(기존 text-sm보다 한 단계 작음)로 축소 */}
                 <span className="text-xs opacity-80">전화:</span>
                 <a
                   href="tel:027063336"
-                  className="ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
+                  className="ml-1 font-medium border-b border-transparent"
                   className="text-sm animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite] border-white/50 hover:border-blue-300 hover:text-blue-300 transition-all duration-200 cursor-pointer"
-                  title="전화 걸기"
-                >
+                  title="전화 걸기">
                   &nbsp;02-706-3336
                 </a>
+                <div className="ml-4 md:block w-[4px] h-3 bg-white/30"></div>
+                &nbsp;&nbsp;&nbsp;<VisitorCounter />
 
-                <span className="ml-4">
-                  <span className="text-xs opacity-80">이메일:</span>
-                  <a
-                    href="mailto:hans344712@gmail.com"
-                    className="text-sm animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite] ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
-                  >
-                    hans344712@gmail.com
-                  </a>
-                </span>
               </p>
-              <VisitorCounter />
-            </div>
+              <p className="">
+                <span className="text-xs opacity-80">이메일:</span>
+                <a
+                  href="mailto:hans344712@gmail.com"
+                  className="text-sm animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite] ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
+                >
+                  hans344712@gmail.com
+                </a>
+             </p>
+           </div>
           </div>
           <div className="border-t border-primary-foreground/20 pt-2.5 text-center text-sm opacity-90">
             <p>&copy; 2025 한국신용카드네트워크. All rights reserved.</p>
