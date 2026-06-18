@@ -98,12 +98,14 @@ export default function Hero() {
     <section
       id="home"
       className="relative min-h-[50px] py-20 md:py-32 bg-background overflow-hidden">
+      {/* className="relative w-full min-h-[500px] md:min-h-[600px] lg:min-h-[700px] xl:min-h-[850px] flex items-center justify-center overflow-hidden bg-[#001E4E] text-white py-12 md:py-0"> */}  
       {/* <div className="absolute inset-0 z-0 h-full w-full pointer-events-none"> */}
       {/* 💡 변경: 파티클을 hero 영역에 가두지 않고 브라우저 전체화면 고정(fixed)으로 변경 */}
       <div className="fixed inset-0 z-0 h-full w-full pointer-events-none">
         <FullBackground />
       </div>
-
+      
+      {/* 💡 변경: 메인 콘텐츠들이 파티클 배경보다 무조건 위로 올라오도록 relative z-10 부여 */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">
 
