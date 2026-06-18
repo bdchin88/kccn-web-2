@@ -125,10 +125,10 @@ export default function VisitorCounter() {
   return (
     <>
       <div className="flex flex-row items-center justify-start gap-2 md:gap-5 mt-0">
-        <div className="flex items-center gap-1.5">
+        {/*<div className="flex items-center gap-1.5">
           <span className="text-xs opacity-70 text-white font-sans">전체 방문자:</span>
           <span className="text-sm font-bold text-blue-400 font-sans">{totalHits.toLocaleString()}</span>
-        </div>
+        </div>*/}
         <div className="md:block w-[4px] h-3 bg-white/30"></div>
         {/* <div className="hidden md:block w-[1px] h-3 bg-white/20"></div> */}
         
@@ -137,7 +137,7 @@ export default function VisitorCounter() {
           className="flex items-center gap-1.5 cursor-pointer hover:opacity-80 transition-opacity"
           onClick={handleAdminAccess}
         >
-          <span className="text-xs opacity-70 text-white font-sans">전일 방문자:</span>
+          <span className="text-xs opacity-70 text-white font-sans">전일 방문 :</span>
           <span className="text-sm font-bold text-emerald-400 font-sans">{yesterdayHits.toLocaleString()}</span>
           <span className="text-[10px] opacity-40 ml-0.5 text-white font-sans"> </span> {/* >명</span> */}
         </div>

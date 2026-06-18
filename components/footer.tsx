@@ -65,7 +65,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <footer className="bg-primary text-primary-foreground pt-3 pb-3">
+      {/* relative z-50 속성을 추가하여 hero.tsx의 z-20 팝업보다 명시적으로 높게 레이어를 배치합니다 */}
+      <footer className="bg-primary text-primary-foreground pt-3 pb-3 relative z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-5 mb-3">
             <div>
@@ -81,7 +82,7 @@ export default function Footer() {
               {/* 💡 [수정 내용] 주소 클릭 시 네이버 지도로 연결되도록 링크(a) 추가 및 마우스 호버 효과 부여 */}
               {/* 네이버 맵 href="https://map.naver.com/v5/search/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EB%A7%88%ED%8F%AC%EA%B5%AC%20%ED%86%A0%EC%A0%95%EB%A1%9C37%EA%B8%B841" */}
               {/* 카카오 맵 href="https://map.kakao.com/?q=서울시%20마포구%20토정로37길41" */}
-              <p className="text-sm opacity-90 whitespace-nowrap">
+              <p className="text-sm opacity-100 whitespace-nowrap">
                 <a 
                   href="https://map.kakao.com/?q=서울시%20마포구%20토정로37길41"
                   target="_blank"
@@ -95,20 +96,9 @@ export default function Footer() {
             </div>
             <div>
               <h4 className="font-semibold text-xl mb-0">연락처</h4>
-              <p className="text-xs opacity-90 whitespace-nowrap">
-                {/* 💡 "전화:" 텍스트만 span으로 감싸서 text-xs(기존 text-sm보다 한 단계 작음)로 축소 */}
-                <span className="text-xs opacity-80">전화:</span>
-                <a
-                  href="tel:027063336"
-                  className="ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
-                  className="text-sm animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite] border-white/50 hover:border-blue-300 hover:text-blue-300 transition-all duration-200 cursor-pointer"
-                  title="전화 걸기"
-                >
-                  &nbsp;02-706-3336
-                </a>
-
-                <span className="ml-4">
-                  <span className="text-xs opacity-80">이메일:</span>
+              <p className="text-xs opacity-100 whitespace-nowrap">
+                <span className="ml-0">
+                  <span className="text-xs opacity-80">이메일 :</span>
                   <a
                     href="mailto:hans344712@gmail.com"
                     className="text-sm animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite] ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
@@ -117,7 +107,22 @@ export default function Footer() {
                   </a>
                 </span>
               </p>
-              <VisitorCounter />
+              <p className="text-xs flex opacity-100 gap-3">
+                <div className="text-xs opacity-90 flex items-center whitespace-nowrap">
+                  {/* 💡 "전화:" 텍스트만 span으로 감싸서 text-xs(기존 text-sm보다 한 단계 작음)로 축소 */}
+                  <span className="text-xs opacity-80">전화 :</span>
+                  <a
+                    href="tel:027063336"
+                    className="ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
+                    className="text-sm animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite] border-white/50 hover:border-blue-300 hover:text-blue-300 transition-all duration-200 cursor-pointer"
+                    title="전화 걸기"
+                  >
+                    &nbsp;02-706-3336
+                  </a>
+                </div>
+                <VisitorCounter />
+              </p>
+              {/*<VisitorCounter />*/}
             </div>
           </div>
           <div className="border-t border-primary-foreground/20 pt-2.5 text-center text-sm opacity-90">
