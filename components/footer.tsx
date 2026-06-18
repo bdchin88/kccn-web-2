@@ -125,9 +125,11 @@ export default function Footer() {
               {/*<VisitorCounter />*/}
             </div>
           </div>
-          <div className="border-t border-primary-foreground/20 pt-2.5 text-center text-sm opacity-90">
-            <p>&copy; 2025 한국신용카드네트워크. All rights reserved.</p>
-          </div>
+          <Link href="/">
+            <div className="border-t border-primary-foreground/20 pt-2.5 text-center text-sm opacity-90 whitespace-nowrap hover:text-blue-300 transition cursor-pointer">
+              <p>&copy; 2025 한국신용카드네트워크. All rights reserved.</p>
+            </div>
+          </Link>
           <div className="mt-1 mb-1 flex flex-col items-center gap-1.5">
             <span className="h-[6px] w-full rounded-full bg-gradient-to-r from-[#002B6B] to-[#004EA2]"></span>
             <span className="h-[6px] w-full rounded-full bg-gradient-to-r from-[#005BBB] to-[#007BFF]"></span>
