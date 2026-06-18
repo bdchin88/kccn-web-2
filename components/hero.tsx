@@ -84,7 +84,7 @@ export default function Hero() {
         }
       };
 
-      fetchWeatherWithoutAuth();
+      fetchWeatherWithoutAuth(); 
     }
   }, []);
 
@@ -98,8 +98,9 @@ export default function Hero() {
     <section
       id="home"
       className="relative min-h-[50px] py-20 md:py-32 bg-background overflow-hidden">
-      
-      <div className="absolute inset-0 z-0 h-full w-full pointer-events-none">
+      {/* <div className="absolute inset-0 z-0 h-full w-full pointer-events-none"> */}
+      {/* 💡 변경: 파티클을 hero 영역에 가두지 않고 브라우저 전체화면 고정(fixed)으로 변경 */}
+      <div className="fixed inset-0 z-0 h-full w-full pointer-events-none">
         <FullBackground />
       </div>
 
