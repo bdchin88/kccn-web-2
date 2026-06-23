@@ -246,7 +246,7 @@ export default function About1() {
                   image: "/images/10-1508613.jpeg",
                 })
               }
-              className="bg-primary/5 backdrop-blur rounded-lg p-4 border-2 border-primary/20 shadow-md active:scale-95 active:bg-primary/10 hover:border-primary/60 transition-all text-left w-full"
+              className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
             >
               <div className="flex items-start gap-3 mb-4">
                 <span className="text-primary font-bold text-xl">01</span>
@@ -266,7 +266,7 @@ export default function About1() {
                   image: "/images/10-1561252.jpeg",
                 })
               }
-              className="bg-primary/5 backdrop-blur rounded-lg p-4 border-2 border-primary/20 shadow-md active:scale-95 active:bg-primary/10 hover:border-primary/60 transition-all text-left w-full"
+              className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
             >
               <div className="flex items-start gap-3 mb-4">
                 <span className="text-primary font-bold text-xl">02</span>
@@ -286,7 +286,7 @@ export default function About1() {
                   image: "/images/10-1739358.jpeg",
                 })
               }
-              className="bg-primary/5 backdrop-blur rounded-lg p-4 border-2 border-primary/20 shadow-md active:scale-95 active:bg-primary/10 hover:border-primary/60 transition-all text-left w-full"
+              className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
             >
               <div className="flex items-start gap-3 mb-4">
                 <span className="text-primary font-bold text-xl">03</span>
