@@ -72,7 +72,7 @@ export default function Footer() {
               모바일에서는 위아래 간격(gap-y)이 2로 줄어들어 주소와 메뉴가 바짝 붙게 됩니다. */}
           <div className="grid md:grid-cols-2 gap-x-5 gap-y-2 md:gap-5 mb-3">
             <div>
-              <h3 className="font-bold text-xl mb-0 tracking-tighter whitespace-nowrap tracking-[-0.01em]">
+              <h3 className="font-bold text-xl mb-0 tracking-tighter whitespace-nowrap tracking-[0.00em]">
                 <span className="text-[18px] tracking-tighter">사단법인</span>
                 &nbsp;한국신용카드네트워크
               </h3>
