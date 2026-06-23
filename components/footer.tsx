@@ -99,7 +99,7 @@ export default function Footer() {
               {/* 💡 "연락처" 타이틀 대신 메뉴 링크 배치 */}
               {/* 💡 mb-2 대신 mb-0.5를 주어 하단 이메일 라인과의 간격을 바짝 좁혔습니다 */}
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[15px] font-semibold mb-0.5 text-white/90">
-                <Link href="/" className="hover:text-blue-300 transition-colors">홈</Link>
+                <Link href="/" className="hover:text-blue-300 transition-colors">홈&nbsp;</Link>
                 <span className="text-xs opacity-40">|</span>
                 <Link href="/services" className="hover:text-blue-300 transition-colors">사업</Link>
                 <span className="text-xs opacity-40">|</span>
@@ -107,7 +107,7 @@ export default function Footer() {
                 <span className="text-xs opacity-40">|</span>
                 <Link href="/business" className="hover:text-blue-300 transition-colors">정책제언</Link>
                 <span className="text-xs opacity-40">|</span>
-                <Link href="/ci" className="hover:text-blue-300 transition-colors">CI</Link>
+                <Link href="/ci" className="hover:text-blue-300 transition-colors">&nbsp;CI&nbsp;</Link>
                 <span className="text-xs opacity-40">|</span>
                 <Link href="/notice" className="hover:text-blue-300 transition-colors">알림마당</Link>
               </div>  
