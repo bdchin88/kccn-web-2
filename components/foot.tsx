@@ -80,8 +80,6 @@ export default function Footer() {
                 소상공인과&nbsp;함께하는&nbsp;신뢰할&nbsp;수&nbsp;있는&nbsp;파트너
               </p>
               {/* 💡 [수정 내용] 주소 클릭 시 네이버 지도로 연결되도록 링크(a) 추가 및 마우스 호버 효과 부여 */}
-              {/* 네이버 맵 href="https://map.naver.com/v5/search/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EB%A7%88%ED%8F%AC%EA%B5%AC%20%ED%86%A0%EC%A0%95%EB%A1%9C37%EA%B8%B841" */}
-              {/* 카카오 맵 href="https://map.kakao.com/?q=서울시%20마포구%20토정로37길41" */}
               <p className="text-[13px] opacity-100 whitespace-nowrap">
                 <a 
                   href="https://map.kakao.com/?q=서울시%20마포구%20토정로37길41"
@@ -94,25 +92,25 @@ export default function Footer() {
                 </a>
               </p>
             </div>
-            {/* 💡 md:pt-1을 추가하여 PC 화면에서 왼쪽 타이틀("사단법인...")과 첫 라인의 높이를 맞췄습니다. */}
-            <div className="md:pt-1">
+            
+            <div>
               {/* 💡 "연락처" 타이틀 대신 메뉴 링크 배치 */}
-              {/* 💡 mb-2 대신 mb-0.5를 주어 하단 이메일 라인과의 간격을 바짝 좁혔습니다 */}
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[15px] font-semibold mb-0.5 text-white/90">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[15px] font-semibold mb-2 text-white/90">
                 <Link href="/" className="hover:text-blue-300 transition-colors">홈</Link>
                 <span className="text-xs opacity-40">|</span>
-                <Link href="/services" className="hover:text-blue-300 transition-colors">사업</Link>
+                <Link href="/business" className="hover:text-blue-300 transition-colors">사업</Link>
                 <span className="text-xs opacity-40">|</span>
                 <Link href="/about" className="hover:text-blue-300 transition-colors">협회소개</Link>
                 <span className="text-xs opacity-40">|</span>
-                <Link href="/business" className="hover:text-blue-300 transition-colors">정책제언</Link>
+                <Link href="/policy" className="hover:text-blue-300 transition-colors">정책제언</Link>
                 <span className="text-xs opacity-40">|</span>
                 <Link href="/ci" className="hover:text-blue-300 transition-colors">CI</Link>
                 <span className="text-xs opacity-40">|</span>
                 <Link href="/notice" className="hover:text-blue-300 transition-colors">알림마당</Link>
-              </div>  
-              
-              <p className="text-xs opacity-100 whitespace-nowrap mb-0 leading-tight">
+              </div>
+
+              {/* 연락처 상세 정보 유지 */}
+              <p className="text-xs opacity-100 whitespace-nowrap mb-1">
                 <span className="ml-0">
                   <span className="text-xs opacity-80">이메일 :</span>
                   <a
@@ -123,23 +121,22 @@ export default function Footer() {
                   </a>
                 </span>
               </p>
-              <p className="text-xs flex opacity-100 gap-3">
+              <div className="text-xs flex opacity-100 gap-3 items-center">
                 <div className="text-xs opacity-90 flex items-center whitespace-nowrap">
-                  {/* 💡 "전화:" 텍스트만 span으로 감싸서 text-xs(기존 text-sm보다 한 단계 작음)로 축소 */}
                   <span className="text-xs opacity-80">전화 :</span>
                   <a
                     href="tel:027063336"
                     className="text-sm animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite] ml-1 font-medium border-b border-transparent hover:border-blue-300 hover:text-blue-300 transition-all duration-200 cursor-pointer"
                     title="전화 걸기"
                   >
-                    02-706-3336&nbsp;
+                    &nbsp;02-706-3336
                   </a>
                 </div>
                 <VisitorCounter />
-              </p>
-              {/*<VisitorCounter />*/}
+              </div>
             </div>
           </div>
+          
           <Link href="/">
             <div className="border-t border-primary-foreground/20 pt-2.5 text-center text-sm opacity-90 whitespace-nowrap hover:text-blue-300 transition cursor-pointer">
               <p>&copy; 2025 한국신용카드네트워크. All rights reserved.</p>

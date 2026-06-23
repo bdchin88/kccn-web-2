@@ -115,7 +115,7 @@ export default function Header() {
                 rounded-2xl 
                 shadow-[0_25px_60px_rgba(0,0,0,0.65),_0_10px_25px_rgba(0,0,0,0.35)]
                 py-4 px-6
-                flex flex-col gap-1
+                flex flex-col gap-1 
                 min-w-[150px]
                 border border-white/30
                 animate-in fade-in zoom-in duration-200 origin-top-right
