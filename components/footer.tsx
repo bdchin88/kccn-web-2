@@ -117,7 +117,7 @@ export default function Footer() {
                   <span className="text-xs opacity-80">이메일 :</span>
                   <a
                     href="mailto:hans344712@gmail.com"
-                    className="text-sm animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite] ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
+                    className="tracking-wide text-sm animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite] ml-1 font-medium border-b border-transparent hover:border-blue-400 hover:text-blue-400 transition-all duration-200"
                   >
                     hans344712@gmail.com
                   </a>
