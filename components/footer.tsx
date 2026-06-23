@@ -68,7 +68,9 @@ export default function Footer() {
       {/* relative z-50 속성을 추가하여 hero.tsx의 z-20 팝업보다 명시적으로 높게 레이어를 배치합니다 */}
       <footer className="bg-primary text-primary-foreground pt-3 pb-3 relative z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-5 mb-3">
+          {/* 💡 gap-5 대신 gap-x-5 gap-y-2 md:gap-5 를 적용했습니다.
+              모바일에서는 위아래 간격(gap-y)이 2로 줄어들어 주소와 메뉴가 바짝 붙게 됩니다. */}
+          <div className="grid md:grid-cols-2 gap-x-5 gap-y-2 md:gap-5 mb-3">
             <div>
               <Link href="/about">
                 <h3 className="font-bold text-xl mb-0 tracking-tighter whitespace-nowrap hover:text-blue-300 transition cursor-pointer">
