@@ -56,7 +56,7 @@ const AboutHist = () => {
                 <div className="w-1/2 pr-[6px] md:pr-10 flex justify-end">
                   <div className="bg-primary/5 border border-primary/20 bg-gray-200/50 hover:bg-gray-200 transition-colors rounded-xl p-3 md:p-4 w-full max-w-[180px] md:max-w-sm shadow-sm">
                     <h3 className="text-base md:text-2xl font-bold text-primary mb-1 text-right">2014년</h3>
-                    <ul className="text-[13px] md:text-sm text-muted-foreground space-y-0.5 text-right leading-tight tracking-[-0.09em]">
+                    <ul className="text-[13px] md:text-sm text-muted-foreground space-y-0.5 text-right leading-tight tracking-[-0.1em]">
                       <li>• 고용노동부 매출전표수거 시간선택제 공공근로사업 MOU 체결</li>
                       <li>• 소상공인연합회의 소상공인지원사업 MOU 체결</li>
                       <li>• 기획재정부 지정기부금단체 등록</li>
@@ -72,7 +72,7 @@ const AboutHist = () => {
                 <div className="w-1/2 pl-[6px] md:pl-10 flex justify-start">
                   <div className="bg-primary/5 border border-primary/20 bg-gray-200/50 hover:bg-gray-200 transition-colors rounded-xl p-3 md:p-4 w-full max-w-[180px] md:max-w-sm shadow-sm">
                     <h3 className="text-base md:text-2xl font-bold text-primary mb-1">2015년</h3>
-                    <ul className="text-[13px] md:text-sm text-muted-foreground space-y-0.5 text-left leading-tight tracking-tracking-[-0.07em]">
+                    <ul className="text-[13px] md:text-sm text-muted-foreground space-y-0.5 text-left leading-tight tracking-[-0.08em]">
                       <li>• 코레일네트웍스 - 소상공인전용 VAN구축 제휴계약서 체결</li>
                       <li>• 여신금융협회 영세가맹점 IC단말기 전환지원사업 위탁사업자 선정</li>
                       <li>• 국내 신용카드사 VAN서비스 중개계약 완료</li>
