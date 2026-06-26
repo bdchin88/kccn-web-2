@@ -47,7 +47,7 @@ export default function About1() {
                       image: "/images/gov-01.png",
                     })
                   }
-                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
+                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-2xl"
                 >
                   <div className="flex items-start gap-3">
                     <span className="text-primary font-bold mt-1">01</span>
@@ -65,7 +65,7 @@ export default function About1() {
                       image: "/images/gov-02.png",
                     })
                   }
-                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
+                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-2xl"
                 >
                   <div className="flex items-start gap-3">
                     <span className="text-primary font-bold mt-1">02</span>
@@ -83,7 +83,7 @@ export default function About1() {
                       image: "/images/gov-03.png",
                     })
                   }
-                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
+                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-2xl"
                 >
                   <div className="flex items-start gap-3">
                     <span className="text-primary font-bold mt-1">03</span>
@@ -101,7 +101,7 @@ export default function About1() {
                       image: "/images/tax.png",
                     })
                   }
-                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
+                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-2xl"
                 >
                   <div className="flex items-start gap-3">
                     <span className="text-primary font-bold mt-1">04</span>
@@ -131,7 +131,7 @@ export default function About1() {
                       image: "/images/gov-08.png",
                     })
                   }
-                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
+                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-2xl"
                 >
                   <div className="flex items-start gap-3">
                     <span className="text-primary font-bold mt-1">01</span>
@@ -149,7 +149,7 @@ export default function About1() {
                       image: "/images/gov-05.png",
                     })
                   }
-                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
+                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-2xl"
                 >
                   <div className="flex items-start gap-3">
                     <span className="text-primary font-bold mt-1">02</span>
@@ -167,7 +167,7 @@ export default function About1() {
                       image: "/images/gov-06.png",
                     })
                   }
-                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
+                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-2xl"
                 >
                   <div className="flex items-start gap-3">
                     <span className="text-primary font-bold mt-1">03</span>
@@ -185,7 +185,7 @@ export default function About1() {
                       image: "/images/gov-07.png",
                     })
                   }
-                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
+                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-2xl"
                 >
                   <div className="flex items-start gap-3">
                     <span className="text-primary font-bold mt-1">04</span>
@@ -215,7 +215,7 @@ export default function About1() {
                       image: "/images/ksel.png",
                     })
                   }
-                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
+                  className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-2xl"
                 >
                   <div className="flex items-start gap-3">
                     <span className="text-primary font-bold mt-1">01</span>
@@ -246,7 +246,7 @@ export default function About1() {
                   image: "/images/10-1508613.jpeg",
                 })
               }
-              className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
+              className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-2xl"
             >
               <div className="flex items-start gap-3 mb-4">
                 <span className="text-primary font-bold text-xl">01</span>
@@ -266,7 +266,7 @@ export default function About1() {
                   image: "/images/10-1561252.jpeg",
                 })
               }
-              className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
+              className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-2xl"
             >
               <div className="flex items-start gap-3 mb-4">
                 <span className="text-primary font-bold text-xl">02</span>
@@ -286,7 +286,7 @@ export default function About1() {
                   image: "/images/10-1739358.jpeg",
                 })
               }
-              className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-xl"
+              className="bg-background rounded-xl p-5 border-2 border-primary/40 shadow-lg active:scale-95 active:bg-primary/10 transition-all text-left w-full md:bg-background/80 md:border-primary/20 md:shadow-md md:hover:border-primary/50 md:hover:shadow-2xl"
             >
               <div className="flex items-start gap-3 mb-4">
                 <span className="text-primary font-bold text-xl">03</span>
