@@ -56,7 +56,7 @@ const AboutHist = () => {
                 <div className="w-1/2 pr-[6px] md:pr-10 flex justify-end">
                   <div className="bg-primary/5 border border-primary/20 bg-gray-200/50 hover:bg-gray-200 transition-colors rounded-xl p-3 md:p-4 w-full max-w-[180px] md:max-w-sm shadow-sm">
                     <h3 className="text-base md:text-2xl font-bold text-primary mb-1 text-right">2014년</h3>
-                    <ul className="text-[13px] md:text-sm text-muted-foreground space-y-0.5 text-right leading-tight tracking-[-0.08em]">
+                    <ul className="text-[13px] md:text-sm text-muted-foreground space-y-0.5 text-right leading-tight tracking-[-0.09em]">
                       <li>• 고용노동부 매출전표수거 시간선택제 공공근로사업 MOU 체결</li>
                       <li>• 소상공인연합회의 소상공인지원사업 MOU 체결</li>
                       <li>• 기획재정부 지정기부금단체 등록</li>
