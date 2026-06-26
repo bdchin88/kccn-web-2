@@ -72,17 +72,17 @@ export default function Footer() {
               모바일에서는 위아래 간격(gap-y)이 2로 줄어들어 주소와 메뉴가 바짝 붙게 됩니다. */}
           <div className="grid md:grid-cols-2 gap-x-5 gap-y-2 md:gap-5 mb-3">
             <div>
-              <h3 className="font-bold text-xl mb-0 tracking-tighter whitespace-nowrap tracking-wide">
+              <h3 className="flex justify-center md:justify-start font-bold text-xl mb-0 whitespace-nowrap tracking-wide">
                 <span className="text-[18px] tracking-tighter">사단법인</span>
                 &nbsp;한국신용카드네트워크
               </h3>
-              <p className="text-sm opacity-90 whitespace-nowrap tracking-[0.03em]">
+              <p className="flex justify-center md:justify-start text-sm opacity-90 whitespace-nowrap tracking-[0.03em]">
                 소상공인과&nbsp;함께하는&nbsp;신뢰할&nbsp;수&nbsp;있는&nbsp;파트너
               </p>
               {/* 💡 [수정 내용] 주소 클릭 시 네이버 지도로 연결되도록 링크(a) 추가 및 마우스 호버 효과 부여 */}
               {/* 네이버 맵 href="https://map.naver.com/v5/search/%EC%84%9C%EC%9A%B8%EC%8B%9C%20%EB%A7%88%ED%8F%AC%EA%B5%AC%20%ED%86%A0%EC%A0%95%EB%A1%9C37%EA%B8%B841" */}
               {/* 카카오 맵 href="https://map.kakao.com/?q=서울시%20마포구%20토정로37길41" */}
-              <p className="text-[13px] opacity-100 whitespace-nowrap">
+              <p className="flex justify-center md:justify-start text-[13px] opacity-100 whitespace-nowrap">
                 <a 
                   href="https://map.kakao.com/?q=서울시%20마포구%20토정로37길41"
                   target="_blank"
@@ -98,7 +98,7 @@ export default function Footer() {
             <div className="md:pt-1">
               {/* 💡 "연락처" 타이틀 대신 메뉴 링크 배치 */}
               {/* 💡 mb-2 대신 mb-0.5를 주어 하단 이메일 라인과의 간격을 바짝 좁혔습니다 */}
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[15px] font-semibold mb-0.5 text-white/90">
+              <div className="flex justify-center md:justify-start items-center gap-x-2 gap-y-1 text-[15px] font-semibold mb-0.5 text-white/90">
                 <Link href="/" className="hover:text-blue-300 transition-colors">홈&nbsp;</Link>
                 <span className="text-xs opacity-40">|</span>
                 <Link href="/services" className="hover:text-blue-300 transition-colors">사업</Link>
@@ -107,12 +107,12 @@ export default function Footer() {
                 <span className="text-xs opacity-40">|</span>
                 <Link href="/business" className="hover:text-blue-300 transition-colors">정책제언</Link>
                 <span className="text-xs opacity-40">|</span>
-                <Link href="/ci" className="hover:text-blue-300 transition-colors">&nbsp;CI&nbsp;</Link>
-                <span className="text-xs opacity-40">|</span>
                 <Link href="/notice" className="hover:text-blue-300 transition-colors">알림마당</Link>
+                <span className="text-xs opacity-40">|</span>
+                <Link href="/ci" className="hover:text-blue-300 transition-colors">&nbsp;CI</Link>
               </div>  
               
-              <p className="text-xs opacity-100 whitespace-nowrap mb-0 leading-tight">
+              <p className="flex justify-center md:justify-start text-xs opacity-100 whitespace-nowrap mb-0 leading-tight">
                 <span className="ml-0">
                   <span className="text-xs opacity-80">이메일 :</span>
                   <a
@@ -123,7 +123,7 @@ export default function Footer() {
                   </a>
                 </span>
               </p>
-              <p className="text-xs flex opacity-100 gap-3">
+              <p className="flex justify-center md:justify-start text-xs flex opacity-100 gap-3">
                 <div className="text-xs opacity-90 flex items-center whitespace-nowrap">
                   {/* 💡 "전화:" 텍스트만 span으로 감싸서 text-xs(기존 text-sm보다 한 단계 작음)로 축소 */}
                   <span className="text-xs opacity-80">전화 :</span>
