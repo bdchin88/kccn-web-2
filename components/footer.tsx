@@ -25,6 +25,7 @@ export default function Footer() {
     { name: "중소벤처기업진흥공단", url: "https://www.kosmes.or.kr", type: "non", logo: "/images/non/kosmes-ci.png" },
     { name: "여신금융협회", url: "https://www.crefia.or.kr", type: "non", logo: "/images/non/crefia-ci.png" },
     { name: "노사발전재단", url: "https://www.nosa.or.kr", type: "non", logo: "/images/non/nosa-ci.png" },
+    { name: "제로페이", url: "https://www.zeropay.or.kr", type: "non", logo: "/images/non/zeropay-ci.png" },
     { name: "한국아이티평가원", url: "https://www.ksel.co.kr", type: "non", logo: "/images/non/ksel-ci.png" },
     { name: "직능경제인단체총연합회", url: "http://www.fps.or.kr", type: "non", logo: "/images/non/fps-ci.png" },
   ]
