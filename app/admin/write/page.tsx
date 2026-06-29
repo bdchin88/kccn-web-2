@@ -155,7 +155,7 @@ export default function AdminWritePage() {
   // 인증 화면 (틀 유지)
   if (!isAuthorized) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50 p-4">
+      <div className="flex flex-col items-center py-20 min-h-screen bg-slate-50 p-4">
         <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full border border-slate-100">
           <h1 className="text-xl font-bold text-center mb-2 text-slate-800">관리자 인증</h1>
           <p className="text-xs text-slate-400 text-center mb-6">글쓰기 권한을 확인하기 위해 패스워드를 입력하세요.</p>
