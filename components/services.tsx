@@ -10,16 +10,19 @@ const services = [
     title: "소상공인 전용 VAN 사업",
     description:
       "국내 최저 관리비 정책 시행 및 사용 조건부 무상 임대를 통해 영세 소상공인의 VAN 서비스 소비자 선택권을 확대합니다.",
+    iconColor: "text-green-500", // ✨ Leaf: 그린
   },
   {
     icon: Zap,
     title: "소상공인 전용 PG 사업",
     description: "소상공인 PG 사업을 통해 PG 수수료의 60% 이상 인하효과를 유도.",
+    iconColor: "text-blue-500", // ✨ Cpu: 블루
   },
   {
     icon: TrendingUp,
     title: "신용카드 제도 개선",
     description: "국회 및 정부에 적극적인 정책 제언을 통해 영세가맹점 수수료 인하 등 소상공인 권익을 제고합니다.",
+    iconColor: "text-blue-900",  // ✨ Sparkles: 코발트블루 (text-violet-600, indigo-600도 추천)
   },
 ];
 
@@ -89,7 +92,8 @@ export default function Services() {
                 className="p-8 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow duration-500 bg-gray-200/50 hover:bg-gray-200 transition-colors"
               >
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <Icon className="text-primary" size={36} />
+                  {/* 👇 기존코드 "<Icon className="text-primary" size={36} />" text-primary 대신 데이터에 지정한 iconColor 적용 */}
+                  <Icon className={service.iconColor} size={36} />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">
                   {service.title}
