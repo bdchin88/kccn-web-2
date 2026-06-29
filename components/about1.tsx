@@ -20,7 +20,7 @@ export default function About1() {
     }, [selectedDocument]);
 
     return (
-    <section className="pb-5 md:pb-10 bg-background">
+    <section className="pb-0 md:pb-10 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-20">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-5 text-center">주요인증 및 협력현황</h2>
@@ -230,7 +230,7 @@ export default function About1() {
           </div>
         </div>
 
-        <div className="mb-20">
+        <div className="mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-5 text-center">특허 보유 현황</h2>
           {/* ... 특허 버튼들 (기존과 동일) ... */}
           <p className="flex items-center justify-center gap-2 text-center text-[13px] text-muted-foreground mb-4 min-h-[30px]">  
