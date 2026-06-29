@@ -58,7 +58,7 @@ export default function Services() {
   };
 
   return (
-    <section id="services" className="py-24 md:py-40 bg-background">
+    <section id="services" className="mt-20 py-10 md:py-30 bg-background">
       <motion.div 
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         initial="hidden"
@@ -77,7 +77,7 @@ export default function Services() {
         </motion.div>
 
         {/* 서비스 그리드 영역 */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="md:mb-15 grid md:grid-cols-3 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
