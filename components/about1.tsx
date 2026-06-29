@@ -20,7 +20,7 @@ export default function About1() {
     }, [selectedDocument]);
 
     return (
-    <section className="pb-20 md:pb-32 bg-background">
+    <section className="pb-5 md:pb-10 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-20">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-5 text-center">주요인증 및 협력현황</h2>
