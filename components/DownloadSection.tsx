@@ -85,7 +85,7 @@ export default function DownloadSection({ filePath }: { filePath: string }) {
 
       {/* 🔐 비밀번호 입력 모달 (비밀번호 숨김 처리 적용) */}
       {showPwInput && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center py-80 mb-80 bg-black/60 backdrop-blur-sm p-4">
           <form 
             onSubmit={handleDownload} 
             className="bg-white border border-slate-200 p-8 rounded-3xl shadow-2xl w-full max-w-[340px] animate-in fade-in zoom-in duration-200"
