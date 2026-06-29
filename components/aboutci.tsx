@@ -141,12 +141,12 @@ export default function AboutCI() {
             <li className="flex gap-2">
               <span className="text-primary font-bold">•</span>
               <span className="font-semibold whitespace-nowrap text-blue-500">Digital-Blue</span>
-              <span className="text-muted-foreground">&nbsp;[ 혁신의 줄기 ] 상생의 토양 위에서 소상공인들이 대기업이나 거대 플랫폼에 뒤처지지 않도록 단체가 제공하는 진보한 기술력과 정보화 인프라를 뜻하며</span>
+              <span className="tracking-tighter text-muted-foreground">&nbsp;[ 혁신의 줄기 ] 상생의 토양 위에서 소상공인들이 대기업이나 거대 플랫폼에 뒤처지지 않도록 단체가 제공하는 진보한 기술력과 정보화 인프라를 뜻하며</span>
             </li>
             <li className="flex gap-2">
               <span className="text-primary font-bold">•</span>
               <span className="font-semibold whitespace-nowrap text-blue-900">Future-Cobalt</span>
-              <span className="text-muted-foreground">[ 신뢰의 열매 ] 혁신의 줄기에서 기술과 상생이 만나 최종적으로 도달하는 견고한 신뢰와 풍요로운 미래 경제를 완성함을 나타냅니다.</span>
+              <span className="tracking-tight text-muted-foreground">[ 신뢰의 열매 ] 혁신의 줄기에서 기술과 상생이 만나 최종적으로 도달하는 견고한 신뢰와 풍요로운 미래 경제를 완성함을 나타냅니다.</span>
             </li>
           </ul>
         </div>

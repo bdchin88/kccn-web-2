@@ -1,4 +1,4 @@
-// app/admin/visitors/page.tsx  
+// app/admin/visitors/page.tsx 
 "use client";
 
 import { useEffect, useState } from "react";
@@ -9,10 +9,13 @@ export default function VisitorLogPage() {
   const [logs, setLogs] = useState<any[]>([]);
   const [postTitles, setPostTitles] = useState<{ [key: string]: string }>({}); // ID별 제목 저장
   const router = useRouter();
+  const [totalHits, setTotalHits] = useState<number>(0) // 전체 방문자 추가
 
   useEffect(() => {
     const fetchLogsAndTitles = async () => {
       // 1. 로그 데이터 가져오기
+
+
       const { data: logData } = await supabase
         .from("yesterday_visitor_logs")
         .select("*")
@@ -45,6 +48,14 @@ export default function VisitorLogPage() {
           }, {} as { [key: string]: string });
           setPostTitles(titleMap);
         }
+      }
+      /* 4. 누적 방문자수 합산 (가장 중요: 모든 날짜의 count를 합침) */
+      const { data: allDailyData } = await supabase
+        .from("daily_visitors")
+        .select("count")
+      if (allDailyData) {
+        const totalSum = allDailyData.reduce((acc, cur) => acc + (cur.count || 0), 0)
+        setTotalHits(totalSum)
       }
     };
 
@@ -79,8 +90,10 @@ export default function VisitorLogPage() {
     <div className="p-8 max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-slate-800">
-          전일 방문자 상세 로그 <span className="text-sm font-normal text-slate-500">(최근 70명)</span>
+          전일 방문자 상세 로그 
+          <span className="text-sm font-normal text-slate-500">(전체 방문자: {totalHits.toLocaleString()})</span>
         </h1>
+
         {/* 요일 가이드 (모바일 가독성을 위해 sm 이상에서만 노출) */}
         <div className="hidden sm:flex gap-2">
            <span className="flex items-center gap-1 text-xs"><div className="w-3 h-3 bg-red-50 border border-red-100"></div> 일요일</span>
