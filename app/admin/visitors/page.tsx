@@ -13,9 +13,8 @@ export default function VisitorLogPage() {
 
   useEffect(() => {
     const fetchLogsAndTitles = async () => {
+
       // 1. 로그 데이터 가져오기
-
-
       const { data: logData } = await supabase
         .from("yesterday_visitor_logs")
         .select("*")
@@ -91,7 +90,7 @@ export default function VisitorLogPage() {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-slate-800">
           전일 방문자 상세 로그 
-          <span className="text-sm font-normal text-slate-500">(전체 방문자: {totalHits.toLocaleString()})</span>
+          <span className="text-sm font-normal text-slate-500"> (전체 방문자: {totalHits.toLocaleString()})</span>
         </h1>
 
         {/* 요일 가이드 (모바일 가독성을 위해 sm 이상에서만 노출) */}
