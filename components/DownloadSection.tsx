@@ -1,8 +1,8 @@
-// components/DownloadSection.tsx
+// components/DownloadSection.tsx 
 "use client";
 
 import { useState } from "react";
-import { supabase } from "@/lib/supabase";
+//import { supabase } from "@/lib/supabase";
 import { checkAdminLock, recordFailAttempt, resetAuthAttempts } from "@/lib/auth"; // 1분 잠금
 
 export default function DownloadSection({ filePath }: { filePath: string }) {
@@ -12,7 +12,7 @@ export default function DownloadSection({ filePath }: { filePath: string }) {
 
   const handleDownload = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // 1. 잠금 상태 체크
     const lockStatus = checkAdminLock();
     if (lockStatus.isLocked) {
@@ -22,42 +22,52 @@ export default function DownloadSection({ filePath }: { filePath: string }) {
 
     setLoading(true);
 
-    {/* if (tempPw === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) DOWNLOAD_PASSWORD */}
-    // 2. 비밀번호 확인 (환경변수와 비교)
-    if (tempPw === process.env.NEXT_PUBLIC_DOWNLOAD_PASSWORD) {
-      resetAuthAttempts(); // 성공 시 초기화
-      
-      const cleanPath = filePath.trim().startsWith('/') ? filePath.trim().substring(1) : filePath.trim();
+    const cleanPath = filePath.trim().startsWith("/")
+      ? filePath.trim().substring(1)
+      : filePath.trim();
 
-      // 💡 앞서 성공하셨던 버킷 이름(resources)을 적용했습니다.
-      const { data, error } = await supabase.storage
-        .from("resources") 
-        .createSignedUrl(cleanPath, 60);
+    try {
+      // 🔐 서버(API)에서 비밀번호 확인 + Signed URL 생성
+      const response = await fetch("/api/download", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          password: tempPw,
+          filePath: cleanPath,
+        }),
+      });
 
-      if (error) {
-        console.error("Storage Error:", error);
-        alert(`다운로드 실패: 파일을 찾을 수 없습니다.`);
+      const result = await response.json();
+      if (!response.ok) {
+        const isLockedNow = recordFailAttempt();
+
+        if (isLockedNow) {
+          alert("비밀번호 5회 오류로 1분간 다운로드가 제한됩니다.");
+          setShowPwInput(false);
+        } else {
+          const attempts = localStorage.getItem("admin_pw_attempts");
+          alert(`비밀번호가 일치하지 않습니다. (현재 ${attempts}/5회 오류)`);
+        }
         setLoading(false);
         return;
       }
 
-      if (data?.signedUrl) {
-        setShowPwInput(false);
-        setTempPw("");
-        window.location.href = data.signedUrl;
-      }
-    } else {
-      // 3. 실패 시 횟수 기록 및 잠금 처리
-      const isLockedNow = recordFailAttempt();
-      if (isLockedNow) {
-        alert("비밀번호 5회 오류로 1분간 다운로드가 제한됩니다.");
-        setShowPwInput(false);
-      } else {
-        const attempts = localStorage.getItem("admin_pw_attempts");
-        alert(`비밀번호가 틀립니다. (현재 ${attempts}/5회 오류)`);
-      }
+      // 성공 시 초기화
+      resetAuthAttempts();
+
+      setShowPwInput(false);
+      setTempPw("");
+
+      // 다운로드
+      window.location.href = result.signedUrl;
+    } catch (err) {
+      console.error("Download Error:", err);
+      alert("다운로드 중 오류가 발생했습니다.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (

@@ -1,3 +1,4 @@
+//lib/supabase.ts
 import { createClient } from '@supabase/supabase-js';
 
 // process.env를 쓰지 않고, 주소와 키를 '문자열'로 직접 박아버립니다.
