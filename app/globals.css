@@ -19,14 +19,13 @@
 
 @layer base {
   * {
-    /* @apply border-gray-200 outline-none;  <- 이 부분을 아래 두 줄로 교체 */
-    border-color: var(--border, #e5e7eb); /* shadcn 테마 변수 사용, 없을 시 기본 연그레이 */
+    border-color: var(--border, #e5e7eb);
     outline: 2px solid transparent;
     outline-offset: 2px;
   }
   body {
-    background-color: #ffffff; /* bg-white 대체 */
-    color: #0f172a;            /* text-slate-900 대체 */
+    background-color: #ffffff;
+    color: #0f172a;
   }
 }
 
@@ -68,29 +67,4 @@
   --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
   --sidebar-border: hsl(240 3.7% 15.9%);
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
-}
-
-@layer base {
-  :root {
-    /* 기존 설정들... */
-    --sidebar: hsl(0 0% 98%);
-    --sidebar-foreground: hsl(240 5.3% 26.1%);
-    --sidebar-primary: hsl(240 5.9% 10%);
-    --sidebar-primary-foreground: hsl(0 0% 98%);
-    --sidebar-accent: hsl(240 4.8% 95.9%);
-    --sidebar-accent-foreground: hsl(240 5.9% 10%);
-    --sidebar-border: hsl(220 13% 91%);
-    --sidebar-ring: hsl(217.2 91.2% 59.8%);
-  }
-  .dark {
-    /* 기존 설정들... */
-    --sidebar: hsl(240 5.9% 10%);
-    --sidebar-foreground: hsl(240 4.8% 95.9%);
-    --sidebar-primary: hsl(224.3 76.3% 48%);
-    --sidebar-primary-foreground: hsl(0 0% 100%);
-    --sidebar-accent: hsl(240 3.7% 15.9%);
-    --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
-    --sidebar-border: hsl(240 3.7% 15.9%);
-    --sidebar-ring: hsl(217.2 91.2% 59.8%);
-  }
 }
