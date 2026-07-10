@@ -48,26 +48,52 @@ export default function AdminListPage() {
     setLoading(false);
   };
 
-  const handleAuth = () => {
+  // 1. 관리자 인증 (보안 로직 적용)
+  const handleAuth = async () => {
+    // 📌 [보안 추가] 잠금 상태인지 먼저 확인
     const lockStatus = checkAdminLock();
     if (lockStatus.isLocked) {
       alert(`보안상 이유로 인증이 제한되었습니다. ${lockStatus.remaining}초 후 다시 시도하세요.`);
       return;
     }
 
-    if (password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
+    try {
+      // 💡 서버(API)에서 관리자 비밀번호 확인
+      const response = await fetch("/api/admin/auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          password,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        // ❌ 실패 시: 횟수 누적 및 5회 도달 시 1분 잠금 활성화
+        const isLockedNow = recordFailAttempt();
+
+        if (isLockedNow) {
+          alert("비밀번호 5회 오류로 인해 1분간 인증 시도가 제한됩니다.");
+        } else {
+          const attempts = localStorage.getItem("admin_pw_attempts");
+          alert(`비밀번호가 틀립니다. (현재 ${attempts}/5회 오류)`);
+        }
+
+        setPassword("");
+        return;
+      }
+
+      // ✅ 성공 시: 잠금 횟수 리셋 및 인증 통과
       resetAuthAttempts();
       setIsAuthorized(true);
       sessionStorage.setItem("admin_auth", "true");
-    } else {
-      const isLockedNow = recordFailAttempt();
-      if (isLockedNow) {
-        alert("비밀번호 5회 오류로 인해 1분간 인증 시도가 제한됩니다.");
-      } else {
-        const attempts = localStorage.getItem("admin_pw_attempts");
-        alert(`비밀번호가 틀립니다. (현재 ${attempts}/5회 오류)`);
-      }
-      setPassword("");
+
+    } catch (err) {
+      console.error(err);
+      alert("서버 오류가 발생했습니다.");
     }
   };
 

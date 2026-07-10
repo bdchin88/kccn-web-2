@@ -1,3 +1,4 @@
+//components/DeleteButton.tsx
 "use client";
 
 import { useState } from "react";
@@ -21,29 +22,29 @@ export default function DeleteButton({ postId }: { postId: string }) {
     setShowModal(true);
   };
 
-  const handleAuthAndDelete = async (e: React.FormEvent) => {
-    e.preventDefault();
+const handleAuthAndDelete = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    // 1. 비밀번호 확인 (환경변수와 비교)
-    if (password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
-      if (confirm("정말로 이 게시글을 삭제하시겠습니까?")) {
-        setLoading(true);
-        resetAuthAttempts(); // 성공 시 초기화
+  setLoading(true);
 
-        const { error } = await supabase.from("posts").delete().eq("id", postId);
-        
-        if (error) {
-          alert("삭제 중 오류가 발생했습니다.");
-          setLoading(false);
-        } else {
-          alert("삭제되었습니다.");
-          setShowModal(false);
-          router.push("/notice");
-        }
-      }
-    } else {
+  try {
+    // 1. 서버(API)에서 관리자 비밀번호 확인
+    const response = await fetch("/api/admin/auth", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password,
+      }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
       // 2. 실패 시 횟수 카운트 및 잠금 설정
       const isLockedNow = recordFailAttempt();
+
       if (isLockedNow) {
         alert("비밀번호 5회 오류로 인해 1분간 삭제 시도가 제한됩니다.");
         setShowModal(false);
@@ -51,9 +52,46 @@ export default function DeleteButton({ postId }: { postId: string }) {
         const attempts = localStorage.getItem("admin_pw_attempts");
         alert(`비밀번호가 틀립니다. (현재 ${attempts}/5회 오류)`);
       }
+
       setPassword("");
+      return;
     }
-  };
+
+    // 인증 성공
+    resetAuthAttempts();
+
+    if (confirm("정말로 이 게시글을 삭제하시겠습니까?")) {
+      const response = await fetch("/api/admin/delete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          password,
+          postId,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        alert(result.error);
+        return;
+      }
+
+      alert("삭제되었습니다.");
+      setShowModal(false);
+      setPassword("");
+      router.push("/notice");
+      router.refresh();
+    }
+  } catch (err) {
+    console.error(err);
+    alert("서버 오류가 발생했습니다.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <>

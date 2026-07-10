@@ -8,7 +8,7 @@ export default function About() {
         <div className="mb-20 grid md:grid-cols-2 gap-12 items-start">
           <div>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-12 text-center">협회 소개</h2>
-            <div className="space-y-2 text-muted-foreground">
+            <div className="space-y-1 text-muted-foreground">
               <p>
                 <span className="font-semibold text-foreground">사단법인 한국신용카드네트워크</span>는 우리나라 자영업
                 대표들의 정치·사회적 권익을 대변하는 전문 경제 법정단체입니다.
@@ -21,6 +21,10 @@ export default function About() {
               </p>
               <p>
                 <span className="font-semibold text-foreground">사업자등록번호:</span> 107-82-64484
+              </p>              
+              <p>
+                <span className="font-semibold text-foreground">대표자:</span> 염웅렬
+                <span className="font-semibold text-foreground"> &nbsp;&nbsp;&nbsp;전화:</span> 02-706-3336
               </p>
               <p>
                 <span className="font-semibold text-foreground">주소:</span> 서울시 마포구 토정로37길41, 526호
