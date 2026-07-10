@@ -26,7 +26,8 @@
     outline-offset: 2px;
   }
   body {
-    @apply bg-white text-slate-900;
+    background-color: #ffffff; /* bg-white 대체 */
+    color: #0f172a;            /* text-slate-900 대체 */
   }
 }
 
