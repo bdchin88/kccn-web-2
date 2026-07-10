@@ -1,5 +1,10 @@
 /* * @type {import('next').NextConfig} */
 const nextConfig = {
+  // 💡 Turbopack 빌드를 명시적으로 끄고 안정적인 Webpack을 사용하도록 설정합니다.
+  experimental: {
+    turbo: false,
+  },
+
   typescript: {
     ignoreBuildErrors: false,
   },
