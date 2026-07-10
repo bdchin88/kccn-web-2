@@ -17,15 +17,17 @@
   }
 }
 
+/* ✨ 수정 후 (은은하고 이쁜 기본 테두리로 복구) */
 @layer base {
   * {
-    border-color: var(--border, #e5e7eb);
+    /* 1. @apply 대신 순수 CSS 속성으로 테마 변수를 매핑합니다. */
+    border-color: hsl(var(--border, 214.3 31.8% 91.4%)); 
     outline: 2px solid transparent;
     outline-offset: 2px;
   }
   body {
-    background-color: #ffffff;
-    color: #0f172a;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 }
 
