@@ -20,7 +20,10 @@
 
 @layer base {
   * {
-    @apply border-gray-200 outline-none; 
+    /* @apply border-gray-200 outline-none;  <- 이 부분을 아래 두 줄로 교체 */
+    border-color: var(--border, #e5e7eb); /* shadcn 테마 변수 사용, 없을 시 기본 연그레이 */
+    outline: 2px solid transparent;
+    outline-offset: 2px;
   }
   body {
     @apply bg-white text-slate-900;
