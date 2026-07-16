@@ -1,3 +1,4 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import type React from "react";
 import { Analytics } from "@vercel/analytics/next";
@@ -9,6 +10,10 @@ export const metadata: Metadata = {
   description:
     "대한민국 소상공인과 가맹점주의 권익을 대변하는 법정 단체, 한국신용카드네트워크입니다.",
   robots: "index, follow",    
+  // 💡 [추가] 네이버 봇에게 "www가 없고 kccn.or.kr이 진짜 유일한 원본이다!"라고 명시합니다.
+  alternates: {
+    canonical: "https://kccn.or.kr", 
+  },
   keywords: [
     "한국신용카드네트워크",
     "KCCN",
