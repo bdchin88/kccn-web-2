@@ -32,28 +32,53 @@ export default function Hero() {
     };
     fetchNotices();
 
-    // 2. 날짜별 hero 이미지 판단 로직 (6월 9일 육우데이 추가)
+    // 2. 날짜별 hero 이미지 판단 로직 (전체 기념일 2일 적용 고도화)
     const today = new Date();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const date = String(today.getDate()).padStart(2, "0");
-    const mdString = `${month}${date}`; // 예: "0301", "0609"
-    //const mdString = "0301"; // 예: "0301", "0609" 테스트
+    
+    // 하루 뒤(내일) 날짜 계산 (달이 바뀌는 전날 처리를 자동화하기 위함)
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
 
-    // 지정된 10개의 특정 날짜 정의 (6월 9일 육우데이 추가됨)
-    const specialDates = ["0101", "0214", "0301", "0303", "0309", "0314", "0505", "0606", "0609", "0815", "0909", "1001", "1009", "1105", "1111", "1223", "1224", "1225", "1231"];
+    // Date 객체를 "MMDD" 형태의 문자열로 변환하는 함수
+    const getMDString = (date: Date) => {
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${month}${day}`;
+    };
 
-    // 💡 브라우저 및 localhost 개발 환경의 강한 캐싱 때문에 이미지가 돌아오지 않는 현상 방지 
+    const todayMD = getMDString(today);       // 오늘 (예: "0228")
+    const tomorrowMD = getMDString(tomorrow); // 내일 (예: "0301")
+
+    // 지정된 모든 특별한 날짜 정의 (삼일절 0301 포함)
+    const specialDates = [
+      "0101", "0214", "0301", "0303", "0309", "0314", "0505", "0606", 
+      "0609", "0717","0815", "0909", "1001", "1009", "1105", "1111", "1223", 
+      "1224", "1225", "1231"
+    ];
+
+    // 💡 브라우저 및 개발 환경의 강한 캐싱 방지용 타임스탬프
     const cacheBuster = new Date().getTime();
 
-    // 19개 특정 날짜에 해당할 경우 날짜 우선 적용
-    if (specialDates.includes(mdString)) {
-      setHeroImage(`/images/hero/h-${mdString}.jpg?t=${cacheBuster}`);
-      setIsImageReady(true); // ◀ 판별 완료
+    let targetMD = "";
+
+    // [핵심 로직] 우선순위 판단
+    if (specialDates.includes(todayMD)) {
+      // 1. '오늘'이 기념일 목록에 있다면 오늘 이미지를 보여줍니다 (당일 우선)
+      targetMD = todayMD;
+    } else if (specialDates.includes(tomorrowMD)) {
+      // 2. '내일'이 기념일 목록에 있다면, 오늘(하루 전)부터 내일 기념일 이미지를 미리 보여줍니다
+      targetMD = tomorrowMD;
+    }
+
+    if (targetMD) {
+      // 기념일 이미지 매핑 (예: 2월 28일 접속 시 내일인 '0301'이 감지되어 h-0301.jpg 로드)
+      setHeroImage(`/images/hero/h-${targetMD}.jpg?t=${cacheBuster}`);
+      setIsImageReady(true);
     } else {
-      // 💡 기기별 GPS 승인 인증창을 띄우지 않도록 국가지정 대표 좌표(서울 중심선)로 날씨를 바로 요청합니다.
+      // 3. 오늘과 내일 모두 평범한 날일 때만 날씨 API를 호출합니다
       const fetchWeatherWithoutAuth = async () => {
         try {
-          // 대한민국 중심 표준 좌표 (서울 타워 기준: 위도 37.5511, 경도 126.9882)
+          // 대한민국 중심 표준 좌표 (서울 타워 기준)
           const latitude = 37.5511;
           const longitude = 126.9882;
 
@@ -62,13 +87,7 @@ export default function Hero() {
           );
           const weatherData = await res.json();
           
-          // WMO Weather interpretation codes (weathercode) 분석
-          // 51~67, 80~82: 비(Rain/Drizzle/Shower)
-          // 71~77, 85~86: 눈(Snow)
-          // 💡 [테스트 안내] 비 모드를 테스트하려면 바로 아래 줄을 주석 해제하고 const code = 61; 로 테스트하세요!
           const code = weatherData.current_weather.weathercode;
-          //const code = 71; // ◀ 테스트를 위해 눈(Snow) 코드로 강제 고정!
-          //const code = 61; // ◀ 테스트를 위해 비(Rain) 코드로 강제 고정!
           
           if ([71, 73, 75, 77, 85, 86].includes(code)) {
             setHeroImage(`/images/hero/h-s.jpg?t=${cacheBuster}`); // 눈 오는 날
@@ -78,9 +97,9 @@ export default function Hero() {
             setHeroImage(`/images/hero/hero.jpg?t=${cacheBuster}`); // 맑거나 흐린 평상시
           }
         } catch (err) {
-          setHeroImage(`/images/hero/hero.jpg?t=${cacheBuster}`); // API 오류 발생 시 예외 처리
+          setHeroImage(`/images/hero/hero.jpg?t=${cacheBuster}`); // API 오류 시 예외 처리
         } finally {
-          setIsImageReady(true); // ◀ 성공하든 실패하든 최종 이미지 세팅이 끝나면 렌더링 허용
+          setIsImageReady(true); // 최종 이미지 세팅 완료 후 렌더링 허용
         }
       };
 
@@ -98,14 +117,12 @@ export default function Hero() {
     <section
       id="home"
       className="relative min-h-[50px] py-20 md:py-32 bg-background overflow-hidden">
-      {/* className="relative w-full min-h-[500px] md:min-h-[600px] lg:min-h-[700px] xl:min-h-[850px] flex items-center justify-center overflow-hidden bg-[#001E4E] text-white py-12 md:py-0"> */}  
-      {/* <div className="absolute inset-0 z-0 h-full w-full pointer-events-none"> */}
-      {/* 💡 변경: 파티클을 hero 영역에 가두지 않고 브라우저 전체화면 고정(fixed)으로 변경 */}
+      {/* 파티클 배경 전체화면 고정 */}
       <div className="fixed inset-0 z-0 h-full w-full pointer-events-none">
         <FullBackground />
       </div>
       
-      {/* 💡 변경: 메인 콘텐츠들이 파티클 배경보다 무조건 위로 올라오도록 relative z-10 부여 */}
+      {/* 메인 콘텐츠 relative z-10 */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">
 
@@ -138,42 +155,28 @@ export default function Hero() {
             transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
             className="md:w-1/2 flex justify-center relative"
           >
-            {/* 📌 중요: 팝업 그림자가 잘리지 않도록 overflow-hidden을 제거함 */}
             <div className="relative w-full max-w-md bg-background rounded-2xl shadow-2xl border border-slate-100 min-h-[300px] flex items-center justify-center overflow-hidden">
               
-              {/* 💡 [개선] 이미지가 준비되기 전에는 레이아웃을 유지하는 스켈레톤/로딩 공백을 보여주고, 
-                  준비가 완료되면 framer-motion을 통해 투명도(opacity)가 부드럽게 켜지도록 하여 깜빡임을 완벽히 해결했습니다. */}
               <motion.img
-                src={isImageReady ? heroImage : "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"} // 준비 전엔 1px 투명 이미지
+                src={isImageReady ? heroImage : "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"} 
                 alt="Hero"
                 className="relative z-10 w-full h-auto block rounded-2xl transition-opacity duration-500"
-                style={{ opacity: isImageReady ? 1 : 0 }} // 준비되면 서서히 나타남
-                key={heroImage} /* 💡 이미지 경로 변경 시 브라우저가 즉시 주소를 갱신하도록 key 지정 */
+                style={{ opacity: isImageReady ? 1 : 0 }} 
+                key={heroImage} 
               />
 
-              {/* ▽ 기존 하단 placard를 이미지 위 팝업으로 변경 ▽ */}
+              {/* 공지사항 팝업 */}
               <AnimatePresence>
                 {showPopup && posts.length > 0 && (
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.95, y: -10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                    /* 📌 팝업창 위치 조정 가이드:
-                       - top-40: 위쪽 여백 (수치를 높이면 아래로 내려옴, 현재 160px)
-                       - left-4 / right-4: 좌우 여백
-                       - z-20: 이미지(z-10)보다 위에 오도록 설정
-                       
-                       📌 그림자 효과 가이드 (짙게 수정됨):
-                       - shadow-[0_25px_60px_rgba(0,0,0,0.5)]: 아주 짙고 묵직한 하단 그림자 (농도 50%)
-                       - ring-1 ring-black/10: 팝업 테두리를 더 선명하게 잡아주는 미세 외곽선 (농도 10%)
-                        className="absolute top-40 을 bottom-10
-                       */
                     className="absolute bottom-12 left-12 right-10 z-20 bg-white/95 backdrop-blur-md rounded-2xl p-1 border border-blue-200/60 shadow-[0_25px_60px_rgba(0,0,0,0.6)] ring-1 ring-black/10 animate-in fade-in-0"
                   >
                     <div className="flex justify-between items-center mb-1">
                       <h3 className="font-bold text-[16px] text-[#0047AB] flex items-center gap-1.5 animate-bounce mt-2">
                         <span className="animate-pulse text-2xl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📢</span> &nbsp;공지 사항&nbsp;
-                        {/* 💡 inline-block과 scale-x-[-1]을 추가하여 기존 애니메이션을 유지한 채 반전 */}
                         <span className="inline-block scale-x-[-1] animate-pulse text-2xl">📢</span>
                       </h3>
                       <button 
@@ -205,7 +208,6 @@ export default function Hero() {
                       ))}
                     </ul>
 
-                    {/* 전체보기 바로가기 버튼화 */}
                     <Link 
                       href="/notice" 
                       className="mt-4 flex items-center justify-center w-full py-2 bg-slate-50 hover:bg-blue-200 rounded-lg text-[11px] font-bold text-[#0047AB] transition-colors shadow-inner"
