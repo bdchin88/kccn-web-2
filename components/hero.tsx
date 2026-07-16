@@ -1,4 +1,4 @@
-//components/hero.tsx
+//components/hero.tsx 
 "use client";
 
 import { useState, useEffect } from "react";
