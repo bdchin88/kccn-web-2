@@ -12,10 +12,31 @@ const nextConfig = {
   poweredByHeader: false,
 
   async headers() {
+    // 💡 홈페이지에서 사용하는 외부 연동망 허용 정책 (CSP)
+    const cspHeader = `
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://*.google-analytics.com;
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' blob: data: https://*.supabase.co;
+      font-src 'self' data:;
+      connect-src 'self' https://*.supabase.co https://api.open-meteo.com https://*.google-analytics.com https://*.analytics.google.com;
+      frame-src 'self';
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+      frame-ancestors 'none';
+      upgrade-insecure-requests;
+    `.replace(/\s{2,}/g, ' ').trim();  
+
     return [
       {
         source: "/(.*)",
         headers: [
+          // 💡 [추가] Content-Security-Policy 적용
+          {
+            key: "Content-Security-Policy",
+            value: cspHeader,
+          },
           // 1. HSTS 설정 (1년간 HTTPS 강제)
           {
             key: "Strict-Transport-Security",
