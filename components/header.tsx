@@ -38,23 +38,25 @@ export default function Header() {
           <div className="flex justify-between items-center h-[80px]">
             {/* 로고 액자 */}
             {/* Link href="/#ci-intro" 를 "/ci" */}
+            {/* 👈 10px(2.5)와 8px(2.0) 사이인 9px 적용 */}
             <Link href="/ci" className="flex items-center cursor-pointer">            
               <div
                 className="
                   bg-[#003d99]
-                  px-5 py-2.5
+                  px-3 py-[6px]
                   shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]
                   transition-all duration-150 ease-out
                   active:translate-y-[2px]
                   active:shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]
                 "
                 >
+                {/* 👈 className="object-contain h-14 w-auto" */}
                 <Image
                   src="/images/design-mode/kccn-logo.png"
                   alt="한국신용카드네트워크 로고"
                   width={190}
                   height={38}
-                  className="object-contain h-14 w-auto"
+                  className="object-contain h-[65] w-auto"
                   style={{ width: "auto" }}
                   priority
                 />
