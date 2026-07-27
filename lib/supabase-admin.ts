@@ -1,3 +1,4 @@
+import "server-only"; // ◀ 서버 환경에서만 불러올 수 있도록 정적 검증 추가
 import { createClient } from "@supabase/supabase-js";
 
 export const supabaseAdmin = createClient(

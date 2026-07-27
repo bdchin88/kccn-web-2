@@ -54,7 +54,8 @@ export default function Header() {
                   alt="한국신용카드네트워크 로고"
                   width={190}
                   height={38}
-                  className="object-contain"
+                  className="object-contain h-14 w-auto"
+                  style={{ width: "auto" }}
                   priority
                 />
               </div>

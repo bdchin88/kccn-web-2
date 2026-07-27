@@ -161,7 +161,10 @@ export default function Hero() {
                 src={isImageReady ? heroImage : "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"} 
                 alt="Hero"
                 className="relative z-10 w-full h-auto block rounded-2xl transition-opacity duration-500"
-                style={{ opacity: isImageReady ? 1 : 0 }} 
+                style={{ 
+                  opacity: isImageReady ? 1 : 0,
+                  height: "auto" // 👈 여기 추가! 20260727
+                }} 
                 key={heroImage} 
               />
 
@@ -196,9 +199,20 @@ export default function Hero() {
                               <span className="text-xs font-bold text-slate-800 line-clamp-1 group-hover:text-[#0047AB] transition-colors">
                                 {post.title}
                               </span>
+                              {/*
                               <span className="text-[10px] text-slate-400 shrink-0 mt-0.5">
                                 {new Date(post.created_at).toLocaleDateString()}
                               </span>
+                              */}
+                              {/* 🛠️ 수정 예시 20260727 */}
+                              <span className="text-[10px] text-slate-400 shrink-0 mt-0.5">
+                                {new Date(post.created_at).toLocaleDateString("ko-KR", {
+                                  year: "numeric",
+                                  month: "2-digit",
+                                  day: "2-digit",
+                                })}
+                              </span>
+
                             </div>
                             {post.location && (
                               <p className="text-[10px] text-slate-500 mt-0.5">📍 {post.location}</p>

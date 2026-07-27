@@ -1,3 +1,4 @@
+//app/api/admin/delete/toute.ts
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 

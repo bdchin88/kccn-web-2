@@ -124,7 +124,7 @@ export default function Footer() {
                   </a>
                 </span>
               </p>
-              <p className="flex justify-center md:justify-start text-xs flex opacity-100 gap-3">
+              <div className="flex justify-center md:justify-start text-xs opacity-100 gap-3">
                 <div className="text-xs opacity-90 flex items-center whitespace-nowrap">
                   {/* 💡 "전화:" 텍스트만 span으로 감싸서 text-xs(기존 text-sm보다 한 단계 작음)로 축소 */}
                   <span className="text-xs opacity-80">전화 :</span>
@@ -137,7 +137,7 @@ export default function Footer() {
                   </a>
                 </div>
                 <VisitorCounter />
-              </p>
+              </div>
               {/*<VisitorCounter />*/}
             </div>
           </div>

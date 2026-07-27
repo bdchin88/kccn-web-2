@@ -10,8 +10,13 @@ export default function VisitorLogPage() {
   const [postTitles, setPostTitles] = useState<{ [key: string]: string }>({}); // ID별 제목 저장
   const router = useRouter();
   const [totalHits, setTotalHits] = useState<number>(0) // 전체 방문자 추가
+  // ✨ [추가] 브라우저 마운트 여부 상태 변수
+  const [isMounted, setIsMounted] = useState<boolean>(false);  
 
   useEffect(() => {
+    // ✨ [추가] 브라우저에 마운트 완료되었음을 표시
+    setIsMounted(true);
+    
     const fetchLogsAndTitles = async () => {
 
       // 1. 로그 데이터 가져오기
@@ -84,6 +89,15 @@ export default function VisitorLogPage() {
   const getDayName = (dateString: string) => {
     return ["일", "월", "화", "수", "목", "금", "토"][new Date(dateString).getDay()];
   };
+
+  // ✨ [추가] 브라우저 마운트 전에는 서버/클라이언트 불일치를 막기 위해 빈 화면이나 스켈레톤/로딩 표시
+  if (!isMounted) {
+    return (
+      <div className="p-8 max-w-7xl mx-auto text-center text-slate-500">
+        로딩 중...
+      </div>
+    );
+  }
 
   return (
     <div className="p-8 max-w-7xl mx-auto">
