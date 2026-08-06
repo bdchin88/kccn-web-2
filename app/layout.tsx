@@ -66,11 +66,21 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "사단법인 한국신용카드네트워크",
-    description: "대한민국 소상공인과 가맹점주의 권익을 대변하는 중소벤쳐기업부 제2010-3호 인가 전문 경제 법정단체입니다.",
-    url: "https://www.kccn.or.kr",
+    description: "대한민국 소상공인과 가맹점주의 권익을 대변하는 중소벤처기업부 제2010-3호 인가 전문 경제 법정단체입니다.",
+    url: "https://kccn.or.kr",
     siteName: "사단법인 한국신용카드네트워크",
     locale: "ko_KR",
     type: "website",
+    images: [
+      { url: "/og-image.png", width: 1200, height: 630, alt: "사단법인 한국신용카드네트워크" },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "사단법인 한국신용카드네트워크",
+    description: "대한민국 소상공인과 가맹점주의 권익을 대변하는 법정 단체",
+    images: ["/og-image.png"],
   },
 };
 
