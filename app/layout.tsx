@@ -9,6 +9,33 @@ export const metadata: Metadata = {
   title: "사단법인 한국신용카드네트워크",
   description:
     "대한민국 소상공인과 가맹점주의 권익을 대변하는 법정 단체, 한국신용카드네트워크입니다.",
+
+  // ▼▼▼ [추가] PWA 및 파비콘 설정 ▼▼▼
+  manifest: "/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      {
+        url: "/favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+      {
+        url: "/favicon-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
+      },
+    ],
+    apple: [
+      {
+        url: "/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
+  },
+  // ▲▲▲ [추가] PWA 및 파비콘 설정 끝 ▲▲▲
+
   robots: "index, follow",    
   // 💡 [추가] 네이버 봇에게 "www가 없고 kccn.or.kr이 진짜 유일한 원본이다!"라고 명시합니다.
   alternates: {
