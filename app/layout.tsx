@@ -37,9 +37,9 @@ export const metadata: Metadata = {
   // ▲▲▲ [추가] PWA 및 파비콘 설정 끝 ▲▲▲
 
   robots: "index, follow",    
-  // 💡 [추가] 네이버 봇에게 "www가 없고 kccn.or.kr이 진짜 유일한 원본이다!"라고 명시합니다.
+  // 대표 도메인을 www.kccn.or.kr로 통일
   alternates: {
-    canonical: "https://kccn.or.kr", 
+    canonical: "https://www.kccn.or.kr",
   },
   keywords: [
     "한국신용카드네트워크",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "사단법인 한국신용카드네트워크",
     description: "대한민국 소상공인과 가맹점주의 권익을 대변하는 중소벤처기업부 제2010-3호 인가 전문 경제 법정단체입니다.",
-    url: "https://kccn.or.kr",
+    url: "https://www.kccn.or.kr",
     siteName: "사단법인 한국신용카드네트워크",
     locale: "ko_KR",
     type: "website",
