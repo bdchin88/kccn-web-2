@@ -24,17 +24,6 @@ const nextConfig = {
     `.replace(/\s{2,}/g, ' ').trim();
 
     return [
-      // 💡 favicon.ico MIME 타입 명시
-      {
-        source: "/favicon.ico",
-        headers: [
-          {
-            key: "Content-Type",
-            value: "image/x-icon",
-          },
-        ],
-      },
-
       {
         source: "/(.*)",
         headers: [
