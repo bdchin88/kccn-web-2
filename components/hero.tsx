@@ -34,6 +34,8 @@ export default function Hero() {
 
     // 2. 날짜별 hero 이미지 판단 로직 (전체 기념일 2일 적용 고도화)
     const today = new Date();
+    // [추가] 홀수 날짜는 남성, 짝수 날짜는 여성 기본 일러스트 표시
+    const defaultHeroImage = today.getDate() % 2 === 1 ? "hero.jpg" : "hero-w.jpg";
     
     // 하루 뒤(내일) 날짜 계산 (달이 바뀌는 전날 처리를 자동화하기 위함)
     const tomorrow = new Date(today);
@@ -94,10 +96,10 @@ export default function Hero() {
           } else if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(code)) {
             setHeroImage(`/images/hero/h-r.jpg?t=${cacheBuster}`); // 비 오는 날
           } else {
-            setHeroImage(`/images/hero/hero.jpg?t=${cacheBuster}`); // 맑거나 흐린 평상시
+            setHeroImage(`/images/hero/${defaultHeroImage}?t=${cacheBuster}`); // 맑거나 흐린 평상시
           }
         } catch (err) {
-          setHeroImage(`/images/hero/hero.jpg?t=${cacheBuster}`); // API 오류 시 예외 처리
+          setHeroImage(`/images/hero/${defaultHeroImage}?t=${cacheBuster}`); // API 오류 시 예외 처리
         } finally {
           setIsImageReady(true); // 최종 이미지 세팅 완료 후 렌더링 허용
         }
